@@ -33,10 +33,21 @@ export function loadMotionEngine(): Promise<MotionEngine> {
   return enginePromise;
 }
 
-/** DESIGN.md Section 6 — Timing. */
-export const EASE = {
-  signal: 'cubicBezier(0.16, 1, 0.3, 1)',
-} as const;
+/**
+ * DESIGN.md Section 6 — Timing.
+ *
+ * anime.js v4.5 removed the `"cubicBezier(...)"` STRING form from the core: it
+ * warns and falls back to the default ease, silently discarding the curve. The
+ * curve must be built with the engine's own `cubicBezier`, and because the
+ * engine is lazy this is a memoised factory rather than a plain constant.
+ * Keep the control points in sync with `--ease-signal` in tokens.css.
+ */
+let signalEase: ReturnType<MotionEngine['cubicBezier']> | null = null;
+
+export function easeSignal(engine: MotionEngine) {
+  signalEase ??= engine.cubicBezier(0.16, 1, 0.3, 1);
+  return signalEase;
+}
 
 export const DUR = {
   micro: 140,
@@ -116,7 +127,7 @@ export function reveal(
     opacity: 1,
     translateY: 0,
     duration,
-    ease: EASE.signal,
+    ease: easeSignal(engine),
     delay: stagger(each, { start: delay }),
     autoplay: onScroll({
       target: (trigger ?? targets) as never,
@@ -183,7 +194,7 @@ export function resolveText(
     opacity: 1,
     translateY: '0%',
     duration: DUR.emphasis,
-    ease: EASE.signal,
+    ease: easeSignal(engine),
     delay: stagger(each, { start: delay }),
   });
 
@@ -232,7 +243,7 @@ export function drawLines(
   animate(drawables, {
     draw: ['0 0', '0 1'],
     duration,
-    ease: EASE.signal,
+    ease: easeSignal(engine),
     delay: stagger(each, { start: delay }),
   });
 }
@@ -251,7 +262,7 @@ export function countUp(
   animate(state, {
     value: to,
     duration: options.duration ?? 1200,
-    ease: EASE.signal,
+    ease: easeSignal(engine),
     onUpdate: () => {
       el.textContent = String(Math.round(state.value));
     },
