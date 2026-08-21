@@ -1,0 +1,27 @@
+# Dependencies
+node_modules
+
+# Build output
+dist
+dist-ssr
+.vite
+
+# Local env — VITE_SITE_URL is set per-environment. See .env.example
+.env
+.env.local
+*.local
+
+# Editor / OS
+.DS_Store
+.vscode
+.idea
+
+# Tooling scratch
+.playwright-mcp
+.agents
+.claude
+.omo
+.vercel
+
+# Source résumé (the shipped copy lives in public/)
+Resume:CV.pdf

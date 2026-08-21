@@ -1,0 +1,21 @@
+# Deepanshu Sagore
+
+> GenAI and full-stack engineer based in Indore, India. Builds retrieval-grounded LLM systems and the web products around them. Former LLM post-trainer at Ethara.ai and winner of the Google AI Hackathon (AIPL).
+
+Deepanshu works on retrieval-augmented generation, agent tooling and LangChain pipelines, paired with React and Node front-ends. His focus is systems that stay honest about the limits of what they know, and interfaces that make those limits legible.
+
+## Projects
+
+- [NeuroNest](https://github.com/DeepanshuSagore): RAG application that grounds every answer in retrieved document passages to cut hallucinations. LangChain, ChromaDB, Python.
+- [Ethara](https://ethara-snowy.vercel.app): Seat allocation and project mapping for roughly 5,000 employees, with analytics dashboards and a natural-language assistant.
+- [Aligna](https://alignafr.vercel.app): AI talent scouting that parses job descriptions and ranks candidates through a weighted matching model.
+- [FinTrack AI](https://fintrack-finai.vercel.app): Personal finance tracker with AI receipt scanning, budget monitoring and automated email insights.
+- [DriveFlow](https://drive-dusky-omega.vercel.app): Real-time lead management CRM with automated scoring and a drag-and-drop pipeline.
+- [EventsHub](https://eventshub-tan.vercel.app/): College events platform with one-click registration and an admin approval dashboard.
+- [HackFinder](https://hack-finder-omega.vercel.app/): Hackathon team matching by skill and requirement.
+
+## Links
+
+- [GitHub](https://github.com/DeepanshuSagore): Source for the projects above.
+- [LinkedIn](https://www.linkedin.com/in/deepanshusagore): Professional profile and experience.
+- [Email](mailto:deepanshusagore@gmail.com): Direct contact.
