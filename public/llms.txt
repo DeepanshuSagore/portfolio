@@ -1,17 +1,29 @@
 # Deepanshu Sagore
 
-> GenAI and full-stack engineer based in Indore, India. Builds retrieval-grounded LLM systems and the web products around them. Former LLM post-trainer at Ethara.ai and winner of the Google AI Hackathon (AIPL).
+> GenAI and full-stack developer based in Indore, India, and a quality and process analyst. Ten shipped products in React, Next.js, Node and LangChain on one side; a year of LLM quality operations at Ethara.ai and a year of B2B demand generation on the other. Winner of the Google AI Hackathon (AIPL).
 
-Deepanshu works on retrieval-augmented generation, agent tooling and LangChain pipelines, paired with React and Node front-ends. His focus is systems that stay honest about the limits of what they know, and interfaces that make those limits legible.
+Deepanshu works across two things that usually sit apart: shipping software in React, Next.js, Node and LangChain — RAG pipelines, AI-assisted products, LLM evaluation — and process and quality operations, covering rubric design, reviewer calibration, recurring-error analysis, and the SQL and spreadsheet work underneath them. The through line is staying with a problem past the diagnosis: pull the numbers, work out what is actually breaking, then build the fix.
+
+## Experience
+
+- Quality Analyst, LLM Post Training at Ethara.ai (Aug 2025 – Aug 2026): quality checks on a daily queue of written responses against a rubric two reviewers must agree on, recurring-error guidance so the same fix is not made twice, and scoring alignment across a distributed reviewer pool.
+- Social Media Marketing and Design at Maica Plastiwood (Apr 2023 – Apr 2024): end-to-end demand generation for a B2B building-materials business — calendar, creative, community, and first point of contact for external partners.
+
+## Skills
+
+- Building: React.js, Next.js, Node.js, MongoDB, and GenAI tooling (LangChain, prompt design, LLM evaluation).
+- Analytics: SQL, advanced Excel and Google Sheets (pivots, lookups, dashboards), Python, Tableau.
+- Business and operations: category and process improvement, demand generation, market research, stakeholder management.
 
 ## Projects
 
-- [NeuroNest](https://github.com/DeepanshuSagore): RAG application that grounds every answer in retrieved document passages to cut hallucinations. LangChain, ChromaDB, Python.
 - [Ethara](https://ethara-snowy.vercel.app): Seat allocation and project mapping for roughly 5,000 employees, with analytics dashboards and a natural-language assistant.
+- [FinTrack AI](https://fintrack-finai.vercel.app): Budget and spend tracker with receipt scanning, budget monitoring and automated email summaries. Next.js, PostgreSQL.
+- [NeuroNest](https://github.com/DeepanshuSagore): RAG application that grounds every answer in retrieved document passages to cut hallucinations. LangChain, ChromaDB, Python.
 - [Aligna](https://alignafr.vercel.app): AI talent scouting that parses job descriptions and ranks candidates through a weighted matching model.
-- [FinTrack AI](https://fintrack-finai.vercel.app): Personal finance tracker with AI receipt scanning, budget monitoring and automated email insights.
 - [DriveFlow](https://drive-dusky-omega.vercel.app): Real-time lead management CRM with automated scoring and a drag-and-drop pipeline.
-- [EventsHub](https://eventshub-tan.vercel.app/): College events platform with one-click registration and an admin approval dashboard.
+- [EventsHub](https://eventshub-tan.vercel.app/): Two-sided campus marketplace where departments list events and students register, gated by an admin moderation queue and role-aware dashboards.
+- [Support Ticket Classifier](https://github.com/DeepanshuSagore/ethara-interview-assignment): Sorts support requests into six categories, assigns a priority and recommends the next action.
 - [HackFinder](https://hack-finder-omega.vercel.app/): Hackathon team matching by skill and requirement.
 
 ## Links

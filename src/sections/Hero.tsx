@@ -139,6 +139,10 @@ export function Hero() {
           <span aria-hidden="true" className="text-text-3">
             /
           </span>
+          <span>{profile.roleSecondary}</span>
+          <span aria-hidden="true" className="text-text-3">
+            /
+          </span>
           <span>{profile.location}</span>
         </p>
 
@@ -186,7 +190,7 @@ export function Hero() {
           </div>
           <div>
             <dt className="type-overline">Focus</dt>
-            <dd className="type-mono-m mt-2 text-text-2">RAG / Agents</dd>
+            <dd className="type-mono-m mt-2 text-text-2">GenAI / Analytics</dd>
           </div>
           <div>
             <dt className="type-overline">Latest</dt>

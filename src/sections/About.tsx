@@ -62,35 +62,49 @@ export function About() {
         <div className="grid gap-12 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-16">
           <div data-reveal>
             <p className="type-body-l max-w-[56ch] text-text-2">
-              I am a final-year engineering student in Indore who spends most of his time on the
-              boundary between language models and the products around them. At Ethara.ai I worked
-              as an LLM post-trainer — reviewing, correcting and grading model output, annotating
-              datasets, and writing prompts designed to catch reasoning failures rather than
-              flatter them.
+              I build software and I analyse process, in Indore, and I have never found a good
+              reason to pick one. Ten shipped products on one side of that; two years of quality
+              and demand-generation work on the other.
             </p>
             <p className="mt-5 max-w-[56ch] text-text-3">
-              That work shapes how I build. NeuroNest refuses to answer outside its retrieved
-              context. Aligna scores candidates on a weighted model you can inspect. I care about
-              systems that are honest about the limits of what they know, and interfaces that make
-              those limits legible to the person reading them.
+              React and Next.js in front, Node, Express and MongoDB behind, LangChain when a problem
+              genuinely needs retrieval. NeuroNest grounds every answer in retrieved passages rather
+              than model memory. FinTrack scans receipts and emails the numbers out before anyone
+              opens a dashboard. DriveFlow computes a dealership&rsquo;s pipeline from live data
+              instead of a static export. The Google AI Hackathon win came out of the same habit:
+              scope it, build it, pitch the working thing.
             </p>
             <p className="mt-5 max-w-[56ch] text-text-3">
-              Before engineering took over, I ran social media and design for a manufacturing brand
-              and wrote for other creators — which is where the interest in how people actually
-              read an interface started. I still lead the debate club at our Entrepreneurship
-              Development Cell.
+              For the past year at Ethara.ai I have owned quality checks on a daily queue of written
+              responses, judged against a rubric two reviewers have to agree on. Most of that job is
+              not scoring. It is noticing which mistakes keep recurring and turning them into
+              written guidance so the same fix is not made twice, and catching where the rubric
+              reads two ways before a distributed reviewer pool quietly drifts apart. Sitting inside
+              LLM post-training is also the fastest way I have found to learn what these models
+              actually do.
+            </p>
+            <p className="mt-5 max-w-[56ch] text-text-3">
+              Before that I ran demand generation end to end for a B2B building-materials business —
+              calendar, creative and community, and the first point of contact for creators and
+              prospective investors. Turning a technical specification into copy a buyer could act
+              on is a skill I still use every time I write a README. I lead the debate club at our
+              Entrepreneurship Development Cell.
             </p>
 
             <blockquote className="mt-8 border-l-2 border-signal-2 pl-5">
               <p className="type-mono-m text-text-3">{profile.tagline}</p>
-              <footer className="type-overline mt-2">GitHub bio</footer>
+              <footer className="type-overline mt-2">{profile.taglineSource}</footer>
             </blockquote>
           </div>
 
           <div className="space-y-10">
             <List
               overline="Education"
-              items={education.map((e) => ({ left: e.title, sub: e.org, right: `${e.period}  ·  ${e.meta}` }))}
+              items={education.map((e) => ({
+                left: e.title,
+                sub: e.org,
+                right: [e.period, e.meta].filter(Boolean).join('  ·  '),
+              }))}
             />
             <List overline="Certificates" items={certificates.map((c) => ({ left: c.title, right: c.org }))} />
             <List overline="Achievements" items={achievements.map((a) => ({ left: a }))} />

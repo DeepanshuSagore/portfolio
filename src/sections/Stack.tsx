@@ -12,7 +12,7 @@ export function Stack() {
         <SectionHeader
           overline="Capabilities"
           title="What I reach for."
-          counter={`${stack.reduce((n, g) => n + g.items.length, 0)} tools`}
+          counter={`${stack.length} areas`}
         />
 
         <dl className="border-b border-rule">

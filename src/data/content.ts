@@ -5,13 +5,21 @@
  * GitHub API / repository READMEs (fetched 2026-08-21). Nothing is invented —
  * projects without a public repository are marked so, and no link is emitted
  * for a destination that does not exist.
+ *
+ * The CV of record is the operations résumé (2026-08), but the two tracks it
+ * describes carry equal weight here: a GenAI and full-stack developer, and a
+ * quality and process analyst. Copy has to land twice — with a hiring manager
+ * who will never open a repository, and with one who opens nothing else —
+ * without either half reading as a hedge against the other.
  */
 
 export const profile = {
   name: 'Deepanshu Sagore',
   firstName: 'Deepanshu',
   lastName: 'Sagore',
-  role: 'GenAI & Full-Stack Engineer',
+  /* Build track leads: the Work section directly below it is the evidence. */
+  role: 'GenAI & full-stack developer',
+  roleSecondary: 'Quality & process analyst',
   location: 'Indore, India',
   email: 'deepanshusagore@gmail.com',
   phone: '+91 6263364050',
@@ -20,10 +28,12 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/deepanshusagore',
   linkedinHandle: 'deepanshusagore',
   resume: '/Deepanshu-Sagore-Resume.pdf',
-  /* Verbatim from the GitHub profile bio. */
-  tagline: 'enslaved by narcissism and logical thinking.',
+  /* Drawn from the CV summary rather than the GitHub bio — this line has to
+     survive a recruiter reading it cold. */
+  tagline: 'Happiest at the messy end of a problem — and I stay with it through execution instead of handing over a deck.',
+  taglineSource: 'How I work',
   intro:
-    'I build retrieval-grounded GenAI systems and the full-stack products around them — LangChain pipelines that stay honest about what they know, and React front-ends that make the answer legible.',
+    'I ship GenAI and full-stack products, and I run quality and process operations — a year inside LLM post-training at Ethara.ai, a year of B2B demand generation before that. I pull the numbers, work out what is actually breaking, and then build the fix rather than describe it.',
 } as const;
 
 export type Project = {
@@ -39,7 +49,31 @@ export type Project = {
   note?: string;
 };
 
+/* Ordered so the work that reads as a product with an outcome comes first;
+   the deeper technical pieces sit directly behind it rather than at the end. */
 export const projects: readonly Project[] = [
+  {
+    id: 'ethara',
+    title: 'Ethara',
+    summary: 'Seat allocation and project mapping for roughly 5,000 employees.',
+    detail:
+      'A full-stack platform covering Employee, HR, Admin and Project-team workflows: directory and lifecycle management, project membership, seat allocation and release, analytics dashboards, and a natural-language assistant that answers questions against the live dataset.',
+    tags: ['Next.js', 'Python', 'AI Assistant', 'Analytics'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/Ethara',
+    live: 'https://ethara-snowy.vercel.app',
+  },
+  {
+    id: 'fintrack',
+    title: 'FinTrack AI',
+    summary: 'Budget and spend tracker that flags drift before the month closes.',
+    detail:
+      'Categorises transactions across accounts and tracks them against monthly budgets, so overspend surfaces while it can still be corrected. Receipt scanning removes the manual entry that usually kills this kind of tracking, and automated email summaries push the numbers to the user instead of waiting for them to open a dashboard.',
+    tags: ['Next.js', 'PostgreSQL', 'AI Vision', 'Budgeting', 'Automation'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/ai_fintrack',
+    live: 'https://fintrack-finai.vercel.app',
+  },
   {
     id: 'neuronest',
     title: 'NeuroNest',
@@ -53,17 +87,6 @@ export const projects: readonly Project[] = [
     note: 'Source not public',
   },
   {
-    id: 'ethara',
-    title: 'Ethara',
-    summary: 'Seat allocation and project mapping for roughly 5,000 employees.',
-    detail:
-      'A full-stack platform covering Employee, HR, Admin and Project-team workflows: directory and lifecycle management, project membership, seat allocation and release, analytics dashboards, and a natural-language assistant that answers questions against the live dataset.',
-    tags: ['Next.js', 'Python', 'AI Assistant', 'Analytics'],
-    year: '2026',
-    repo: 'https://github.com/DeepanshuSagore/Ethara',
-    live: 'https://ethara-snowy.vercel.app',
-  },
-  {
     id: 'aligna',
     title: 'Aligna',
     summary: 'AI talent scouting that turns a job description into a ranked shortlist.',
@@ -73,17 +96,6 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Aligna',
     live: 'https://alignafr.vercel.app',
-  },
-  {
-    id: 'fintrack',
-    title: 'FinTrack AI',
-    summary: 'Personal finance tracker that reads your receipts for you.',
-    detail:
-      'Account and transaction management with AI receipt scanning, budget monitoring, and automated email insights — the whole loop from photographing a receipt to getting a spending summary in your inbox.',
-    tags: ['Next.js', 'AI Vision', 'Budgeting', 'Automation'],
-    year: '2026',
-    repo: 'https://github.com/DeepanshuSagore/ai_fintrack',
-    live: 'https://fintrack-finai.vercel.app',
   },
   {
     id: 'driveflow',
@@ -99,13 +111,24 @@ export const projects: readonly Project[] = [
   {
     id: 'eventshub',
     title: 'EventsHub',
-    summary: 'College events and registrations, from listing to admin approval.',
+    summary: 'Two-sided campus marketplace, with a moderation queue behind it.',
     detail:
-      'Event creation, cross-department listing and one-click student registration, with Firebase Authentication for secure login and an admin dashboard for approving what actually goes live.',
+      'Departments list events on one side; students discover and register on the other, filtered by department. An admin moderation queue gates what goes live, so a single listing standard holds across every department, and role-aware dashboards give students, event heads and admins only the actions that belong to them.',
     tags: ['React.js', 'Node.js', 'Express', 'MongoDB', 'Firebase'],
     year: '2025',
     repo: 'https://github.com/DeepanshuSagore/EventsHub',
     live: 'https://eventshub-tan.vercel.app/',
+  },
+  {
+    id: 'ticket-classifier',
+    title: 'Support Ticket Classifier',
+    summary: 'Support triage that sorts, prioritises and recommends the next action.',
+    detail:
+      'Sorts incoming support requests into six categories, assigns a priority and recommends what to do next. Built live in roughly twenty minutes as an interview assignment, with a fallback path for when the AI service is down — the queue keeps moving either way.',
+    tags: ['TypeScript', 'LLM', 'Triage', 'Prioritisation'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/ethara-interview-assignment',
+    live: null,
   },
   {
     id: 'hackfinder',
@@ -130,17 +153,6 @@ export const projects: readonly Project[] = [
     live: 'https://vaulticfr.vercel.app',
   },
   {
-    id: 'ticket-classifier',
-    title: 'Support Ticket Classifier',
-    summary: 'AI ticket triage, built live in about twenty minutes.',
-    detail:
-      'The take-home set during the Ethara interview: an AI-powered support ticket classifier, implemented on the spot in roughly twenty minutes.',
-    tags: ['TypeScript', 'LLM', 'Classification'],
-    year: '2026',
-    repo: 'https://github.com/DeepanshuSagore/ethara-interview-assignment',
-    live: null,
-  },
-  {
     id: 'devroad',
     title: 'DevRoad',
     summary: 'Roadmap tracker for developers who keep losing the thread.',
@@ -162,36 +174,55 @@ export type Experience = {
 
 export const experience: readonly Experience[] = [
   {
-    role: 'LLM Post Trainer',
+    role: 'Quality Analyst — LLM Post Training',
     company: 'Ethara.ai',
-    period: 'Nov 2025 — Feb 2026',
+    period: 'Aug 2025 — Aug 2026',
     points: [
-      'Trained and refined large language model outputs by reviewing, correcting and optimising AI-generated responses.',
-      'Annotated datasets and provided structured feedback to improve model alignment and performance.',
-      'Wrote and evaluated high-quality prompts to test reasoning, creativity and factual correctness.',
+      'Own quality checks on a daily queue of written responses, judged against a rubric two reviewers have to agree on.',
+      'Track which mistakes keep recurring and turn them into written guidance, so the same fix is not made twice.',
+      'Keep scoring aligned across a distributed reviewer pool by flagging where the rubric reads two ways.',
+      'Work to tight daily deadlines while the standard shifts week to week, so re-reading it is half the job.',
     ],
   },
   {
-    role: 'SMM & Graphic Designer',
+    role: 'Social Media Marketing & Design',
     company: 'Maica Plastiwood',
     period: 'Apr 2023 — Apr 2024',
     points: [
-      'Ran the Instagram presence, engaging directly with creators and potential investors.',
-      'Wrote product content that reshaped how the brand read to its market.',
-      'Produced the graphic posts and reels featuring their product line.',
+      'Ran demand generation end to end for a B2B building-materials business: calendar, creative, community.',
+      'Built relationships with creators and prospective investors as the first point of contact for external partners.',
+      'Turned technical product specifications into copy a buyer could actually act on.',
+      'Shipped posts and reels on a weekly cadence, agreeing with product and sales on what to push and when.',
     ],
   },
 ] as const;
 
+/* Order mirrors profile.role: build track first, analyst track second. */
 export const stack = [
   {
-    label: 'GenAI',
-    items: ['LangChain', 'LangGraph', 'HuggingFace', 'Prompt Engineering', 'LLM Evaluation'],
+    label: 'Building',
+    items: ['React.js', 'Next.js', 'Node.js', 'Express.js', 'TypeScript', 'Tailwind CSS', 'Git'],
   },
-  { label: 'Languages', items: ['Python', 'JavaScript', 'C++', 'HTML', 'CSS'] },
-  { label: 'Frameworks', items: ['React.js', 'Tailwind CSS', 'Node.js', 'Express.js'] },
-  { label: 'Databases', items: ['ChromaDB', 'MongoDB', 'MySQL', 'Supabase'] },
-  { label: 'Tools', items: ['Git', 'GitHub', 'VS Code', 'OpenCode', 'Vibe-Coding'] },
+  { label: 'GenAI', items: ['LangChain', 'LangGraph', 'Prompt design', 'LLM evaluation', 'RAG'] },
+  { label: 'Data', items: ['MongoDB', 'PostgreSQL', 'MySQL', 'Supabase', 'ChromaDB'] },
+  {
+    label: 'Analytics',
+    items: ['SQL', 'Advanced Excel', 'Google Sheets', 'Pivots & lookups', 'Dashboards', 'Python', 'Tableau'],
+  },
+  {
+    label: 'Operations',
+    items: [
+      'Process improvement',
+      'Quality rubrics',
+      'Reviewer calibration',
+      'Category improvement',
+      'Stakeholder management',
+    ],
+  },
+  {
+    label: 'Business',
+    items: ['Demand generation', 'Market research', 'Content & copy', 'Community'],
+  },
 ] as const;
 
 export const education = [
@@ -199,37 +230,37 @@ export const education = [
     period: '2022 — 26',
     title: "Bachelor's Degree",
     org: 'Acropolis Institute of Technology and Research',
-    meta: 'GPA 6.7 / 10.0',
+    meta: '',
   },
   { period: '2021 — 22', title: 'Class 12th', org: 'CBSE', meta: '81%' },
   { period: '2019 — 20', title: 'Class 10th', org: 'CBSE', meta: '93%' },
 ] as const;
 
 export const certificates = [
-  { org: 'Microsoft SAP', title: 'MERN Stack — 60 day workshop' },
   { org: 'Deloitte', title: 'Data Visualisation' },
+  { org: 'Microsoft SAP', title: 'MERN Stack — 60 day workshop' },
   { org: 'Udemy', title: 'React.js Crash Course' },
 ] as const;
 
 export const achievements = [
-  'Winner — Google AI Hackathon (AIPL)',
-  'Content writer and social media manager for multiple creators',
+  'Winner, Google AI Hackathon (AIPL) — scoped, built and pitched a working solution against a fixed deadline',
   'Lead Member, Debate Club — Entrepreneurship Development Cell, since 2022',
+  'Ran freelance content and social media for several creators alongside full-time work',
 ] as const;
 
 export const interests = [
-  'Philosophical & psychological literature',
-  'Public speaking and communication',
+  'Consumer behaviour and market strategy',
+  'Public speaking',
   'Human psychology',
-  'Artificial intelligence',
+  'Philosophical literature',
 ] as const;
 
 /** Counters in the About section. Each is derived from the data above. */
 export const stats = [
-  { value: 22, suffix: '', label: 'Public repositories' },
+  { value: 2, suffix: '', label: 'Years of work experience' },
   { value: 10, suffix: '', label: 'Shipped projects' },
   { value: 1, suffix: '', label: 'Hackathon won' },
-  { value: 2, suffix: '', label: 'Years building' },
+  { value: 22, suffix: '', label: 'Public repositories' },
 ] as const;
 
 export const navLinks = [

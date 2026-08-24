@@ -50,12 +50,13 @@ export function Contact() {
       </div>
 
       <h2 data-reveal className="type-display-l mt-8 max-w-[14ch]">
-        Let us build something worth shipping.
+        Bring me the messy end of a problem.
       </h2>
 
       <p data-reveal className="type-body-l mt-6 max-w-[52ch] text-text-3">
-        Open to GenAI and full-stack roles, and to interesting problems generally. The fastest way
-        to reach me is email.
+        Open to engineering roles in full-stack and GenAI, and to analyst, quality and operations
+        roles. I have done both, and the overlap is where I am most useful. The fastest way to
+        reach me is email.
       </p>
 
       <div data-reveal className="mt-10 flex flex-wrap items-center gap-3">
