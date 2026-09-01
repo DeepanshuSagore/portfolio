@@ -18,13 +18,14 @@ export function Showcase() {
     <div className="grain min-h-[100dvh] py-20">
       <div className="shell">
         <SectionHeader
+          chapter="00"
           overline="Design QA"
           title="Primitive showcase."
           counter="4 primitives"
           id="showcase-heading"
         />
 
-        <Bay label="Button / signal — default, disabled">
+        <Bay label="Button / signal - default, disabled">
           <ButtonLink href="#" variant="signal" icon={<ArrowUpRight aria-hidden="true" className="size-4" />}>
             View work
           </ButtonLink>
@@ -33,7 +34,7 @@ export function Showcase() {
           </Button>
         </Bay>
 
-        <Bay label="Button / outline — default, disabled">
+        <Bay label="Button / outline - default, disabled">
           <ButtonLink href="#" variant="outline">
             Résumé
           </ButtonLink>
@@ -42,7 +43,7 @@ export function Showcase() {
           </Button>
         </Bay>
 
-        <Bay label="Button / ghost — default, disabled">
+        <Bay label="Button / ghost - default, disabled">
           <ButtonLink href="#" variant="ghost">
             Ghost action
           </ButtonLink>
@@ -51,14 +52,14 @@ export function Showcase() {
           </Button>
         </Bay>
 
-        <Bay label="Tag — default, signal, live">
+        <Bay label="Tag - default, signal, live">
           <Tag>LangChain</Tag>
           <Tag variant="signal">Featured</Tag>
           <Tag variant="live">Live</Tag>
         </Bay>
 
         <section className="border-t border-rule py-10">
-          <p className="type-overline mb-6">RegisterRow — link, static, empty</p>
+          <p className="type-overline mb-6">RegisterRow - link, static, empty</p>
           <div className="border-b border-rule">
             <RegisterRow
               href="#"
@@ -83,15 +84,15 @@ export function Showcase() {
             <p className="type-display-l">Display L</p>
             <p className="type-display-m">Display M</p>
             <p className="type-h3">Heading 3</p>
-            <p className="type-body-l text-text-2">Body large — the quick brown fox jumps over the lazy dog.</p>
-            <p className="text-text-3">Body — the quick brown fox jumps over the lazy dog.</p>
-            <p className="type-mono-m text-text-3">Mono M — 0123456789</p>
-            <p className="type-mono-s text-text-3">MONO S — 0123456789</p>
+            <p className="type-body-l text-text-2">Body large - the quick brown fox jumps over the lazy dog.</p>
+            <p className="text-text-3">Body - the quick brown fox jumps over the lazy dog.</p>
+            <p className="type-mono-m text-text-3">Mono M - 0123456789</p>
+            <p className="type-mono-s text-text-3">MONO S - 0123456789</p>
             <p className="type-overline">Overline</p>
           </div>
         </Bay>
 
-        <Bay label="Surface ladder — ink-0 through ink-5">
+        <Bay label="Surface ladder - ink-0 through ink-5">
           {(['bg-ink-0', 'bg-ink-1', 'bg-ink-2', 'bg-ink-3', 'bg-ink-4', 'bg-ink-5'] as const).map((bg) => (
             <div
               key={bg}
