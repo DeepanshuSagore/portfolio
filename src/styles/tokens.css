@@ -3,7 +3,7 @@
 @import '@fontsource-variable/geist-mono/wght.css';
 @import 'tailwindcss';
 
-/* Built by `npm run fonts:build` — keeps the opsz axis at 56KB, not 131KB.
+/* Built by `npm run fonts:build` - keeps the opsz axis at 56KB, not 131KB.
    Fontsource's bricolage `index.css` ships wght only, which would make every
    `font-variation-settings: 'opsz'` below a silent no-op. */
 @font-face {
@@ -15,7 +15,7 @@
 }
 
 /* ---------------------------------------------------------------------------
-   DESIGN.md Section 2 — Color. Section 3 — Typography. Section 4 — Spacing.
+   DESIGN.md Section 2 - Color. Section 3 - Typography. Section 4 - Spacing.
    Every value below is the single source of truth for a token named in
    DESIGN.md. Components never author raw color, size, or duration.
 --------------------------------------------------------------------------- */
@@ -37,7 +37,7 @@
   --color-text-4: #85837e;
   --color-text-5: #706e69;
 
-  /* Signal — the only chromatic color in interface chrome */
+  /* Signal - the only chromatic color in interface chrome */
   --color-signal-1: oklch(0.76 0.19 27);
   --color-signal-2: oklch(0.665 0.221 26.5);
   --color-signal-3: oklch(0.54 0.18 26);
@@ -46,7 +46,7 @@
   --color-live: oklch(0.82 0.19 128);
 
   /* Rules, washes and edges are declared as real theme COLORS, not as loose
-     custom properties. `border-[var(--x)]` is type-ambiguous in Tailwind v4 —
+     custom properties. `border-[var(--x)]` is type-ambiguous in Tailwind v4 -
      it cannot tell a width from a color, emits nothing, and the border
      silently falls back to currentColor. Named colors remove the ambiguity. */
   --color-rule: rgba(246, 244, 242, 0.1);
@@ -56,14 +56,14 @@
   --color-signal-feint: color-mix(in oklch, oklch(0.665 0.221 26.5) 6%, transparent);
   --color-signal-edge: color-mix(in oklch, oklch(0.665 0.221 26.5) 38%, transparent);
   --color-live-edge: color-mix(in oklch, oklch(0.82 0.19 128) 30%, transparent);
-  --color-ink-glass: color-mix(in oklch, #171616 82%, transparent);
+  --color-ink-glass: color-mix(in oklch, #171616 90%, transparent);
 
   /* Typography */
   --font-display: 'Bricolage Display', ui-sans-serif, system-ui, sans-serif;
   --font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  /* Radius — near-zero by commitment (Section 4) */
+  /* Radius - near-zero by commitment (Section 4) */
   --radius-0: 0px;
   --radius-1: 2px;
   --radius-2: 4px;
@@ -86,6 +86,16 @@
     --stagger-block: 60;
 
     --gutter: clamp(1.25rem, 5vw, 4rem);
+
+    /* Distance from the viewport edge to the content column's own edge. The
+       gutter alone is not that: once the shell hits its max width the column
+       stops moving outward and the two diverge. Anything that has to line up
+       with the measure - the rail's leading inset, the hero's registration
+       marks - reads this instead. */
+    --shell-inset: max(
+      var(--gutter),
+      calc((100vw - var(--container-content)) / 2 + var(--gutter))
+    );
   }
 }
 
@@ -110,7 +120,7 @@
     line-height: 1.6;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
-    /* The page owns no horizontal scroll — off-screen motion never creates one. */
+    /* The page owns no horizontal scroll - off-screen motion never creates one. */
     overflow-x: clip;
   }
 
@@ -139,7 +149,7 @@
     outline-offset: 2px;
   }
 
-  /* Selection carries the signal — the accent marking a measured range. */
+  /* Selection carries the signal - the accent marking a measured range. */
   ::selection {
     background: var(--color-signal-2);
     color: var(--color-ink-0);
@@ -164,7 +174,7 @@
 }
 
 @layer components {
-  /* Display steps — Section 3 scale. `opsz` is driven explicitly so Bricolage
+  /* Display steps - Section 3 scale. `opsz` is driven explicitly so Bricolage
      tightens optically as it scales; that axis is the reason it does not read
      as a generic grotesk. */
   .type-display-xl {
@@ -243,10 +253,11 @@
     margin-inline: auto;
     padding-inline: var(--gutter);
   }
+
 }
 
 @layer utilities {
-  /* Film grain — Section 1 "the texture of exposed film". A single inline
+  /* Film grain - Section 1 "the texture of exposed film". A single inline
      SVG turbulence, composited once, never animated. */
   .grain::after {
     content: '';
@@ -262,5 +273,284 @@
   .defer-paint {
     content-visibility: auto;
     contain-intrinsic-size: auto 700px;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   Second wave: primitives ported from public component registries, rewritten
+   onto this system's tokens. Provenance is recorded on each block - none of
+   these ship their source's colour, radius or easing, only its mechanism.
+--------------------------------------------------------------------------- */
+
+/* Marquee keyframes live outside @layer so the cascade layer ordering can
+   never demote them below the reduced-motion reset below. */
+@keyframes marquee-x {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(calc(-100% - var(--marquee-gap)));
+  }
+}
+
+@layer components {
+  /* -------------------------------------------------------------------------
+     Horizontal rail.
+
+     AUTHORED FALLBACK FIRST, and this is load-bearing rather than ceremonial.
+     Everything before the `[data-embla='on']` rule is a plain native
+     scroll-snap scroller: it works with no JavaScript at all, it keyboard
+     scrolls, it takes a trackpad swipe, and it is what a reader gets if the
+     bundle fails. Embla is initialised in an effect and flips the attribute,
+     at which point the browser's scrolling is handed over to Embla's transform
+     and its momentum drag - which is the part native scrolling cannot do for a
+     mouse user.
+
+     The rail does NOT pin. Vertical scroll passes straight through it; the
+     section is one card tall whether you engage with it or not. That is the
+     whole difference from the earlier build, whose pinned scrub made skipping
+     the section cost the reader every project in it.
+  ------------------------------------------------------------------------- */
+  .rail-viewport {
+    overflow-x: auto;
+    overscroll-behavior-x: contain;
+    scroll-snap-type: x mandatory;
+    scroll-padding-inline-start: var(--shell-inset);
+    border-block: 1px solid var(--color-rule);
+    /* Position is reported by the readout underneath, so the scrollbar is
+       chrome this system does not own. */
+    scrollbar-width: none;
+  }
+
+  .rail-viewport::-webkit-scrollbar {
+    display: none;
+  }
+
+  /* Written by the component once Embla is live. `hidden`, not `clip`: Embla
+     needs the box to be a non-scrolling overflow container, and it manages the
+     translation itself from here. */
+  .rail-viewport[data-embla='on'] {
+    overflow: hidden;
+    scroll-snap-type: none;
+  }
+
+  .rail-track {
+    display: flex;
+    align-items: stretch;
+    /* The leading inset lines the first card up with the section header above
+       it. As padding on the track rather than a margin on the first card, it
+       survives Embla's translation: at rest the container sits at zero and the
+       padding is still there. */
+    padding-inline-start: var(--shell-inset);
+    /* Vertical gestures belong to the page. Embla only claims a drag once it
+       is unambiguously horizontal. */
+    touch-action: pan-y pinch-zoom;
+  }
+
+  /* The trailing gutter is a real flex item, not padding on the track and not
+     a margin on the last card. Measured in Chrome: both of those are left out
+     of a flex row's scrollable overflow, which strands the last card flush
+     against the viewport edge with its gutter unreachable in the native
+     fallback. An actual item is counted. Empty content, so it adds nothing to
+     the accessibility tree - and Embla ignores it, because it is not a slide. */
+  .rail-track::after {
+    content: '';
+    flex: 0 0 var(--shell-inset);
+  }
+
+  .rail-card {
+    flex: 0 0 clamp(19rem, 33vw, 27.5rem);
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    scroll-snap-align: start;
+    border-inline-start: 1px solid var(--color-rule);
+    background-color: var(--color-ink-1);
+    transition:
+      background-color var(--dur-standard) var(--ease-signal),
+      border-color var(--dur-standard) var(--ease-signal);
+  }
+
+  .rail-card:last-of-type {
+    border-inline-end: 1px solid var(--color-rule);
+  }
+
+  .rail-card:hover,
+  .rail-card:focus-within {
+    background-color: var(--color-ink-2);
+    border-color: var(--color-rule-strong);
+  }
+
+  /* -------------------------------------------------------------------------
+     Marquee - mechanism ported from Magic UI `marquee`
+     (https://magicui.design/r/marquee.json).
+
+     The original repeats children N times inside a flex row and translates
+     each copy by `-100% - gap`. That part is kept verbatim in spirit. What is
+     not kept: the `cn`/clsx dependency, the arbitrary `[--duration:40s]`
+     values, and the p-2 padding. Duration and gap are custom properties so a
+     caller sets them in one place, and the band is authored as a ruled strip
+     rather than a floating row.
+  ------------------------------------------------------------------------- */
+  .marquee {
+    display: flex;
+    overflow: hidden;
+    gap: var(--marquee-gap);
+    --marquee-gap: 0px;
+    --marquee-duration: 48s;
+    /* The band is texture, not content: it must never be the reason the page
+       can be dragged sideways. */
+    max-width: 100%;
+    mask-image: linear-gradient(
+      to right,
+      transparent,
+      #000 8%,
+      #000 92%,
+      transparent
+    );
+  }
+
+  .marquee-row {
+    display: flex;
+    flex: 0 0 auto;
+    align-items: center;
+    gap: var(--marquee-gap);
+    animation: marquee-x var(--marquee-duration) linear infinite;
+  }
+
+  .marquee[data-reverse='true'] .marquee-row {
+    animation-direction: reverse;
+  }
+
+  /* Pausing is the whole affordance: it is how a reader stops a moving list
+     long enough to actually read an item. */
+  .marquee:hover .marquee-row,
+  .marquee:focus-within .marquee-row {
+    animation-play-state: paused;
+  }
+
+  /* -------------------------------------------------------------------------
+     Spotlight - mechanism ported from Magic UI `magic-card`
+     (https://magicui.design/r/magic-card.json).
+
+     The original tracks the pointer with `motion/react` motion values and
+     paints a two-stop violet/pink gradient. This build keeps only the idea -
+     a radial wash that follows the pointer inside a card - and drops the
+     runtime: position arrives as two custom properties written by a single
+     delegated pointer listener (lib/motion.ts `trackSpotlight`), and the wash
+     is `--signal-feint`, the one chromatic value this system allows on a
+     surface.
+
+     `z-index: -1` on the wash plus `isolation: isolate` on the card is what
+     puts it ABOVE the card's own background and BELOW its text, without
+     wrapping every card in an extra div.
+  ------------------------------------------------------------------------- */
+  .spot {
+    position: relative;
+    isolation: isolate;
+  }
+
+  .spot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity var(--dur-standard) var(--ease-signal);
+    background: radial-gradient(
+      22rem circle at var(--spot-x, 50%) var(--spot-y, -20%),
+      var(--color-signal-feint),
+      transparent 70%
+    );
+  }
+
+  .spot[data-spot='on']::before {
+    opacity: 1;
+  }
+
+  /* -------------------------------------------------------------------------
+     Chapter numeral - an outlined display figure that anchors each section.
+
+     This is the anti-monotony device: five sections that previously opened
+     with an identical overline/heading pair now each carry a distinct, large,
+     hollow number. Outline rather than fill so it reads as a printed chapter
+     mark and never competes with the heading beside it.
+  ------------------------------------------------------------------------- */
+  .chapter-numeral {
+    font-family: var(--font-display);
+    font-size: clamp(2.75rem, 7vw, 5.5rem);
+    font-weight: 700;
+    font-variation-settings: 'opsz' 72;
+    line-height: 0.78;
+    letter-spacing: -0.05em;
+    color: var(--color-ink-4);
+    user-select: none;
+  }
+
+  @supports (-webkit-text-stroke: 1px red) {
+    .chapter-numeral {
+      color: transparent;
+      -webkit-text-stroke: 1px var(--color-rule-strong);
+    }
+  }
+
+  /* -------------------------------------------------------------------------
+     Underline wipe - a background-size transition rather than a pseudo-element,
+     so it wraps correctly across line breaks on long link text.
+  ------------------------------------------------------------------------- */
+  .link-wipe {
+    background-image: linear-gradient(currentColor, currentColor);
+    background-repeat: no-repeat;
+    background-position: 0 100%;
+    background-size: 0% 1px;
+    transition: background-size var(--dur-standard) var(--ease-signal);
+  }
+
+  .link-wipe:hover,
+  .link-wipe:focus-visible {
+    background-size: 100% 1px;
+  }
+}
+
+@layer utilities {
+  /* Reduced motion: the band stops and becomes a plain scroller. The global
+     `animation-duration: 0.001ms` reset would otherwise leave every copy
+     jumped to its end offset. */
+  @media (prefers-reduced-motion: reduce) {
+    .marquee-row {
+      animation: none !important;
+      transform: none !important;
+    }
+
+    .marquee {
+      overflow-x: auto;
+      scrollbar-width: none;
+    }
+  }
+}
+
+/* A 12px segment falling down a 48px rule. Reads as a level indicator rather
+   than a bouncing arrow, which is the same signal without the affectation. */
+@keyframes cue-travel {
+  0% {
+    transform: translateY(-14px);
+    opacity: 0;
+  }
+  25% {
+    opacity: 1;
+  }
+  75% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateY(48px);
+    opacity: 0;
+  }
+}
+
+@layer components {
+  .scroll-cue-dot {
+    animation: cue-travel 2.6s var(--ease-signal) infinite;
   }
 }

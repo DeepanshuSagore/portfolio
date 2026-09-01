@@ -178,9 +178,12 @@ The harvested Minimal-Gallery / anime.js grammar. Every list on this site is a r
 - **Accessibility:** `live` variant pairs the dot with a text label — never color alone.
 
 ### SectionHeader
-- **Structure:** mono overline (uppercase, `0.18em`) + Display L heading + optional right-flush mono counter.
+- **Structure:** a hollow **chapter numeral** hanging in the left margin, beside a stack of mono overline (uppercase, `0.18em`) + Display L heading + optional `lede` + optional right-flush mono counter.
+- **Why the numeral:** five chapters opening with an identical overline/heading pair made every section arrive at the same pitch, which is the single loudest "generated" tell a long page can have. The numeral gives each chapter its own anchor and a running sense of position, and the `lede` lets a heading be a short phrase rather than a full declarative sentence carrying all the meaning.
+- **Spec:** `.chapter-numeral`, Bricolage 700 at `clamp(2.75rem, 7vw, 5.5rem)`, `opsz 72`, filled `transparent` with a `1px --rule-strong` `-webkit-text-stroke`. `@supports`-guarded; the fallback is a solid `--ink-4` figure.
+- **Accessibility:** the numeral is `aria-hidden` - it is a position marker, and "zero two" announced before every heading is noise, not orientation.
 - **Motion:** heading reveals per-line on scroll; overline fades with a 60ms lead.
-- **Layout:** cluster over stack.
+- **Layout:** two-column grid (`auto` numeral / `minmax(0,1fr)` content) over stack.
 
 ---
 
@@ -216,7 +219,11 @@ The motion engine is **anime.js v4.5.0** (`animate`, `createScope`, `stagger`, `
 | Section reveal | `scroll-animation` | `onScroll` + `stagger(28ms)`, play once, `repeat: false` |
 | Copy-email affordance | `action-swap` | Label swaps to a check on success, reverts after 1.6s; `aria-live="polite"` announces it |
 | Stat counters | `number` | Count-up on first intersection |
-| Hero grid draw | *novel* | `svg.createDrawable` → `draw: '0 1'` on hairline paths, staggered by grid axis |
+| Hero registration frame | *novel* | `svg.createDrawable` → `draw: '0 1'` on the three frame paths, staggered 110ms; the SVG box IS the crop-mark box, so the `+` glyphs land on its corners |
+| Card spotlight | Magic UI `magic-card` | Delegated `pointermove` writes `--spot-x/--spot-y`; `.spot::before` paints a `--signal-feint` radial at `z-index:-1`. No motion library, no gradient palette |
+| Index band | Magic UI `marquee` | N repeated copies translated `-100% - gap` by CSS keyframe; paused on hover/focus-within, `animation: none` under reduced motion |
+| Scroll progress | Magic UI `scroll-progress` | One `scaleX` written straight to the header's bottom hairline. No state, no re-render, no gradient |
+| Nav position | *novel* | A reading line at 32% viewport height; the active section is the last one whose top is above it |
 
 ### Rules
 
@@ -266,3 +273,180 @@ Elevation reads through warm luminance steps and hairline rules. The single ambi
 | Project rows carry no imagery | Work section | No product screenshots supplied. The register grammar is deliberately typographic, so rows read as a ledger rather than a card grid; adding art would fight that | Add screenshots only if the row layout is redesigned around them |
 | **Lighthouse mobile performance is 98, not 100** | Whole page | Desktop is 100/100/100/100 over 5 runs; mobile is 98/100/100/100 (one run hit 100). The gap is FCP/LCP/SI/TTI ≈2.0s under Lighthouse's simulated Fast-3G + 4× CPU throttle, and the sole remaining lever is the 72KB-gzipped React runtime — every other cause was fixed at the architecture (prerender, lazy motion engine, CSS strategy, font subsetting). Closing it means replacing React with `preact/compat`, which was judged not worth the runtime risk to a portfolio the owner will maintain as a React project | Revisit if the owner wants the Preact alias; the swap is `resolve.alias` plus `preact-render-to-string` in the prerender step |
 | `--dur-micro` / `--dur-standard` are declared in CSS but read by Tailwind arbitrary values, not by the motion layer | `tokens.css` | Hover/press timing lives in CSS transitions while scroll/entry timing lives in JS; both read the same numbers but through different mechanisms | Unify only if a hover ever needs spring physics |
+
+---
+
+## 9. Revision 2 — anti-slop pass
+
+The first build was internally consistent and shipped a real system, and it
+still read as generated. Consistency was most of the reason: one row grammar,
+one header shape and one section rhythm applied five times running produced a
+page with no chapters, only repetitions. This pass keeps the palette, the type
+scale, the radius commitment and the motion contract untouched, and changes
+what the page does with them.
+
+### What was wrong, and what replaced it
+
+| Symptom | Diagnosis | Change |
+|---|---|---|
+| Five identical section openings | No chapter structure. Every heading arrived at the same pitch | Hollow **chapter numerals** `01`–`05` hanging in the left margin, plus an optional `lede` so headings can be short phrases (Section 5) |
+| Headings read as LLM voice | Full first-person declarative sentences with trailing periods: *"Things I built and shipped."*, *"What I reach for."*, *"Where I have worked."* | Noun phrases carrying the claim, with the substance moved into the lede: *Ten products, end to end* / *The working set* / *Two years, two disciplines* / *The long version*. Contact's heading is now the **address itself**, set large — the one real, useful, actionable string on the page |
+| Empty right half of the fold | The instrument readout was a four-across strip pinned to the bottom of the hero, leaving the fold's right side blank | The readout is a **bordered panel beside the intro**. The two halves brace each other, which is what a spec sheet actually looks like |
+| The hero's hairline grid was invisible | `--rule` at `0.1` alpha on a `0.1`-width stroke is not a visible line | Two layers: a masked **plot field** (Magic UI `grid-pattern` mechanism) with a handful of lit cells, and a **registration frame** whose three rules bound exactly the box the four crop marks sit on. The frame still arrives by being drawn |
+| 39 identically bordered chips in Stack | At that density a chip is not a chip. Nothing is emphasised and the block reads as a word cloud | Chrome removed; each group is one **slash-separated run** of terms, the way a spec sheet lists a set |
+| Experience reused the Work rail | A pinned rail buys horizontal travel with vertical scroll, and two cards have none to buy — it did not move on a desktop viewport. It also meant two consecutive sections opened with the identical gesture | A **sticky index**: the role holds itself at the top of the viewport while its own responsibilities scroll past |
+| `RegisterRow` — "the core primitive" — was used by nothing | Specified in Section 5, shipped in `Showcase` only | It is now the Contact channel list |
+| Nav was five inert words | No position feedback anywhere on a single-page site | `aria-current` **scrollspy**, marked by colour *and* a rule, and the header's bottom hairline doubles as document **scroll progress** |
+| Nothing between the Work rail and Stack | The rail shows three of ten cards at a time, so its register is never visible whole | A full-bleed **index band** naming all ten, which also gives the section a close |
+
+### Ported components
+
+Three mechanisms were taken from public registries rather than invented. In
+every case the *mechanism* was kept and the *styling* was discarded — none of
+them ship their source's colour, radius, easing or dependencies, and each
+carries its provenance in a comment at the top of its own file.
+
+| Source | Kept | Dropped |
+|---|---|---|
+| [Magic UI `marquee`](https://magicui.design/r/marquee.json) | Repeat-N-copies, translate one copy width. Seamless without measuring | `cn`/clsx, `[--duration:40s]` arbitrary values, the padding. Copies past the first are `aria-hidden` |
+| [Magic UI `grid-pattern`](https://magicui.design/r/grid-pattern.json) | SVG `<pattern>` of corner strokes, plus the `squares` prop that lights named cells — the reason it beats a CSS background grid | Hard-coded `fill-gray-400/30`, `cn`. Colour is inherited so a token class sets it |
+| [Magic UI `magic-card`](https://magicui.design/r/magic-card.json) | A radial wash that follows the pointer inside a card | `motion/react` motion values, `next-themes`, the violet/pink gradient. Position arrives as two custom properties from one delegated, rAF-coalesced listener; the wash is `--signal-feint` |
+| [Magic UI `scroll-progress`](https://magicui.design/r/scroll-progress.json) | Scroll fraction as `scaleX` on a fixed hairline | `motion/react` `useScroll`, the three-stop gradient. One transform written straight to the node |
+
+### Constraints this pass did not relax
+
+- No new colour. Vermilion is still the only chromatic value in interface
+  chrome; `--live` still appears only on deployment status, and it now actually
+  does — the `live` Tag variant Section 5 specifies was previously unused and
+  is the **Live** badge on deployed project cards.
+- No new dependency. Everything above is CSS plus one pointer listener; the
+  bundle graph is unchanged.
+- Text tokens still clear the floor. Real text sits at `--text-3` or above
+  (group counts, bullet indices and the colophon were all corrected during this
+  pass); `--text-4` carries only `aria-hidden` decoration; `--text-5` still
+  carries no text.
+- Reduced motion is still the *absence* of code. The band stops
+  (`animation: none`, and it becomes a plain scroller), the spotlight listener
+  is never attached, the frame renders drawn, and nothing is gated.
+
+---
+
+## 10. Revision 3 — the register, and the numbers behind it
+
+### The rail stayed horizontal. The pin did not.
+
+The work section was a pinned, scroll-scrubbed horizontal rail. It read well
+and it was the wrong trade, for a reason no amount of craft fixes: **the only
+way out of a pin is to spend its entire scroll range.** A visitor who wanted to
+know how many projects there were and then move on had to scrub through every
+one of them to reach the next section.
+
+The first attempt at a fix replaced it with a vertical disclosure register.
+That solved the hijack and introduced a worse problem in its place: fifteen
+projects as stacked rows ran past 2,000px, which is a long way to scroll past
+work someone has already decided not to read. Trading a hostage scroll for a
+long one is not a fix.
+
+So the rail is horizontal again, and the pin is what is actually gone.
+Vertical scroll belongs to the page; horizontal travel belongs to the rail;
+the two never argue. The section is one card tall whether you engage with it
+or not.
+
+| | Pinned scrub | Vertical register | Free rail |
+|---|---|---|---|
+| Cost of skipping | Its full scroll range | ~2,000px of rows | One flick |
+| Section height | Grows with project count | Grows with project count | Fixed, ~700px |
+| Projects visible | 3 of 15 | 15 of 15 | 3 of 15, all reachable |
+| Who owns vertical scroll | The section | The reader | The reader |
+
+### Embla, and why a dependency was worth it
+
+`embla-carousel-react` drives it: 36M weekly downloads, zero runtime
+dependencies, and what shadcn/ui ships underneath its own Carousel. This is the
+first runtime dependency added to the project since the motion engine, and it
+earns its place on one capability native scrolling does not have — **momentum
+drag with a mouse**. A trackpad and a touchscreen can already flick a native
+scroller sideways; a mouse cannot, and a rail a mouse user can only reach with
+two buttons is a rail most desktop visitors will not use.
+
+It is an **enhancement, and the fallback is real**. The markup and CSS are a
+plain native scroll-snap scroller: `overflow-x: auto`, `scroll-snap-type: x
+mandatory`, a leading inset as track padding and a trailing inset as a real
+flex item. That works with no JavaScript at all — it scrolls, it snaps, it
+keyboard-scrolls, and it reaches every card. Embla is initialised in an effect
+and writes `data-embla="on"` onto the viewport, which is the only thing that
+flips it to `overflow: hidden` and hands scrolling over to Embla's transform.
+Same pattern the pinned rail used, applied to a mechanism that is worth
+keeping. The prev/next buttons only render once Embla is live, because without
+it they would be two controls that cannot do anything.
+
+Measured: track `scrollWidth` 6,928px = 15 cards × 440 + both insets, so the
+trailing flex item is being counted. Chrome leaves inline-end padding on a flex
+row out of scrollable overflow, and a margin on the last card too; either one
+strands the final card flush against the viewport edge with its gutter
+unreachable.
+
+The position readout is a **scrollbar thumb, not a progress fill**. A bar that
+fills from empty says "you have consumed 0% of this", which at rest reads as
+broken. A thumb sized to the share of the rail currently on screen says "you
+are here, and there is this much of it", which is the thing a reader wants to
+know. It is written straight to the DOM on Embla's `scroll` event — this fires
+every frame of a drag, and a re-render per frame would cost more than the rail.
+
+### The numbers are measured, not claimed
+
+`scripts/github.mjs` reads the GitHub REST API and writes
+`src/data/github.ts`, which is committed. Three options were considered and two
+were rejected:
+
+- **Runtime fetch** — puts a third-party request on the critical path of a page
+  whose entire performance argument is that it has none, and blanks the panel
+  the moment an anonymous client hits GitHub's 60-per-hour limit.
+- **Build-time fetch** — makes every deploy depend on `api.github.com` being
+  up, and silently ships different numbers on every rebuild.
+- **Committed artefact, with the date it was measured printed beside it** —
+  chosen. The page never claims to be live, and it says so in the panel.
+
+The counts distinguish things GitHub conflates: 23 public repos, 21 authored
+(forks removed), 17 with code in them (reserved empty names removed), 12
+carrying a deployment. The footnote states the difference rather than picking
+the flattering number silently. `stats` in `content.ts` now reads from this
+artefact and from `projects.length`, which is how "10 shipped projects" was
+able to survive to a point where there were fifteen.
+
+The language bar is a **measured value**, which is the one thing Section 2
+licenses the signal for: the dominant language carries vermilion and the rest
+step down the warm ramp, so the bar ranks correctly even in greyscale and
+introduces no colour the page did not already have. Segments are sized by
+`flex-grow` and animated with `scaleX` — the track is laid out once and only
+the fill moves, so Section 6's no-layout-animation rule holds.
+
+### Command palette
+
+`⌘K` / `Ctrl+K`. Sections, all fifteen projects, and the outbound links, with a
+substring match ranked name-before-description. Deliberately not fuzzy: on a
+list this small, fuzzy matching mostly produces confident wrong answers.
+
+Built as a **combobox, not a dialog full of tab stops**. The input holds focus
+for the whole interaction, results are `role="option"` inside a
+`role="listbox"`, and the active one is named by `aria-activedescendant`. That
+is the pattern assistive technology already knows, and it means there is no
+focus trap to get wrong — there is only ever one focusable element inside. Open
+records the previously focused element and restores it on close; `Tab` is
+swallowed because there is nowhere legitimate to go.
+
+Selecting a project scrolls the rail to that card. The two components are
+connected by a ten-line module-level subscription (`lib/register.ts`) rather
+than a context: the only thing they need to agree on is a string, and nothing
+between them should re-render because the rail moved.
+
+Discoverability is part of the feature — a shortcut nobody can find is a
+shortcut nobody uses — so the hint in the corner states the binding and is
+itself the button.
+
+### Two more mechanisms
+
+| Interaction | Mechanism |
+|---|---|
+| Card title scramble on hover | One pass of the hero's glyph churn, resolving left to right. Pure rAF over `textContent` — it deliberately does **not** load anime.js, because fetching a 22KB engine because a cursor crossed a card would be absurd. Skipped on coarse pointers and under reduced motion; leaving mid-scramble restores the string |
+| Deployment strip | The `Marquee` band above the rail runs live **hostnames**, not project names. Those are already in the list below; a row of addresses is different information, and the shortest possible proof that "shipped" is meant literally |
