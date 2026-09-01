@@ -2,16 +2,19 @@
  * Single source of truth for every fact rendered on this site.
  *
  * Everything here is drawn from one of two places: Deepanshu's CV, or the live
- * GitHub API / repository READMEs (fetched 2026-08-21). Nothing is invented —
- * projects without a public repository are marked so, and no link is emitted
+ * GitHub API / repository READMEs (fetched 2026-08-21). Nothing is invented.
+ * Projects without a public repository are marked so, and no link is emitted
  * for a destination that does not exist.
  *
  * The CV of record is the operations résumé (2026-08), but the two tracks it
  * describes carry equal weight here: a GenAI and full-stack developer, and a
- * quality and process analyst. Copy has to land twice — with a hiring manager
- * who will never open a repository, and with one who opens nothing else —
+ * quality and process analyst. Copy has to land twice, with a hiring manager
+ * who will never open a repository and with one who opens nothing else,
  * without either half reading as a hedge against the other.
+ *
+ * Date ranges use an en dash, matching the CV. No em dashes anywhere in copy.
  */
+import { github } from './github';
 
 export const profile = {
   name: 'Deepanshu Sagore',
@@ -28,12 +31,13 @@ export const profile = {
   linkedin: 'https://www.linkedin.com/in/deepanshusagore',
   linkedinHandle: 'deepanshusagore',
   resume: '/Deepanshu-Sagore-Resume.pdf',
-  /* Drawn from the CV summary rather than the GitHub bio — this line has to
-     survive a recruiter reading it cold. */
-  tagline: 'Happiest at the messy end of a problem — and I stay with it through execution instead of handing over a deck.',
+  /* Drawn from the CV summary rather than the GitHub bio, because this line
+     has to survive a recruiter reading it cold. */
+  tagline:
+    'Happiest at the messy end of a problem, and I stay with it through execution instead of handing over a deck.',
   taglineSource: 'How I work',
   intro:
-    'I ship GenAI and full-stack products, and I run quality and process operations — a year inside LLM post-training at Ethara.ai, a year of B2B demand generation before that. I pull the numbers, work out what is actually breaking, and then build the fix rather than describe it.',
+    'I ship GenAI and full-stack products, and I run quality and process operations: a year inside LLM post-training at Ethara.ai, a year of B2B demand generation before that. I pull the numbers, work out what is actually breaking, and then build the fix rather than describe it.',
 } as const;
 
 export type Project = {
@@ -45,7 +49,7 @@ export type Project = {
   year: string;
   repo: string | null;
   live: string | null;
-  /** `null` repo means the source is not public — never render a dead link. */
+  /** `null` repo means the source is not public, so never render a dead link. */
   note?: string;
 };
 
@@ -87,11 +91,33 @@ export const projects: readonly Project[] = [
     note: 'Source not public',
   },
   {
+    id: 'aipl',
+    title: 'AIPL',
+    summary: 'Conversations with cricket personalities, in character, driven by a language model.',
+    detail:
+      'A fan-interaction surface rather than a chatbot demo: pick a voice, ask it about the game, and get an answer that stays in character. Shares the AIPL brief with the Google AI Hackathon entry, but this is a separate build carried further.',
+    tags: ['Next.js', 'TypeScript', 'LLM', 'Conversational AI'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/Cric-OS',
+    live: 'https://cric-os.vercel.app',
+  },
+  {
+    id: 'ipl-cohost',
+    title: 'IPL Co-Host AI',
+    summary: 'A live companion that watches the match with you.',
+    detail:
+      'Real-time insight, prediction and match intelligence delivered while an IPL game is still running, so context arrives when a viewer can use it instead of in a post-match write-up.',
+    tags: ['Next.js', 'TypeScript', 'Real-time', 'LLM'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/ipl-cohost',
+    live: 'https://ipl-cohost.vercel.app',
+  },
+  {
     id: 'aligna',
     title: 'Aligna',
     summary: 'AI talent scouting that turns a job description into a ranked shortlist.',
     detail:
-      'Parses job descriptions, scores candidates through a weighted matching model, and runs AI-simulated engagement to qualify them — collapsing the top of the hiring funnel into a data-backed automated workflow.',
+      'Parses job descriptions, scores candidates through a weighted matching model, and runs AI-simulated engagement to qualify them, collapsing the top of the hiring funnel into a data-backed automated workflow.',
     tags: ['Next.js 15', 'Tailwind v4', 'JD Parsing', 'Matching'],
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Aligna',
@@ -102,7 +128,7 @@ export const projects: readonly Project[] = [
     title: 'DriveFlow',
     summary: 'Real-time lead CRM built to replace a dealership spreadsheet.',
     detail:
-      'Live-syncing lead management for the HSR Motors team: automated lead scoring, a drag-and-drop pipeline, and a dashboard of KPI cards, volume trends, source mix and team performance — every figure computed from live data rather than a static export.',
+      'Live-syncing lead management for the HSR Motors team: automated lead scoring, a drag-and-drop pipeline, and a dashboard of KPI cards, volume trends, source mix and team performance. Every figure is computed from live data rather than a static export.',
     tags: ['TypeScript', 'Real-time', 'CRM', 'Dashboards'],
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Drive',
@@ -120,11 +146,23 @@ export const projects: readonly Project[] = [
     live: 'https://eventshub-tan.vercel.app/',
   },
   {
+    id: 'stickyyt',
+    title: 'StickyYT',
+    summary: 'YouTube tracked on purpose, instead of by accident.',
+    detail:
+      'Full-stack tracker for what you actually watch: Next.js route handlers over MongoDB and Mongoose, Google sign-in through Firebase, and a Three.js background that stays out of the way. Built to make the watching deliberate rather than to add another feed.',
+    tags: ['Next.js', 'MongoDB', 'Firebase Auth', 'Three.js'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/Sticky-YT',
+    live: null,
+    note: 'Repo only',
+  },
+  {
     id: 'ticket-classifier',
     title: 'Support Ticket Classifier',
     summary: 'Support triage that sorts, prioritises and recommends the next action.',
     detail:
-      'Sorts incoming support requests into six categories, assigns a priority and recommends what to do next. Built live in roughly twenty minutes as an interview assignment, with a fallback path for when the AI service is down — the queue keeps moving either way.',
+      'Sorts incoming support requests into six categories, assigns a priority and recommends what to do next. Built live in roughly twenty minutes as an interview assignment, with a fallback path for when the AI service is down, so the queue keeps moving either way.',
     tags: ['TypeScript', 'LLM', 'Triage', 'Prioritisation'],
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/ethara-interview-assignment',
@@ -140,6 +178,17 @@ export const projects: readonly Project[] = [
     year: '2025',
     repo: 'https://github.com/DeepanshuSagore/HackFinder',
     live: 'https://hack-finder-omega.vercel.app/',
+  },
+  {
+    id: 'frites',
+    title: 'Frites',
+    summary: 'A brand site carried entirely by type, motion and art direction.',
+    detail:
+      'Not an app, and it is here on purpose: product engineering and art direction are different muscles, and this is the evidence for the second one. A single-purpose site for a food brand, with the whole argument made by layout and pacing.',
+    tags: ['Next.js', 'TypeScript', 'Art direction', 'Marketing site'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/Frites',
+    live: 'https://fritesfr.vercel.app',
   },
   {
     id: 'vaultic',
@@ -163,6 +212,17 @@ export const projects: readonly Project[] = [
     repo: 'https://github.com/DeepanshuSagore/DevRoad',
     live: 'https://dev-road-beta.vercel.app',
   },
+  {
+    id: 'portfolio',
+    title: 'This site',
+    summary: 'The page you are reading, and the way it is built.',
+    detail:
+      'React 19 and Vite, prerendered to static HTML so first paint needs no JavaScript at all. anime.js is loaded lazily and is never fetched under reduced motion. Three self-hosted variable fonts, with the display face subset by hand from 131KB to 56KB. The design system was written down before the first component was.',
+    tags: ['React 19', 'Vite', 'anime.js', 'Tailwind v4'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/portfolio',
+    live: 'https://deepanshupotfolio.vercel.app',
+  },
 ] as const;
 
 export type Experience = {
@@ -174,9 +234,9 @@ export type Experience = {
 
 export const experience: readonly Experience[] = [
   {
-    role: 'Quality Analyst — LLM Post Training',
+    role: 'Quality Analyst, LLM Post Training',
     company: 'Ethara.ai',
-    period: 'Aug 2025 — Aug 2026',
+    period: 'Aug 2025 – Aug 2026',
     points: [
       'Own quality checks on a daily queue of written responses, judged against a rubric two reviewers have to agree on.',
       'Track which mistakes keep recurring and turn them into written guidance, so the same fix is not made twice.',
@@ -187,7 +247,7 @@ export const experience: readonly Experience[] = [
   {
     role: 'Social Media Marketing & Design',
     company: 'Maica Plastiwood',
-    period: 'Apr 2023 — Apr 2024',
+    period: 'Apr 2023 – Apr 2024',
     points: [
       'Ran demand generation end to end for a B2B building-materials business: calendar, creative, community.',
       'Built relationships with creators and prospective investors as the first point of contact for external partners.',
@@ -227,24 +287,24 @@ export const stack = [
 
 export const education = [
   {
-    period: '2022 — 26',
+    period: '2022 – 26',
     title: "Bachelor's Degree",
     org: 'Acropolis Institute of Technology and Research',
     meta: '',
   },
-  { period: '2021 — 22', title: 'Class 12th', org: 'CBSE', meta: '81%' },
-  { period: '2019 — 20', title: 'Class 10th', org: 'CBSE', meta: '93%' },
+  { period: '2021 – 22', title: 'Class 12th', org: 'CBSE', meta: '81%' },
+  { period: '2019 – 20', title: 'Class 10th', org: 'CBSE', meta: '93%' },
 ] as const;
 
 export const certificates = [
   { org: 'Deloitte', title: 'Data Visualisation' },
-  { org: 'Microsoft SAP', title: 'MERN Stack — 60 day workshop' },
+  { org: 'Microsoft SAP', title: 'MERN Stack (60-day workshop)' },
   { org: 'Udemy', title: 'React.js Crash Course' },
 ] as const;
 
 export const achievements = [
-  'Winner, Google AI Hackathon (AIPL) — scoped, built and pitched a working solution against a fixed deadline',
-  'Lead Member, Debate Club — Entrepreneurship Development Cell, since 2022',
+  'Winner, Google AI Hackathon (AIPL): scoped, built and pitched a working solution against a fixed deadline',
+  'Lead Member, Debate Club at the Entrepreneurship Development Cell, since 2022',
   'Ran freelance content and social media for several creators alongside full-time work',
 ] as const;
 
@@ -255,12 +315,20 @@ export const interests = [
   'Philosophical literature',
 ] as const;
 
-/** Counters in the About section. Each is derived from the data above. */
+/**
+ * Counters in the About section.
+ *
+ * Nothing here is typed by hand any more. Two of the four are read straight
+ * off the generated GitHub artefact and the third is the length of the list
+ * above, so a stat cannot drift away from the thing it counts - which is
+ * exactly how the old "10 shipped projects" survived past the point where
+ * there were fifteen.
+ */
 export const stats = [
   { value: 2, suffix: '', label: 'Years of work experience' },
-  { value: 10, suffix: '', label: 'Shipped projects' },
-  { value: 1, suffix: '', label: 'Hackathon won' },
-  { value: 22, suffix: '', label: 'Public repositories' },
+  { value: projects.length, suffix: '', label: 'Projects on this page' },
+  { value: github.deployed, suffix: '', label: 'Live deployments' },
+  { value: github.publicRepos, suffix: '', label: 'Public repositories' },
 ] as const;
 
 export const navLinks = [
