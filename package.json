@@ -8,11 +8,13 @@
     "build": "tsc -b && vite build && vite build --ssr src/entry-server.tsx --outDir dist-ssr && node scripts/prerender.mjs",
     "preview": "vite preview --port 4173",
     "typecheck": "tsc -b --noEmit",
+    "data:github": "node scripts/github.mjs",
     "fonts:build": "uvx --from 'fonttools[woff]' fonttools varLib.instancer node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-standard-normal.woff2 wdth=100 -o /tmp/bricolage-pinned.ttf && uvx --from 'fonttools[woff]' pyftsubset /tmp/bricolage-pinned.ttf --unicodes='U+0020-007E,U+00A0,U+00C0-00FF,U+2013-2014,U+2018-2019,U+201C-201D,U+2026' --layout-features='kern,liga,calt' --flavor=woff2 --output-file=src/assets/fonts/bricolage-display.woff2",
     "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
     "animejs": "^4.5.0",
+    "embla-carousel-react": "^8.6.0",
     "lucide-react": "^0.469.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
