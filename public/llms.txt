@@ -1,13 +1,13 @@
 # Deepanshu Sagore
 
-> GenAI and full-stack developer based in Indore, India, and a quality and process analyst. Ten shipped products in React, Next.js, Node and LangChain on one side; a year of LLM quality operations at Ethara.ai and a year of B2B demand generation on the other. Winner of the Google AI Hackathon (AIPL).
+> GenAI and full-stack developer based in Indore, India, and a quality and process analyst. Fifteen shipped products in React, Next.js, Node and LangChain on one side; a year of LLM quality operations at Ethara.ai and a year of B2B demand generation on the other. Winner of the Google AI Hackathon (AIPL).
 
-Deepanshu works across two things that usually sit apart: shipping software in React, Next.js, Node and LangChain — RAG pipelines, AI-assisted products, LLM evaluation — and process and quality operations, covering rubric design, reviewer calibration, recurring-error analysis, and the SQL and spreadsheet work underneath them. The through line is staying with a problem past the diagnosis: pull the numbers, work out what is actually breaking, then build the fix.
+Deepanshu works across two things that usually sit apart. On one side, shipping software in React, Next.js, Node and LangChain: RAG pipelines, AI-assisted products, LLM evaluation. On the other, process and quality operations, covering rubric design, reviewer calibration, recurring-error analysis, and the SQL and spreadsheet work underneath them. The through line is staying with a problem past the diagnosis: pull the numbers, work out what is actually breaking, then build the fix.
 
 ## Experience
 
 - Quality Analyst, LLM Post Training at Ethara.ai (Aug 2025 – Aug 2026): quality checks on a daily queue of written responses against a rubric two reviewers must agree on, recurring-error guidance so the same fix is not made twice, and scoring alignment across a distributed reviewer pool.
-- Social Media Marketing and Design at Maica Plastiwood (Apr 2023 – Apr 2024): end-to-end demand generation for a B2B building-materials business — calendar, creative, community, and first point of contact for external partners.
+- Social Media Marketing and Design at Maica Plastiwood (Apr 2023 – Apr 2024): end-to-end demand generation for a B2B building-materials business, covering calendar, creative, community, and first point of contact for external partners.
 
 ## Skills
 
@@ -25,6 +25,13 @@ Deepanshu works across two things that usually sit apart: shipping software in R
 - [EventsHub](https://eventshub-tan.vercel.app/): Two-sided campus marketplace where departments list events and students register, gated by an admin moderation queue and role-aware dashboards.
 - [Support Ticket Classifier](https://github.com/DeepanshuSagore/ethara-interview-assignment): Sorts support requests into six categories, assigns a priority and recommends the next action.
 - [HackFinder](https://hack-finder-omega.vercel.app/): Hackathon team matching by skill and requirement.
+- [AIPL](https://cric-os.vercel.app): In-character conversations with cricket personalities, driven by a language model. Next.js, TypeScript.
+- [IPL Co-Host AI](https://ipl-cohost.vercel.app): A live companion for an IPL match, delivering real-time insight, prediction and match intelligence while the game runs.
+- [StickyYT](https://github.com/DeepanshuSagore/Sticky-YT): Full-stack YouTube tracker. Next.js route handlers over MongoDB, Firebase Google sign-in, Three.js background.
+- [Frites](https://fritesfr.vercel.app): A brand site carried entirely by type, motion and art direction.
+- [Vaultic](https://vaulticfr.vercel.app): Tabs and sites you actually reuse, filed under categories instead of buried in a bookmark tree.
+- [DevRoad](https://dev-road-beta.vercel.app): Roadmap tracker for developers.
+- [This portfolio](https://github.com/DeepanshuSagore/portfolio): React 19 and Vite, prerendered to static HTML, anime.js loaded lazily and never under reduced motion.
 
 ## Links
 
