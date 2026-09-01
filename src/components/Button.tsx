@@ -1,6 +1,6 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
-/** DESIGN.md Section 5 — Button. Radius is 0 by system commitment. */
+/** DESIGN.md Section 5 - Button. Radius is 0 by system commitment. */
 type Variant = 'signal' | 'outline' | 'ghost';
 
 const base =

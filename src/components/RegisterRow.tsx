@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react';
 import type { ReactNode } from 'react';
 
 /**
- * DESIGN.md Section 5 — RegisterRow, the core primitive.
+ * DESIGN.md Section 5 - RegisterRow, the core primitive.
  *
  * Harvested from the Minimal Gallery portfolio and the anime.js docs shell:
  * label-left / meta-right rows separated by hairlines, instead of a card grid.
@@ -87,7 +87,7 @@ export function StaticRow(props: Props) {
   );
 }
 
-/** Empty state — DESIGN.md requires every register to have one. */
+/** Empty state - DESIGN.md requires every register to have one. */
 export function EmptyRow({ children }: { children: ReactNode }) {
   return (
     <p className="type-mono-m border-t border-rule px-2 py-10 text-center text-text-3">{children}</p>

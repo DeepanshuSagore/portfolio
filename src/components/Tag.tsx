@@ -1,6 +1,6 @@
 import type { ReactNode } from 'react';
 
-/** DESIGN.md Section 5 — Tag. */
+/** DESIGN.md Section 5 - Tag. */
 type Variant = 'default' | 'signal' | 'live';
 
 const variants: Record<Variant, string> = {
@@ -22,7 +22,7 @@ export function Tag({
     <span
       className={`type-mono-s inline-flex items-center gap-1.5 rounded-[var(--radius-1)] border px-2 py-1 uppercase ${variants[variant]} ${className}`}
     >
-      {/* Status is never color alone — the dot always sits beside a text label. */}
+      {/* Status is never color alone - the dot always sits beside a text label. */}
       {variant === 'live' && (
         <span aria-hidden="true" className="relative flex size-1.5">
           <span className="absolute inline-flex size-full animate-ping rounded-full bg-live opacity-60" />
