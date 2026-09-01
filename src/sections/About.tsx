@@ -9,14 +9,17 @@ function Stats() {
   });
 
   return (
-    <dl ref={root} className="grid grid-cols-2 gap-px md:grid-cols-4">
+    <dl ref={root} className="grid grid-cols-2 border-y border-rule md:grid-cols-4">
       {stats.map((stat) => (
-        <div key={stat.label} className="border-t border-rule px-2 py-6">
-          <dd className="type-display-m text-text-1">
+        <div
+          key={stat.label}
+          className="border-rule px-2 py-7 even:border-l even:pl-5 md:border-l md:pl-5 md:first:border-l-0 md:first:pl-2"
+        >
+          <dd className="type-display-m tabular-nums text-text-1">
             <span data-count={stat.value}>{stat.value}</span>
             {stat.suffix}
           </dd>
-          <dt className="type-overline mt-2">{stat.label}</dt>
+          <dt className="type-overline mt-3 max-w-[16ch]">{stat.label}</dt>
         </div>
       ))}
     </dl>
@@ -57,13 +60,18 @@ export function About() {
   return (
     <section id="about" ref={root} className="defer-paint bg-ink-2 py-24 md:py-32">
       <div className="shell scroll-mt-24">
-        <SectionHeader overline="About" title="A short account of the work." />
+        <SectionHeader
+          chapter="04"
+          overline="About"
+          title="The long version"
+          lede="Two tracks that keep turning out to be the same job: work out what is actually breaking, then build the fix."
+        />
 
         <div className="grid gap-12 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-16">
           <div data-reveal>
             <p className="type-body-l max-w-[56ch] text-text-2">
               I build software and I analyse process, in Indore, and I have never found a good
-              reason to pick one. Ten shipped products on one side of that; two years of quality
+              reason to pick one. Fifteen shipped products on one side of that; two years of quality
               and demand-generation work on the other.
             </p>
             <p className="mt-5 max-w-[56ch] text-text-3">
@@ -84,7 +92,7 @@ export function About() {
               actually do.
             </p>
             <p className="mt-5 max-w-[56ch] text-text-3">
-              Before that I ran demand generation end to end for a B2B building-materials business —
+              Before that I ran demand generation end to end for a B2B building-materials business:
               calendar, creative and community, and the first point of contact for creators and
               prospective investors. Turning a technical specification into copy a buyer could act
               on is a skill I still use every time I write a README. I lead the debate club at our
