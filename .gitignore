@@ -23,6 +23,11 @@ dist-ssr
 .omo
 .vercel
 
+# Visual-QA captures and the harness that produces them — reference shots taken
+# at breakpoint review, not assets the site ships.
+/*.png
+public/__shot.html
+
 # Source résumé (the shipped copy lives in public/)
 Resume:CV.pdf
 Deepanshu_Operations.pdf
