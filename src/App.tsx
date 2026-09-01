@@ -1,3 +1,4 @@
+import { CommandPalette } from './components/CommandPalette';
 import { About } from './sections/About';
 import { Contact, Footer } from './sections/Contact';
 import { Experience } from './sections/Experience';
@@ -28,6 +29,10 @@ export default function App() {
       </main>
 
       <Footer />
+
+      {/* Root-level so its hotkey works from anywhere, and so the overlay is
+          never trapped inside a section's stacking context. */}
+      <CommandPalette />
     </div>
   );
 }
