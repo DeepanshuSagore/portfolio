@@ -303,6 +303,37 @@ export function RoughBox({
   );
 }
 
+/**
+ * A speech bubble, for the things picked up somewhere rather than the things
+ * done there.
+ *
+ * The tail is a rotated square straddling the border, with only its two outer
+ * edges drawn - which is what makes it read as part of the bubble outline
+ * rather than as a diamond parked underneath it.
+ */
+export function Bubble({
+  tilt = 1,
+  className = '',
+  children,
+}: {
+  tilt?: number;
+  className?: string;
+  children: ReactNode;
+}) {
+  return (
+    <div
+      className={`tilt relative rounded-[1.4rem] border-2 border-ink bg-panel px-4 py-3.5 shadow-[var(--t-shadow)] ${className}`}
+      style={vars({ '--tilt': tilt })}
+    >
+      {children}
+      <span
+        aria-hidden="true"
+        className="absolute -bottom-[0.6rem] left-9 size-4 rotate-45 border-b-2 border-r-2 border-ink bg-panel"
+      />
+    </div>
+  );
+}
+
 /** A short label inside a hairline rule, stamped onto the page. */
 export function Boxed({ children, className = '' }: { children: ReactNode; className?: string }) {
   return <span className={`boxed type-mono-s uppercase ${className}`}>{children}</span>;
