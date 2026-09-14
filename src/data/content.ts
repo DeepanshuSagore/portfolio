@@ -6,11 +6,14 @@
  * Projects without a public repository are marked so, and no link is emitted
  * for a destination that does not exist.
  *
- * The CV of record is the operations résumé (2026-08), but the two tracks it
- * describes carry equal weight here: a GenAI and full-stack developer, and a
- * quality and process analyst. Copy has to land twice, with a hiring manager
- * who will never open a repository and with one who opens nothing else,
- * without either half reading as a hedge against the other.
+ * The CV of record is Reference/ResumeFr.pdf, which positions a single track:
+ * AI engineer, generative AI and retrieval. It replaced the operations résumé
+ * that this file was first written against, and the two disagree on facts
+ * rather than on emphasis - the operations CV omitted the Outlier role
+ * entirely and dated Ethara.ai Aug 2025 – Aug 2026 against the current
+ * Nov 2025 – Feb 2026. Where they conflict the résumé wins; where the résumé
+ * is silent and the old file carried something verifiable, such as a deployed
+ * repository, that survives.
  *
  * Date ranges use an en dash, matching the CV. No em dashes anywhere in copy.
  */
@@ -229,30 +232,48 @@ export type Experience = {
   role: string;
   company: string;
   period: string;
+  /** Framing for the annotation layer. States nothing the points do not. */
+  note: string;
+  tags: readonly string[];
   points: readonly string[];
 };
 
 export const experience: readonly Experience[] = [
   {
-    role: 'Quality Analyst, LLM Post Training',
-    company: 'Ethara.ai',
-    period: 'Aug 2025 – Aug 2026',
+    role: 'Coding Specialist',
+    company: 'Outlier',
+    period: 'Feb 2026 – Aug 2026',
+    note: 'Six months spent finding where good models fail.',
+    tags: ['LLM evaluation', 'Multimodal SWE', 'Multi-Bench', 'Rubrics'],
     points: [
-      'Own quality checks on a daily queue of written responses, judged against a rubric two reviewers have to agree on.',
-      'Track which mistakes keep recurring and turn them into written guidance, so the same fix is not made twice.',
-      'Keep scoring aligned across a distributed reviewer pool by flagging where the rubric reads two ways.',
-      'Work to tight daily deadlines while the standard shifts week to week, so re-reading it is half the job.',
+      'Worked across Multimodal SWE and Multi-Bench, two AI training and evaluation projects.',
+      'Reviewed and tested AI-generated code across single-turn and multi-turn tasks, judged on correctness, reasoning, instruction following and engineering quality.',
+      'Wrote hard coding tasks and edge cases designed to expose failure modes in advanced models.',
+      'Scored outputs against detailed rubrics and wrote the structured feedback that went back into training.',
     ],
   },
   {
-    role: 'Social Media Marketing & Design',
+    role: 'LLM Post Trainer',
+    company: 'Ethara.ai',
+    period: 'Nov 2025 – Feb 2026',
+    note: 'The part of the work that happens after pre-training.',
+    tags: ['Post-training', 'Prompt design', 'Dataset annotation', 'Alignment'],
+    points: [
+      'Reviewed, corrected and optimised model responses to improve what the next version learned from.',
+      'Annotated datasets and wrote structured feedback against alignment and performance goals.',
+      'Wrote and evaluated prompts that test reasoning, creativity and factual correctness.',
+    ],
+  },
+  {
+    role: 'SMM and Graphic Designer',
     company: 'Maica Plastiwood',
     period: 'Apr 2023 – Apr 2024',
+    note: 'Before the AI work: a year of design and demand.',
+    tags: ['Instagram', 'Copywriting', 'Graphic design', 'Reels'],
     points: [
-      'Ran demand generation end to end for a B2B building-materials business: calendar, creative, community.',
-      'Built relationships with creators and prospective investors as the first point of contact for external partners.',
-      'Turned technical product specifications into copy a buyer could actually act on.',
-      'Shipped posts and reels on a weekly cadence, agreeing with product and sales on what to push and when.',
+      'Ran the Instagram account, dealing directly with creators and prospective investors.',
+      'Wrote the product copy that carried the brand day to day.',
+      'Designed the posts and reels the products appeared in.',
     ],
   },
 ] as const;
