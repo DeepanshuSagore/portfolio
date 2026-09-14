@@ -1,7 +1,9 @@
 import { ArrowUpRight } from 'lucide-react';
 import { Button, ButtonLink } from './components/Button';
+import { Annotation, Boxed, CutLabel, Marker, Polaroid } from './components/Material';
 import { EmptyRow, RegisterRow, StaticRow } from './components/RegisterRow';
 import { SectionHeader } from './components/SectionHeader';
+import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { Tag } from './components/Tag';
 
 function Bay({ label, children }: { label: string; children: React.ReactNode }) {
@@ -15,8 +17,15 @@ function Bay({ label, children }: { label: string; children: React.ReactNode }) 
 
 export function Showcase() {
   return (
-    <div className="grain min-h-[100dvh] py-20">
+    <div className="grain sheet py-20">
       <div className="shell">
+        {/* The harness is where breakpoint and state review happens, so it
+            carries its own switcher: every primitive has to be checked in all
+            three directions, not only the one that happens to be stored. */}
+        <div className="mb-10 flex justify-end">
+          <ThemeSwitcher />
+        </div>
+
         <SectionHeader
           chapter="00"
           overline="Design QA"
@@ -100,6 +109,42 @@ export function Showcase() {
             >
               {bg.replace('bg-', '')}
             </div>
+          ))}
+        </Bay>
+
+        <Bay label="Material - accents, each carrying its own ink">
+          {([1, 2, 3, 4, 5] as const).map((accent) => (
+            <CutLabel key={accent} accent={accent} tilt={accent % 2 ? 1 : -1}>
+              Accent {accent}
+            </CutLabel>
+          ))}
+        </Bay>
+
+        <Bay label="Material - marker, boxed, annotation">
+          <p className="type-body-l text-text-2">
+            A run of text with a <Marker accent={1}>marker stroke</Marker> under it, which has to
+            survive <Marker accent={3}>wrapping across a line break</Marker> without breaking.
+          </p>
+          <Boxed>what&rsquo;s up</Boxed>
+          <Annotation>this is a handwritten note</Annotation>
+        </Bay>
+
+        <Bay label="Material - taped prints, alternating tilt">
+          {(
+            [
+              { src: '/shots/ethara.webp', caption: 'Ethara, seat allocation' },
+              { src: '/shots/frites.webp', caption: 'Frites, brand site' },
+              { src: '/shots/aligna.webp', caption: 'Aligna, ranked shortlist' },
+            ] as const
+          ).map((shot, i) => (
+            <Polaroid
+              key={shot.src}
+              src={shot.src}
+              alt={shot.caption}
+              caption={shot.caption}
+              tilt={i % 2 ? -1 : 1}
+              className="w-56"
+            />
           ))}
         </Bay>
 

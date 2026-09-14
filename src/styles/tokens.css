@@ -988,7 +988,11 @@
     mask-size: 100% 100%;
     -webkit-mask-repeat: no-repeat;
     mask-repeat: no-repeat;
-    z-index: -1;
+    /* Not `z-index: -1`. An inline span creates no stacking context, so a
+       negative index sends the stroke behind the SHEET rather than behind the
+       word, and it disappears. Multiply keeps it in front while letting the
+       glyphs read straight through - which is also how a real marker behaves. */
+    mix-blend-mode: multiply;
   }
 
   /* -------------------------------------------------------------------------
