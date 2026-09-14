@@ -64,6 +64,13 @@ export type Project = {
   role?: string;
   /** The two the résumé documents. They get the case-study composition. */
   featured?: true;
+  /**
+   * Written by `npm run data:shots`, which photographs the live deployment.
+   * Null where there is nothing to photograph, and also where the capture came
+   * back showing a stack trace rather than the product - a screenshot of an
+   * error is worse for a portfolio than no screenshot.
+   */
+  shot: string | null;
 };
 
 /* The two the résumé carries lead, because they are the two a reader can
@@ -84,6 +91,7 @@ export const projects: readonly Project[] = [
     accent: 2,
     role: 'Built end to end',
     featured: true,
+    shot: '/shots/ethara.webp',
   },
   {
     id: 'neuronest',
@@ -100,6 +108,7 @@ export const projects: readonly Project[] = [
     accent: 1,
     role: 'Built end to end',
     featured: true,
+    shot: null,
   },
   {
     id: 'fintrack',
@@ -113,6 +122,7 @@ export const projects: readonly Project[] = [
     live: 'https://fintrack-finai.vercel.app',
     kind: 'Full-stack',
     accent: 2,
+    shot: '/shots/fintrack.webp',
   },
   {
     id: 'aipl',
@@ -126,6 +136,7 @@ export const projects: readonly Project[] = [
     live: 'https://cric-os.vercel.app',
     kind: 'Conversational AI',
     accent: 5,
+    shot: '/shots/aipl.webp',
   },
   {
     id: 'ipl-cohost',
@@ -139,6 +150,7 @@ export const projects: readonly Project[] = [
     live: 'https://ipl-cohost.vercel.app',
     kind: 'Real-time AI',
     accent: 5,
+    shot: '/shots/ipl-cohost.webp',
   },
   {
     id: 'aligna',
@@ -152,6 +164,7 @@ export const projects: readonly Project[] = [
     live: 'https://alignafr.vercel.app',
     kind: 'AI product',
     accent: 5,
+    shot: '/shots/aligna.webp',
   },
   {
     id: 'driveflow',
@@ -165,6 +178,7 @@ export const projects: readonly Project[] = [
     live: 'https://drive-dusky-omega.vercel.app',
     kind: 'Full-stack',
     accent: 2,
+    shot: '/shots/driveflow.webp',
   },
   {
     id: 'eventshub',
@@ -178,6 +192,7 @@ export const projects: readonly Project[] = [
     live: 'https://eventshub-tan.vercel.app/',
     kind: 'Full-stack',
     accent: 2,
+    shot: '/shots/eventshub.webp',
   },
   {
     id: 'stickyyt',
@@ -192,6 +207,7 @@ export const projects: readonly Project[] = [
     note: 'Repo only',
     kind: 'Full-stack',
     accent: 2,
+    shot: null,
   },
   {
     id: 'ticket-classifier',
@@ -205,6 +221,7 @@ export const projects: readonly Project[] = [
     live: null,
     kind: 'AI utility',
     accent: 1,
+    shot: null,
   },
   {
     id: 'hackfinder',
@@ -218,6 +235,7 @@ export const projects: readonly Project[] = [
     live: 'https://hack-finder-omega.vercel.app/',
     kind: 'Web app',
     accent: 4,
+    shot: '/shots/hackfinder.webp',
   },
   {
     id: 'frites',
@@ -231,6 +249,7 @@ export const projects: readonly Project[] = [
     live: 'https://fritesfr.vercel.app',
     kind: 'Art direction',
     accent: 3,
+    shot: '/shots/frites.webp',
   },
   {
     id: 'vaultic',
@@ -244,6 +263,7 @@ export const projects: readonly Project[] = [
     live: 'https://vaulticfr.vercel.app',
     kind: 'Web app',
     accent: 4,
+    shot: '/shots/vaultic.webp',
   },
   {
     id: 'devroad',
@@ -257,6 +277,7 @@ export const projects: readonly Project[] = [
     live: 'https://dev-road-beta.vercel.app',
     kind: 'Web app',
     accent: 4,
+    shot: null,
   },
   {
     id: 'portfolio',
@@ -267,9 +288,15 @@ export const projects: readonly Project[] = [
     tags: ['React 19', 'Vite', 'anime.js', 'Tailwind v4'],
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/portfolio',
-    live: 'https://deepanshupotfolio.vercel.app',
+    /* Was https://deepanshupotfolio.vercel.app, which now answers 404
+       DEPLOYMENT_NOT_FOUND. This file already refuses to emit a link to a
+       destination that does not exist, and that rule does not get an exception
+       for the site's own entry. */
+    live: null,
+    note: 'You are looking at it',
     kind: 'Art direction',
     accent: 3,
+    shot: null,
   },
 ] as const;
 
