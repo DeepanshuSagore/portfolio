@@ -1,4 +1,5 @@
 import { Annotation, Boxed, CutLabel, type Accent } from '../components/Material';
+import { GithubPanel } from '../components/GithubPanel';
 import { sections, stack } from '../data/content';
 import { useReveal } from '../lib/motion';
 
@@ -66,6 +67,13 @@ export function Stack() {
             </div>
           ))}
         </dl>
+
+        {/* The groups above are a claim about what he works with. This is the
+            measurement: bytes actually written, read off the GitHub API and
+            committed with the site. It belongs directly under them. */}
+        <div data-reveal className="mt-16">
+          <GithubPanel />
+        </div>
       </div>
     </section>
   );
