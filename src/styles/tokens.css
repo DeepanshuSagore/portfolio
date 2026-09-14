@@ -90,6 +90,11 @@
   --t-a5: #c93b1a;
   --t-a5-ink: #fbfaf6;
 
+  /* Matte tape. Transparent in the other two directions, which is how one
+     taped-photo component yields tape here and a plain image there. */
+  --t-tape: rgba(222, 206, 166, 0.72);
+  --t-tape-edge: rgba(120, 104, 68, 0.16);
+
   --t-font-display: 'Archivo Display', ui-sans-serif, system-ui, sans-serif;
   --t-font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --t-font-hand: 'Shantell Hand', 'Bradley Hand', cursive;
@@ -158,6 +163,9 @@
   --t-a5: #b4241c;
   --t-a5-ink: #ffffff;
 
+  --t-tape: transparent;
+  --t-tape-edge: transparent;
+
   --t-font-display: 'Instrument Display', ui-serif, Georgia, serif;
   --t-font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   /* Editorial has no handwriting. The hand token resolves to the body face so
@@ -220,6 +228,9 @@
   --t-a4-ink: #000000;
   --t-a5: #ff3b00;
   --t-a5-ink: #000000;
+
+  --t-tape: transparent;
+  --t-tape-edge: transparent;
 
   --t-font-display: 'Archivo Display', ui-sans-serif, system-ui, sans-serif;
   --t-font-sans: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
@@ -863,5 +874,161 @@
 @layer components {
   .scroll-cue-dot {
     animation: cue-travel 2.6s var(--ease-signal) infinite;
+  }
+}
+
+/* ---------------------------------------------------------------------------
+   THE MATERIAL LAYER
+
+   Tape, polaroids, hand-cut labels, marker strokes and folder tabs: the
+   physical vocabulary the references are built from. All of it is CSS and
+   inline SVG masks - no bitmap textures, no image assets, nothing that has to
+   be downloaded before a decoration can draw.
+
+   Every piece degrades through the token contract rather than through a
+   conditional. Rotation reads --t-tilt, which is 0deg outside sketchbook, so
+   the same taped polaroid hangs straight in the editorial direction. Tape
+   paints in --t-tape, which is transparent there, so it simply is not seen.
+   One markup tree, three materials.
+--------------------------------------------------------------------------- */
+@layer components {
+  /* Each instance sets --tilt itself. Alternating the sign along a row is what
+     stops a wall of photographs looking like a grid that slipped. */
+  .tilt {
+    transform: rotate(calc(var(--t-tilt) * var(--tilt, 1)));
+    transition: transform var(--t-dur) var(--t-ease);
+  }
+
+  .tilt:hover,
+  .tilt:focus-within {
+    transform: rotate(0deg) translateY(-2px);
+  }
+
+  /* -------------------------------------------------------------------------
+     Tape. A translucent strip laid across a corner.
+
+     The clip-path is what sells it: real tape is torn, not cut, so both ends
+     are slightly ragged and the whole strip is a hair off square.
+  ------------------------------------------------------------------------- */
+  .tape {
+    position: absolute;
+    z-index: 2;
+    width: var(--tape-w, 5.5rem);
+    height: var(--tape-h, 1.55rem);
+    background-color: var(--t-tape);
+    border-inline: 1px solid var(--t-tape-edge);
+    clip-path: polygon(0 12%, 8% 0, 94% 6%, 100% 88%, 92% 100%, 5% 94%);
+    pointer-events: none;
+    transform: rotate(calc(var(--tape-rot, -4deg)));
+  }
+
+  /* -------------------------------------------------------------------------
+     Polaroid. A white border with the deep chin a real print has, and the
+     caption written on the chin rather than underneath the whole thing.
+  ------------------------------------------------------------------------- */
+  .polaroid {
+    position: relative;
+    display: inline-block;
+    padding: 0.7rem 0.7rem 0;
+    background-color: var(--color-panel);
+    border: var(--t-sheet-edge) solid var(--color-line);
+    box-shadow: var(--t-shadow);
+  }
+
+  .polaroid img {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  .polaroid figcaption {
+    font-family: var(--font-hand);
+    font-size: 0.8125rem;
+    line-height: 1.2;
+    color: var(--color-ink-faint);
+    padding-block: 0.6rem 0.75rem;
+    text-align: center;
+  }
+
+  /* -------------------------------------------------------------------------
+     Hand-cut label. The reference's skill chips read as torn ticket stubs, so
+     no two edges are parallel and none of the corners are square.
+  ------------------------------------------------------------------------- */
+  .chip-cut {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.4rem 0.75rem;
+    font-family: var(--font-sans);
+    font-size: 0.8125rem;
+    font-weight: 600;
+    line-height: 1.2;
+    clip-path: polygon(0 8%, 1.5% 0, 98.5% 4%, 100% 92%, 98% 100%, 1% 96%);
+  }
+
+  /* -------------------------------------------------------------------------
+     Marker stroke. A mask rather than a coloured SVG, so the stroke inherits
+     whichever accent the caller sets instead of baking a hex into a data URI.
+  ------------------------------------------------------------------------- */
+  .marker {
+    position: relative;
+    display: inline;
+  }
+
+  .marker::after {
+    content: '';
+    position: absolute;
+    inset-inline: -0.15em;
+    bottom: -0.12em;
+    height: 0.36em;
+    background-color: var(--marker, var(--color-a1));
+    -webkit-mask-image: var(--marker-stroke);
+    mask-image: var(--marker-stroke);
+    -webkit-mask-size: 100% 100%;
+    mask-size: 100% 100%;
+    -webkit-mask-repeat: no-repeat;
+    mask-repeat: no-repeat;
+    z-index: -1;
+  }
+
+  /* -------------------------------------------------------------------------
+     Boxed label. The reference writes short labels inside a hairline rule -
+     "what's up", "CONTACT" - so they read as something rubber-stamped onto the
+     page rather than as a heading.
+  ------------------------------------------------------------------------- */
+  .boxed {
+    display: inline-block;
+    padding: 0.35rem 0.85rem;
+    border: 1px solid var(--color-ink);
+    background-color: var(--color-panel);
+    box-shadow: var(--t-shadow);
+  }
+
+  /* -------------------------------------------------------------------------
+     Folder tab. The project panels in the reference are filed behind angled
+     tabs, cut on the leading edge only, the way a physical file divider is.
+  ------------------------------------------------------------------------- */
+  .tab-cut {
+    clip-path: polygon(0 0, calc(100% - 1.15rem) 0, 100% 100%, 0 100%);
+    padding-inline: 1rem 2rem;
+  }
+}
+
+@layer utilities {
+  :root {
+    /* Shared by every .marker. Defined once as a variable so the stroke is
+       downloaded, parsed and cached a single time rather than re-declared in
+       each rule that wants one. */
+    --marker-stroke: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 200 16' preserveAspectRatio='none'%3E%3Cpath d='M3 11 C 34 4, 68 13, 99 8 S 166 4, 197 10 L 197 15 C 166 9, 132 16, 99 13 S 34 9, 3 15 Z' fill='%23000'/%3E%3C/svg%3E");
+  }
+
+  /* Reduced motion keeps the paper vocabulary but stops it moving: a tilt that
+     springs straight on hover is motion, and the decoration reads fine without
+     it. */
+  @media (prefers-reduced-motion: reduce) {
+    .tilt:hover,
+    .tilt:focus-within {
+      transform: rotate(calc(var(--t-tilt) * var(--tilt, 1)));
+    }
   }
 }
