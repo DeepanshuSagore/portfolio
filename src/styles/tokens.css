@@ -76,6 +76,7 @@
   --t-display-tracking: -0.03em;
   --t-display-leading: 0.9;
   --t-display-case: none;
+  --t-display-scale: 1;
 
   --t-radius: 3px;
   --t-radius-lg: 6px;
@@ -108,7 +109,9 @@
 
   --t-ink: #0a0a0a;
   --t-ink-2: #46443f;
-  --t-ink-3: #7d7a73;
+  /* Measured 4.28:1 at #7d7a73 - the warm greys that clear AA on the paper
+     canvas fall under it on pure white. */
+  --t-ink-3: #737066;
 
   --t-line: rgba(10, 10, 10, 0.14);
   --t-line-strong: rgba(10, 10, 10, 0.5);
@@ -137,6 +140,7 @@
   --t-display-tracking: -0.02em;
   --t-display-leading: 0.95;
   --t-display-case: none;
+  --t-display-scale: 1;
 
   --t-radius: 0px;
   --t-radius-lg: 0px;
@@ -195,6 +199,9 @@
   --t-display-tracking: -0.02em;
   --t-display-leading: 0.85;
   --t-display-case: uppercase;
+  /* Uppercase at wdth 125 sets far wider than the same string in the other two
+     directions - at parity it overran the measure and lost its last letter. */
+  --t-display-scale: 0.76;
 
   --t-radius: 0px;
   --t-radius-lg: 0px;
@@ -227,9 +234,13 @@
   --color-panel-ink: var(--t-panel-ink);
   --color-panel-ink-text: var(--t-panel-ink-text);
 
+  /* `ink-soft` / `ink-faint` rather than ink-2 / ink-3: the legacy bridge below
+     still owns the numbered ink-N scale as SURFACES, and a duplicate key in
+     this block does not warn - the later declaration just silently wins. That
+     collision shipped white type on a bone canvas. */
   --color-ink: var(--t-ink);
-  --color-ink-2: var(--t-ink-2);
-  --color-ink-3: var(--t-ink-3);
+  --color-ink-soft: var(--t-ink-2);
+  --color-ink-faint: var(--t-ink-3);
 
   --color-line: var(--t-line);
   --color-line-strong: var(--t-line-strong);
@@ -340,7 +351,7 @@
   body {
     margin: 0;
     background-color: var(--color-canvas);
-    color: var(--color-ink-2);
+    color: var(--color-ink-soft);
     font-family: var(--font-sans);
     font-size: 1rem;
     line-height: 1.6;
@@ -410,7 +421,7 @@
      themes from being one layout in three palettes. */
   .type-display-xl {
     font-family: var(--font-display);
-    font-size: clamp(3.5rem, 11vw, 9rem);
+    font-size: calc(clamp(3.5rem, 11vw, 9rem) * var(--t-display-scale));
     font-weight: var(--t-display-wght);
     font-variation-settings: 'opsz' 96, 'wdth' var(--t-display-wdth);
     line-height: var(--t-display-leading);
@@ -421,7 +432,7 @@
 
   .type-display-l {
     font-family: var(--font-display);
-    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    font-size: calc(clamp(2.5rem, 6vw, 4.5rem) * var(--t-display-scale));
     font-weight: var(--t-display-wght);
     font-variation-settings: 'opsz' 48, 'wdth' var(--t-display-wdth);
     line-height: calc(var(--t-display-leading) + 0.06);
@@ -431,7 +442,7 @@
 
   .type-display-m {
     font-family: var(--font-display);
-    font-size: clamp(1.75rem, 3.4vw, 2.75rem);
+    font-size: calc(clamp(1.75rem, 3.4vw, 2.75rem) * var(--t-display-scale));
     font-weight: var(--t-display-wght);
     font-variation-settings: 'opsz' 32, 'wdth' var(--t-display-wdth);
     line-height: calc(var(--t-display-leading) + 0.14);
@@ -478,7 +489,7 @@
     line-height: 1.3;
     letter-spacing: 0.18em;
     text-transform: uppercase;
-    color: var(--color-ink-3);
+    color: var(--color-ink-faint);
   }
 
   .type-hand {

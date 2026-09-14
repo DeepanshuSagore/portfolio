@@ -29,7 +29,7 @@ export function ThemeSwitcher() {
             className={`type-mono-s flex items-center gap-1.5 px-2 py-1.5 uppercase transition-colors duration-[var(--dur-micro)] ease-[var(--ease-signal)] sm:px-2.5 ${
               current
                 ? 'bg-panel-ink text-panel-ink-text'
-                : 'bg-canvas text-ink-3 hover:text-ink'
+                : 'bg-canvas text-ink-faint hover:text-ink'
             }`}
           >
             {/* The swatch names the direction; the fill behind it reports the
