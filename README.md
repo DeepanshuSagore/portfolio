@@ -11,7 +11,7 @@ Personal site for a GenAI and full-stack engineer. Prerendered React, motion by 
 | Styling | Tailwind CSS v4, tokens declared in `src/styles/tokens.css` |
 | Motion | anime.js 4.5 — lazily imported, never on the critical path |
 | Icons | lucide-react |
-| Type | Archivo, Shantell Sans, Instrument Serif (all self-subset), Geist + Geist Mono |
+| Type | Pixelify Sans, Archivo, Shantell Sans (all self-subset), Geist + Geist Mono |
 
 ## Commands
 
@@ -45,21 +45,30 @@ src/
   Showcase.tsx       primitive + state harness, at /?showcase
   data/content.ts    every fact on the site, in one file
   lib/motion.ts      anime.js wrapper: lazy engine, scoped cleanup, reduced motion
-  lib/theme.ts       the three-direction store, read off the document attribute
-  components/        Button, Tag, RegisterRow, SectionHeader, ThemeSwitcher
+  components/        Button, Material, RegisterRow, SectionHeader, GithubPanel
   sections/          Nav, Hero, Work, Stack, Experience, About, Contact
   styles/tokens.css  the token contract, as CSS + Tailwind @theme
 public/shots/        captured screenshots of the live deployments
 ```
 
-### Three visual directions
+### One direction, and where the other two went
 
-The site ships one application and three art directions — **Sketchbook**, **Editorial** and **Brutalist** — switchable from the nav and persisted in `localStorage`. They are not one design recoloured: colour, measure, display weight, width, tracking, leading, case, border width, shadow, radius and motion timing are all per-direction.
+The site ships a single visual direction — **Sketchbook**: warm paper on a grey desk, ruled like a
+notebook, with tape, polaroid prints, hand-cut labels, marker handwriting and a bitmap display face.
 
-Two things make it work:
+It was built as one application with three switchable directions (Sketchbook, Editorial, Brutalist)
+and cut to one, because maintaining two that would never ship is cost without return. The other two
+were finished, measured and working when that call was made, so they are archived with their raw
+token blocks and screenshots in [`../designs`](../designs) rather than only living in git history.
 
-- **`tokens.css` holds no literal values.** Every Tailwind entry forwards to a `--t-*` variable, and each direction declares that set. The contract is declared on `html`, not `body`, and that is load-bearing: a custom property whose value is `var(--x)` resolves against the element it is *declared* on, and `@theme` emits into `:root`. Move the attribute down one element and every token resolves to nothing.
-- **An inline script in `index.html` sets the attribute before first paint**, so a stored choice is never flashed over by the default. It is parser-blocking on purpose. Because the attribute is already correct when React boots, `lib/theme.ts` reads the DOM rather than re-deriving from storage, and its `useSyncExternalStore` server snapshot keeps hydration exact instead of suppressing a mismatch.
+**The indirection survives the cut.** `tokens.css` still holds no literal values: every Tailwind
+entry forwards to a `--t-*` variable. With one direction that buys nothing today, and it is kept
+anyway for the reason it was built — a component can never name a colour, so restoring a second
+direction is a new block in one file and nothing else.
+
+The contract is declared on `:root`, which is `html`, and that is load-bearing: a custom property
+whose value is `var(--x)` resolves against the element it is *declared* on, and `@theme` emits into
+`:root`. The two have to meet on the same element or every token resolves to nothing.
 
 ### Project imagery
 

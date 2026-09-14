@@ -45,26 +45,23 @@
 }
 
 /* ---------------------------------------------------------------------------
-   THE THEME CONTRACT
+   THE TOKEN CONTRACT
 
-   Three art directions share one set of variable names. Everything downstream
-   - the Tailwind theme, the component layer, the sections - reads these and
-   only these, so adding a fourth direction is a new block here and nothing
-   else.
+   One direction now - sketchbook. It was built as one of three switchable art
+   directions and cut to this; the other two are archived, with their token
+   blocks, in ../../designs.
 
-   These are declared on `html`, which is also `:root`. That is load-bearing
-   rather than incidental: a custom property whose value is `var(--x)` resolves
-   `--x` against the element the property is DECLARED on, not the element it is
-   used on. Since `@theme` emits into `:root` and `[data-theme]` also matches
-   `html`, the two meet on the same element and substitution works. Move the
-   attribute to `<body>` and every token below silently resolves to nothing.
+   The indirection stays even with one direction left, because it is what keeps
+   components from naming a colour: everything downstream reads these and only
+   these. Restoring a second direction is a new block here and nothing else.
 
-   `:root` carries the sketchbook values so a document with no attribute at all
-   still renders. The other two match on equal specificity and win on order.
+   Declared on `:root`, which is `html`. A custom property whose value is
+   `var(--x)` resolves against the element it is DECLARED on, not the element
+   it is used on, and `@theme` emits into `:root` - so the two have to meet on
+   the same element or every token silently resolves to nothing.
 --------------------------------------------------------------------------- */
 
-:root,
-[data-theme='sketchbook'] {
+:root {
   --t-backdrop: #86847e;
   --t-backdrop-grid: rgba(0, 0, 0, 0.08);
   --t-canvas: #fbfaf6;
@@ -142,142 +139,7 @@
   --t-dur-slow: 620ms;
 }
 
-[data-theme='editorial'] {
-  --t-backdrop: #ffffff;
-  --t-backdrop-grid: transparent;
-  --t-canvas: #ffffff;
-  --t-canvas-2: #f4f2ed;
-  --t-panel: #ffffff;
-  --t-panel-ink: #0a0a0a;
-  --t-panel-ink-text: #ffffff;
 
-  --t-ink: #0a0a0a;
-  --t-ink-2: #46443f;
-  /* Measured 4.28:1 at #7d7a73 - the warm greys that clear AA on the paper
-     canvas fall under it on pure white. */
-  --t-ink-3: #737066;
-
-  --t-line: rgba(10, 10, 10, 0.14);
-  --t-line-strong: rgba(10, 10, 10, 0.5);
-  --t-hair: transparent;
-
-  /* Restraint is the art direction: the chip colours collapse into a warm
-     stone scale and a single editorial red does all the signalling. */
-  --t-a1: #ece8df;
-  --t-a1-ink: #0a0a0a;
-  --t-a2: #0a0a0a;
-  --t-a2-ink: #ffffff;
-  --t-a3: #e4dfd4;
-  --t-a3-ink: #0a0a0a;
-  --t-a4: #dcd7ca;
-  --t-a4-ink: #0a0a0a;
-  --t-a5: #b4241c;
-  --t-a5-ink: #ffffff;
-
-  --t-tape: transparent;
-  --t-tape-edge: transparent;
-
-  --t-font-display: 'Instrument Display', ui-serif, Georgia, serif;
-  --t-font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
-  /* Editorial has no handwriting. The hand token resolves to the body face so
-     any annotation that survives the switch simply reads as small print. */
-  --t-font-hand: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
-  --t-font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
-  --t-font-name: 'Instrument Display', ui-serif, Georgia, serif;
-
-  --t-display-wght: 400;
-  --t-display-wdth: 100;
-  --t-display-tracking: -0.02em;
-  --t-display-leading: 0.95;
-  --t-display-case: none;
-  --t-display-scale: 1;
-
-  --t-radius: 0px;
-  --t-radius-lg: 0px;
-  --t-border: 1px;
-  --t-shadow: none;
-  --t-shadow-lift: none;
-
-  --t-measure: 1280px;
-  --t-rhythm: 1.25;
-  --t-frame: 0px;
-  --t-sheet-edge: 0px;
-  --t-rule-gap: 32px;
-  --t-tilt: 0deg;
-  --t-grain: 0;
-
-  --t-ease: cubic-bezier(0.22, 1, 0.36, 1);
-  --t-dur: 320ms;
-  --t-dur-fast: 180ms;
-  --t-dur-slow: 760ms;
-}
-
-[data-theme='brutalist'] {
-  --t-backdrop: #0e0e0e;
-  --t-backdrop-grid: transparent;
-  --t-canvas: #f0eee4;
-  --t-canvas-2: #ffffff;
-  --t-panel: #ffffff;
-  --t-panel-ink: #000000;
-  --t-panel-ink-text: #ffffff;
-
-  --t-ink: #000000;
-  --t-ink-2: #1f1f1f;
-  --t-ink-3: #4a4a4a;
-
-  /* Borders are opaque and structural here, not hairlines. */
-  --t-line: #000000;
-  --t-line-strong: #000000;
-  --t-hair: transparent;
-
-  --t-a1: #ffe600;
-  --t-a1-ink: #000000;
-  --t-a2: #0033ff;
-  --t-a2-ink: #ffffff;
-  --t-a3: #ff4fd8;
-  --t-a3-ink: #000000;
-  --t-a4: #00e07a;
-  --t-a4-ink: #000000;
-  --t-a5: #ff3b00;
-  --t-a5-ink: #000000;
-
-  --t-tape: transparent;
-  --t-tape-edge: transparent;
-
-  --t-font-display: 'Archivo Display', ui-sans-serif, system-ui, sans-serif;
-  --t-font-sans: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
-  --t-font-hand: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
-  --t-font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
-  --t-font-name: 'Archivo Display', ui-sans-serif, system-ui, sans-serif;
-
-  --t-display-wght: 900;
-  --t-display-wdth: 125;
-  --t-display-tracking: -0.02em;
-  --t-display-leading: 0.85;
-  --t-display-case: uppercase;
-  /* Uppercase at wdth 125 sets far wider than the same string in the other two
-     directions - at parity it overran the measure and lost its last letter. */
-  --t-display-scale: 0.76;
-
-  --t-radius: 0px;
-  --t-radius-lg: 0px;
-  --t-border: 2px;
-  --t-shadow: 6px 6px 0 var(--t-ink);
-  --t-shadow-lift: 10px 10px 0 var(--t-ink);
-
-  --t-measure: 1360px;
-  --t-rhythm: 0.9;
-  --t-frame: 0px;
-  --t-sheet-edge: 0px;
-  --t-rule-gap: 32px;
-  --t-tilt: 0deg;
-  --t-grain: 0;
-
-  --t-ease: cubic-bezier(0.2, 0, 0, 1);
-  --t-dur: 120ms;
-  --t-dur-fast: 70ms;
-  --t-dur-slow: 300ms;
-}
 
 /* ---------------------------------------------------------------------------
    Tailwind theme. Nothing here holds a literal value any more - every entry
@@ -347,13 +209,6 @@
   --color-signal-edge: color-mix(in oklab, var(--t-a5) 40%, transparent);
   --color-live-edge: color-mix(in oklab, var(--t-a4) 34%, transparent);
   --color-ink-glass: color-mix(in oklab, var(--t-canvas) 88%, transparent);
-
-  /* The only colours in the system that are NOT themed. Each one identifies a
-     direction from inside every other direction, so the switcher can show all
-     three at once - which means they cannot come from the active palette. */
-  --color-swatch-sketchbook: #ffcb1f;
-  --color-swatch-editorial: #b4241c;
-  --color-swatch-brutalist: #0033ff;
 
   --font-display: var(--t-font-display);
   --font-sans: var(--t-font-sans);

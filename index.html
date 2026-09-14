@@ -1,36 +1,9 @@
 <!doctype html>
-<html lang="en" data-theme="sketchbook">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta name="theme-color" content="#fbfaf6" />
-
-    <script>
-      /* Parser-blocking on purpose, and placed above the stylesheet: the whole
-         job is to put the stored direction on <html> before the first paint,
-         so a returning visitor never sees the default flash underneath their
-         choice. The key and the three names are duplicated from lib/theme.ts
-         because this has to run before any module graph exists. */
-      (function () {
-        try {
-          var stored = localStorage.getItem('ds-theme');
-          if (stored === 'sketchbook' || stored === 'editorial' || stored === 'brutalist') {
-            document.documentElement.dataset.theme = stored;
-            var meta = document.querySelector('meta[name="theme-color"]');
-            if (meta) {
-              meta.setAttribute(
-                'content',
-                stored === 'editorial' ? '#ffffff' : stored === 'brutalist' ? '#f2f0e9' : '#fbfaf6',
-              );
-            }
-          }
-        } catch (err) {
-          /* Storage blocked - private mode, or cookies off. The default
-             already sitting on <html> is the correct fallback, so there is
-             nothing to recover from here. */
-        }
-      })();
-    </script>
 
     <title>Deepanshu Sagore | AI Engineer, GenAI and Retrieval</title>
     <meta

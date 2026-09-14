@@ -3,7 +3,6 @@ import { Button, ButtonLink } from './components/Button';
 import { Annotation, Boxed, CutLabel, Marker, Polaroid } from './components/Material';
 import { EmptyRow, RegisterRow, StaticRow } from './components/RegisterRow';
 import { SectionHeader } from './components/SectionHeader';
-import { ThemeSwitcher } from './components/ThemeSwitcher';
 import { Tag } from './components/Tag';
 
 function Bay({ label, children }: { label: string; children: React.ReactNode }) {
@@ -19,12 +18,6 @@ export function Showcase() {
   return (
     <div className="grain sheet py-20">
       <div className="shell">
-        {/* The harness is where breakpoint and state review happens, so it
-            carries its own switcher: every primitive has to be checked in all
-            three directions, not only the one that happens to be stored. */}
-        <div className="mb-10 flex justify-end">
-          <ThemeSwitcher />
-        </div>
 
         <SectionHeader
           chapter="00"

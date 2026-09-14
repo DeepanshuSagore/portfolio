@@ -4,7 +4,6 @@ import { ButtonLink } from '../components/Button';
 import { Annotation, HandCurve, Polaroid, vars } from '../components/Material';
 import { profile } from '../data/content';
 import { useReveal } from '../lib/motion';
-import { THEME_META, useTheme } from '../lib/theme';
 
 const channels = [
   { label: 'Email', value: profile.email, href: `mailto:${profile.email}`, Icon: Mail },
@@ -174,8 +173,6 @@ export function Contact() {
 }
 
 export function Footer() {
-  const theme = useTheme();
-
   return (
     <footer className="shell">
       <div className="flex flex-wrap items-center justify-between gap-x-8 gap-y-3 border-t border-line py-10">
@@ -183,7 +180,7 @@ export function Footer() {
           {profile.name} · {profile.location}
         </p>
         <p className="type-mono-s text-ink-faint">
-          Set in {THEME_META[theme].setIn} · React, Tailwind, anime.js
+          Set in Pixelify Sans, Archivo, Shantell Sans and Geist · React, Tailwind, anime.js
         </p>
       </div>
     </footer>

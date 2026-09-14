@@ -1,6 +1,5 @@
 import { Briefcase, Github, Layers, LayoutGrid, Linkedin, Mail, User } from 'lucide-react';
 import { useEffect, useMemo, useRef, useState, type ComponentType } from 'react';
-import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import { navLinks, profile } from '../data/content';
 import { useActiveSection, useScrollProgress } from '../lib/motion';
 
@@ -148,8 +147,6 @@ export function Nav() {
               </li>
             ))}
           </ul>
-
-          <ThemeSwitcher />
 
           <a
             href="#contact"
