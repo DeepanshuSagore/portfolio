@@ -1,4 +1,5 @@
 import { useEffect, useMemo, useState } from 'react';
+import { ThemeSwitcher } from '../components/ThemeSwitcher';
 import { navLinks, profile } from '../data/content';
 import { useActiveSection, useScrollProgress } from '../lib/motion';
 
@@ -78,13 +79,17 @@ export function Nav() {
           })}
         </ul>
 
-        <a
-          href={profile.resume}
-          download
-          className="type-mono-s hidden shrink-0 border border-rule px-4 py-2 uppercase text-text-2 transition-colors duration-[var(--dur-micro)] ease-[var(--ease-signal)] hover:border-signal-2 hover:text-text-1 sm:block"
-        >
-          Résumé
-        </a>
+        <div className="flex shrink-0 items-center gap-3">
+          <ThemeSwitcher />
+
+          <a
+            href={profile.resume}
+            download
+            className="type-mono-s hidden shrink-0 border border-rule px-4 py-2 uppercase text-text-2 transition-colors duration-[var(--dur-micro)] ease-[var(--ease-signal)] hover:border-signal-2 hover:text-text-1 md:block"
+          >
+            Résumé
+          </a>
+        </div>
       </nav>
 
       <span

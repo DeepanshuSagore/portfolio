@@ -279,6 +279,13 @@
   --color-live-edge: color-mix(in oklab, var(--t-a4) 34%, transparent);
   --color-ink-glass: color-mix(in oklab, var(--t-canvas) 88%, transparent);
 
+  /* The only colours in the system that are NOT themed. Each one identifies a
+     direction from inside every other direction, so the switcher can show all
+     three at once - which means they cannot come from the active palette. */
+  --color-swatch-sketchbook: #ffcb1f;
+  --color-swatch-editorial: #b4241c;
+  --color-swatch-brutalist: #0033ff;
+
   --font-display: var(--t-font-display);
   --font-sans: var(--t-font-sans);
   --font-hand: var(--t-font-hand);
