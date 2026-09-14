@@ -36,7 +36,12 @@ export function ThemeSwitcher() {
                 selection. Two independent channels, so the control still reads
                 correctly with colour discarded entirely. */}
             <span aria-hidden="true" className={`block size-2 ${SWATCH[theme]}`} />
-            <span className="sr-only sm:not-sr-only">{THEME_META[theme].label}</span>
+            {/* Below xl the three full labels cost ~290px of bar and push the
+                contact button off the end, so only the live one keeps its
+                label. The others stay named for assistive tech and on hover. */}
+            <span className={current ? '' : 'sr-only 2xl:not-sr-only'}>
+              {THEME_META[theme].label}
+            </span>
           </button>
         );
       })}
