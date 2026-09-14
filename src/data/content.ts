@@ -277,32 +277,37 @@ export const experience: readonly Experience[] = [
   },
 ] as const;
 
-/* Order mirrors profile.role: build track first, analyst track second. */
+/**
+ * The résumé's own six groups, in its order. `accent` indexes the theme's five
+ * accent tokens and belongs to the data, not the component, so a category
+ * keeps one colour across all three directions.
+ *
+ * Additions beyond the résumé are limited to technologies a shipped project
+ * below already evidences: Node and Express appear in project tags.
+ */
 export const stack = [
   {
-    label: 'Building',
-    items: ['React.js', 'Next.js', 'Node.js', 'Express.js', 'TypeScript', 'Tailwind CSS', 'Git'],
+    label: 'AI',
+    accent: 1,
+    items: ['LangChain', 'LangGraph', 'RAG', 'Embeddings', 'LLM evaluation', 'Hugging Face'],
   },
-  { label: 'GenAI', items: ['LangChain', 'LangGraph', 'Prompt design', 'LLM evaluation', 'RAG'] },
-  { label: 'Data', items: ['MongoDB', 'PostgreSQL', 'MySQL', 'Supabase', 'ChromaDB'] },
+  { label: 'Languages', accent: 2, items: ['Python', 'TypeScript', 'JavaScript', 'C++'] },
   {
-    label: 'Analytics',
-    items: ['SQL', 'Advanced Excel', 'Google Sheets', 'Pivots & lookups', 'Dashboards', 'Python', 'Tableau'],
-  },
-  {
-    label: 'Operations',
-    items: [
-      'Process improvement',
-      'Quality rubrics',
-      'Reviewer calibration',
-      'Category improvement',
-      'Stakeholder management',
-    ],
+    label: 'Frameworks',
+    accent: 4,
+    items: ['FastAPI', 'Next.js', 'React.js', 'PyTorch', 'Sentence-Transformers', 'Node.js', 'Express.js'],
   },
   {
-    label: 'Business',
-    items: ['Demand generation', 'Market research', 'Content & copy', 'Community'],
+    label: 'Libraries',
+    accent: 3,
+    items: ['NumPy', 'Pandas', 'Scikit-learn', 'Transformers', 'Matplotlib'],
   },
+  {
+    label: 'Databases',
+    accent: 5,
+    items: ['PostgreSQL', 'ChromaDB', 'MongoDB', 'MySQL', 'Supabase'],
+  },
+  { label: 'Tools', accent: 2, items: ['Git', 'GitHub', 'Docker', 'VS Code', 'OpenCode'] },
 ] as const;
 
 export const education = [
@@ -338,14 +343,14 @@ export const interests = [
 /**
  * Counters in the About section.
  *
- * Nothing here is typed by hand any more. Two of the four are read straight
- * off the generated GitHub artefact and the third is the length of the list
- * above, so a stat cannot drift away from the thing it counts - which is
- * exactly how the old "10 shipped projects" survived past the point where
- * there were fifteen.
+ * Every one of the four is now computed - two off the generated GitHub
+ * artefact, two off the lists above - so a stat cannot drift away from the
+ * thing it counts. That is exactly how the old "10 shipped projects" survived
+ * past the point where there were fifteen, and how a hand-typed "2 years of
+ * work experience" outlived the dates that would have made it 21 months.
  */
 export const stats = [
-  { value: 2, suffix: '', label: 'Years of work experience' },
+  { value: experience.length, suffix: '', label: 'Roles' },
   { value: projects.length, suffix: '', label: 'Projects on this page' },
   { value: github.deployed, suffix: '', label: 'Live deployments' },
   { value: github.publicRepos, suffix: '', label: 'Public repositories' },
