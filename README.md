@@ -11,7 +11,7 @@ Personal site for a GenAI and full-stack engineer. Prerendered React, motion by 
 | Styling | Tailwind CSS v4, tokens declared in `src/styles/tokens.css` |
 | Motion | anime.js 4.5 — lazily imported, never on the critical path |
 | Icons | lucide-react |
-| Type | Bricolage Grotesque (display, self-subset), Geist + Geist Mono |
+| Type | Archivo, Shantell Sans, Instrument Serif (all self-subset), Geist + Geist Mono |
 
 ## Commands
 

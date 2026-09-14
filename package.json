@@ -10,7 +10,7 @@
     "typecheck": "tsc -b --noEmit",
     "data:github": "node scripts/github.mjs",
     "data:shots": "node scripts/shots.mjs",
-    "fonts:build": "uvx --from 'fonttools[woff]' fonttools varLib.instancer node_modules/@fontsource-variable/bricolage-grotesque/files/bricolage-grotesque-latin-standard-normal.woff2 wdth=100 -o /tmp/bricolage-pinned.ttf && uvx --from 'fonttools[woff]' pyftsubset /tmp/bricolage-pinned.ttf --unicodes='U+0020-007E,U+00A0,U+00C0-00FF,U+2013-2014,U+2018-2019,U+201C-201D,U+2026' --layout-features='kern,liga,calt' --flavor=woff2 --output-file=src/assets/fonts/bricolage-display.woff2",
+    "fonts:build": "node scripts/fonts.mjs",
     "doctor": "npx react-doctor@latest"
   },
   "dependencies": {
@@ -21,9 +21,11 @@
     "react-dom": "^19.0.0"
   },
   "devDependencies": {
-    "@fontsource-variable/bricolage-grotesque": "^5.3.0",
+    "@fontsource-variable/archivo": "^5.3.0",
     "@fontsource-variable/geist": "^5.3.0",
     "@fontsource-variable/geist-mono": "^5.3.0",
+    "@fontsource-variable/shantell-sans": "^5.3.0",
+    "@fontsource/instrument-serif": "^5.3.0",
     "@tailwindcss/vite": "^4.0.0",
     "@types/node": "^26.2.0",
     "@types/react": "^19.0.0",

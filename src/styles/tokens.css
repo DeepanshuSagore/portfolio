@@ -3,15 +3,37 @@
 @import '@fontsource-variable/geist-mono/wght.css';
 @import 'tailwindcss';
 
-/* Built by `npm run fonts:build` - keeps the opsz axis at 56KB, not 131KB.
-   Fontsource's bricolage `index.css` ships wght only, which would make every
-   `font-variation-settings: 'opsz'` below a silent no-op. */
+/* All three built by `npm run fonts:build`. Declared here rather than imported
+   from Fontsource because the subset artefacts are what ship.
+
+   Nothing lazy-loads these by hand and nothing needs to: a browser fetches a
+   font file only when an element actually renders a glyph in it, so a visitor
+   in one direction never downloads the display face belonging to another. */
 @font-face {
-  font-family: 'Bricolage Display';
+  font-family: 'Archivo Display';
   font-style: normal;
-  font-weight: 200 800;
+  font-weight: 100 900;
+  /* Must cover every wdth any direction asks for, or the axis is clamped and
+     `font-variation-settings: 'wdth'` silently does nothing. */
+  font-stretch: 62% 125%;
   font-display: swap;
-  src: url('../assets/fonts/bricolage-display.woff2') format('woff2-variations');
+  src: url('../assets/fonts/archivo-display.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Shantell Hand';
+  font-style: normal;
+  font-weight: 300 800;
+  font-display: swap;
+  src: url('../assets/fonts/shantell-hand.woff2') format('woff2-variations');
+}
+
+@font-face {
+  font-family: 'Instrument Display';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('../assets/fonts/instrument-display.woff2') format('woff2');
 }
 
 /* ---------------------------------------------------------------------------
@@ -66,15 +88,17 @@
   --t-a5: #c93b1a;
   --t-a5-ink: #fbfaf6;
 
-  --t-font-display: 'Bricolage Display', ui-sans-serif, system-ui, sans-serif;
+  --t-font-display: 'Archivo Display', ui-sans-serif, system-ui, sans-serif;
   --t-font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
-  --t-font-hand: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  --t-font-hand: 'Shantell Hand', 'Bradley Hand', cursive;
   --t-font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 
   --t-display-wght: 800;
-  --t-display-wdth: 100;
+  /* Condensed. The references set their headings narrow and very heavy, which
+     is what lets a two-word title fill a column without shouting. */
+  --t-display-wdth: 84;
   --t-display-tracking: -0.03em;
-  --t-display-leading: 0.9;
+  --t-display-leading: 0.88;
   --t-display-case: none;
   --t-display-scale: 1;
 
@@ -130,8 +154,10 @@
   --t-a5: #b4241c;
   --t-a5-ink: #ffffff;
 
-  --t-font-display: 'Bricolage Display', ui-serif, Georgia, serif;
+  --t-font-display: 'Instrument Display', ui-serif, Georgia, serif;
   --t-font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
+  /* Editorial has no handwriting. The hand token resolves to the body face so
+     any annotation that survives the switch simply reads as small print. */
   --t-font-hand: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --t-font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 
@@ -189,12 +215,12 @@
   --t-a5: #ff3b00;
   --t-a5-ink: #000000;
 
-  --t-font-display: 'Bricolage Display', ui-sans-serif, system-ui, sans-serif;
+  --t-font-display: 'Archivo Display', ui-sans-serif, system-ui, sans-serif;
   --t-font-sans: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
   --t-font-hand: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
   --t-font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 
-  --t-display-wght: 800;
+  --t-display-wght: 900;
   --t-display-wdth: 125;
   --t-display-tracking: -0.02em;
   --t-display-leading: 0.85;

@@ -25,21 +25,27 @@ export const DEFAULT_THEME: Theme = 'sketchbook';
 /** Must stay in sync with the inline bootstrap script in index.html. */
 export const THEME_STORAGE_KEY = 'ds-theme';
 
-export const THEME_META: Record<Theme, { label: string; note: string; themeColor: string }> = {
+export const THEME_META: Record<
+  Theme,
+  { label: string; note: string; themeColor: string; setIn: string }
+> = {
   sketchbook: {
     label: 'Sketchbook',
     note: 'Paper, tape and marker',
     themeColor: '#fbfaf6',
+    setIn: 'Archivo, Shantell Sans and Geist',
   },
   editorial: {
     label: 'Editorial',
     note: 'Swiss grid, type first',
     themeColor: '#ffffff',
+    setIn: 'Instrument Serif and Geist',
   },
   brutalist: {
     label: 'Brutalist',
     note: 'Hard edges, hard shadows',
     themeColor: '#f2f0e9',
+    setIn: 'Archivo and Geist Mono',
   },
 };
 

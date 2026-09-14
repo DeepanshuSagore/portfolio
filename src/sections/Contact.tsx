@@ -4,6 +4,7 @@ import { ButtonLink } from '../components/Button';
 import { RegisterRow } from '../components/RegisterRow';
 import { profile } from '../data/content';
 import { useReveal } from '../lib/motion';
+import { THEME_META, useTheme } from '../lib/theme';
 
 const channels = [
   { label: 'Email', value: profile.email, href: `mailto:${profile.email}`, Icon: Mail },
@@ -123,6 +124,8 @@ export function Contact() {
 }
 
 export function Footer() {
+  const theme = useTheme();
+
   return (
     <footer className="shell">
       {/* The rule belongs to the content column, not to the shell's padding
@@ -133,7 +136,7 @@ export function Footer() {
           {profile.name} · {profile.location}
         </p>
         <p className="type-mono-s text-text-3">
-          Set in Bricolage Grotesque and Geist · React, Tailwind, anime.js
+          Set in {THEME_META[theme].setIn} · React, Tailwind, anime.js
         </p>
       </div>
     </footer>
