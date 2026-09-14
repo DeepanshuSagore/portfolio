@@ -71,8 +71,10 @@
 
   --t-line: rgba(22, 19, 15, 0.18);
   --t-line-strong: rgba(22, 19, 15, 0.48);
-  /* The notebook rule. Faint blue, the way ruled paper actually prints. */
-  --t-hair: rgba(40, 74, 128, 0.11);
+  /* The notebook rule. Faint blue, the way ruled paper actually prints, and
+     kept under the threshold where it starts cutting through body copy - the
+     brief asks for paper that supports reading, not a lined background. */
+  --t-hair: rgba(40, 74, 128, 0.065);
 
   /* Each accent carries its own ink because the pairing is a contrast
      decision, not a preference: yellow, pink and green take dark text, blue
@@ -112,7 +114,9 @@
 
   --t-measure: 1100px;
   --t-rhythm: 1;
-  --t-frame: clamp(0px, 1.4vw, 20px);
+  --t-frame: clamp(10px, 2.4vw, 36px);
+  --t-sheet-edge: 1px;
+  --t-rule-gap: 32px;
   --t-tilt: 1.6deg;
   --t-grain: 0.04;
 
@@ -177,6 +181,8 @@
   --t-measure: 1280px;
   --t-rhythm: 1.25;
   --t-frame: 0px;
+  --t-sheet-edge: 0px;
+  --t-rule-gap: 32px;
   --t-tilt: 0deg;
   --t-grain: 0;
 
@@ -238,6 +244,8 @@
   --t-measure: 1360px;
   --t-rhythm: 0.9;
   --t-frame: 0px;
+  --t-sheet-edge: 0px;
+  --t-rule-gap: 32px;
   --t-tilt: 0deg;
   --t-grain: 0;
 
@@ -376,7 +384,14 @@
 
   body {
     margin: 0;
-    background-color: var(--color-canvas);
+    /* The body is the surface the sheet sits ON, not the sheet. In sketchbook
+       that is a grey desk with a drafting grid; the other two directions
+       collapse the frame to zero and the desk is never seen. */
+    background-color: var(--color-backdrop);
+    background-image:
+      repeating-linear-gradient(to right, var(--t-backdrop-grid) 0 1px, transparent 1px 96px),
+      repeating-linear-gradient(to bottom, var(--t-backdrop-grid) 0 1px, transparent 1px 96px);
+    padding: var(--t-frame);
     color: var(--color-ink-soft);
     font-family: var(--font-sans);
     font-size: 1rem;
@@ -530,6 +545,33 @@
     max-width: var(--container-content);
     margin-inline: auto;
     padding-inline: var(--gutter);
+  }
+
+  /* -------------------------------------------------------------------------
+     The sheet: the page as a physical piece of paper laid on the desk above.
+
+     Ruled paper is one repeating gradient, not an SVG and not a bitmap. It
+     paints a hairline every --t-rule-gap in --color-hair, and --t-hair is
+     `transparent` outside sketchbook - so the identical declaration yields
+     lined paper, plain white and plain bone with no conditional anywhere. The
+     edge and the shadow collapse the same way.
+  ------------------------------------------------------------------------- */
+  .sheet {
+    position: relative;
+    min-height: calc(100dvh - var(--t-frame) * 2);
+    background-color: var(--color-canvas);
+    background-image: repeating-linear-gradient(
+      to bottom,
+      transparent 0,
+      transparent calc(var(--t-rule-gap) - 1px),
+      var(--color-hair) calc(var(--t-rule-gap) - 1px),
+      var(--color-hair) var(--t-rule-gap)
+    );
+    border: var(--t-sheet-edge) solid var(--color-line);
+    box-shadow: var(--t-shadow);
+    transition:
+      background-color var(--t-dur) var(--t-ease),
+      border-color var(--t-dur) var(--t-ease);
   }
 }
 

@@ -9,7 +9,7 @@ import { Work } from './sections/Work';
 
 export default function App() {
   return (
-    <div className="grain">
+    <div className="grain sheet">
       <a
         href="#work"
         className="type-mono-s sr-only uppercase focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[70] focus:border focus:border-signal-2 focus:bg-ink-1 focus:px-4 focus:py-3 focus:text-text-1"

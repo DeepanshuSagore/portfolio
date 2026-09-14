@@ -34,7 +34,7 @@ export function Nav() {
 
   return (
     <header
-      className={`fixed inset-x-0 top-0 z-50 transition-[background-color,border-color,backdrop-filter] duration-[var(--dur-standard)] ease-[var(--ease-signal)] ${
+      className={`fixed left-[var(--t-frame)] right-[var(--t-frame)] top-[var(--t-frame)] z-50 transition-[background-color,border-color,backdrop-filter] duration-[var(--dur-standard)] ease-[var(--ease-signal)] ${
         lifted
           ? 'border-b border-rule bg-ink-glass backdrop-blur-md'
           : 'border-b border-transparent bg-transparent'
