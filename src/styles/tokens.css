@@ -29,6 +29,14 @@
 }
 
 @font-face {
+  font-family: 'Pixel Name';
+  font-style: normal;
+  font-weight: 400 700;
+  font-display: swap;
+  src: url('../assets/fonts/pixel-name.woff2') format('woff2-variations');
+}
+
+@font-face {
   font-family: 'Instrument Display';
   font-style: normal;
   font-weight: 400;
@@ -98,6 +106,9 @@
   --t-font-display: 'Archivo Display', ui-sans-serif, system-ui, sans-serif;
   --t-font-sans: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --t-font-hand: 'Shantell Hand', 'Bradley Hand', cursive;
+  /* The name only. It is a display face for five to sixteen characters and
+     nothing else - body copy in it would be unreadable. */
+  --t-font-name: 'Pixel Name', 'Archivo Display', ui-sans-serif, sans-serif;
   --t-font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
 
   --t-display-wght: 800;
@@ -172,6 +183,7 @@
      any annotation that survives the switch simply reads as small print. */
   --t-font-hand: 'Geist Variable', ui-sans-serif, system-ui, sans-serif;
   --t-font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+  --t-font-name: 'Instrument Display', ui-serif, Georgia, serif;
 
   --t-display-wght: 400;
   --t-display-wdth: 100;
@@ -236,6 +248,7 @@
   --t-font-sans: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
   --t-font-hand: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
   --t-font-mono: 'Geist Mono Variable', ui-monospace, 'SF Mono', Menlo, monospace;
+  --t-font-name: 'Archivo Display', ui-sans-serif, system-ui, sans-serif;
 
   --t-display-wght: 900;
   --t-display-wdth: 125;
@@ -345,6 +358,7 @@
   --font-display: var(--t-font-display);
   --font-sans: var(--t-font-sans);
   --font-hand: var(--t-font-hand);
+  --font-name: var(--t-font-name);
   --font-mono: var(--t-font-mono);
 
   --radius-0: 0px;

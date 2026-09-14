@@ -43,6 +43,13 @@ const FACES = [
     pin: null,
   },
   {
+    /* The name face. The references set it in a blocky pixel type, which is
+       the single most recognisable thing about that hero. */
+    out: 'pixel-name.woff2',
+    src: 'node_modules/@fontsource-variable/pixelify-sans/files/pixelify-sans-latin-wght-normal.woff2',
+    pin: null,
+  },
+  {
     out: 'instrument-display.woff2',
     src: 'node_modules/@fontsource/instrument-serif/files/instrument-serif-latin-400-normal.woff2',
     /* Static face, single weight. Nothing to pin. */
