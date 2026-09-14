@@ -1,25 +1,29 @@
 # Deepanshu Sagore
 
-> GenAI and full-stack developer based in Indore, India, and a quality and process analyst. Fifteen shipped products in React, Next.js, Node and LangChain on one side; a year of LLM quality operations at Ethara.ai and a year of B2B demand generation on the other. Winner of the Google AI Hackathon (AIPL).
+> AI engineer based in Indore, India, working on generative AI and retrieval-augmented generation. Builds LLM-powered applications across the whole path, from document parsing and embeddings through retrieval pipelines and prompt design, and evaluates model output against structured rubrics. Winner of the Google AI Hackathon (AIPL).
 
-Deepanshu works across two things that usually sit apart. On one side, shipping software in React, Next.js, Node and LangChain: RAG pipelines, AI-assisted products, LLM evaluation. On the other, process and quality operations, covering rubric design, reviewer calibration, recurring-error analysis, and the SQL and spreadsheet work underneath them. The through line is staying with a problem past the diagnosis: pull the numbers, work out what is actually breaking, then build the fix.
+Deepanshu works the GenAI path end to end rather than one slice of it: parsing and chunking documents, generating embeddings, standing up retrieval pipelines, designing prompts, then measuring whether the answers that come back are actually grounded in what was retrieved. Six months at Outlier were spent on the evaluation side of that, writing coding tasks and edge cases built to expose failure modes in advanced models and scoring their output against detailed rubrics.
 
 ## Experience
 
-- Quality Analyst, LLM Post Training at Ethara.ai (Aug 2025 – Aug 2026): quality checks on a daily queue of written responses against a rubric two reviewers must agree on, recurring-error guidance so the same fix is not made twice, and scoring alignment across a distributed reviewer pool.
-- Social Media Marketing and Design at Maica Plastiwood (Apr 2023 – Apr 2024): end-to-end demand generation for a B2B building-materials business, covering calendar, creative, community, and first point of contact for external partners.
+- Coding Specialist at Outlier (Feb 2026 – Aug 2026): AI training and evaluation across Multimodal SWE and Multi-Bench. Reviewed and tested AI-generated code on single-turn and multi-turn tasks for correctness, reasoning, instruction following and engineering quality; wrote hard coding tasks and edge cases to expose model failure modes; scored outputs against detailed rubrics and wrote the structured feedback that went back into training.
+- LLM Post Trainer at Ethara.ai (Nov 2025 – Feb 2026): reviewed, corrected and optimised model responses; annotated datasets and wrote structured feedback against alignment and performance goals; wrote and evaluated prompts testing reasoning, creativity and factual correctness.
+- SMM and Graphic Designer at Maica Plastiwood (Apr 2023 – Apr 2024): ran the Instagram account, dealing directly with creators and prospective investors, wrote the product copy, and designed the posts and reels the products appeared in.
 
 ## Skills
 
-- Building: React.js, Next.js, Node.js, MongoDB, and GenAI tooling (LangChain, prompt design, LLM evaluation).
-- Analytics: SQL, advanced Excel and Google Sheets (pivots, lookups, dashboards), Python, Tableau.
-- Business and operations: category and process improvement, demand generation, market research, stakeholder management.
+- AI: LangChain, LangGraph, RAG, embeddings, LLM evaluation, Hugging Face.
+- Languages: Python, TypeScript, JavaScript, C++.
+- Frameworks: FastAPI, Next.js, React.js, PyTorch, Sentence-Transformers, Node.js, Express.js.
+- Libraries: NumPy, Pandas, Scikit-learn, Transformers, Matplotlib.
+- Databases: PostgreSQL, ChromaDB, MongoDB, MySQL, Supabase.
+- Tools: Git, GitHub, Docker, VS Code, OpenCode.
 
 ## Projects
 
 - [Ethara](https://ethara-snowy.vercel.app): Seat allocation and project mapping for roughly 5,000 employees, with analytics dashboards and a natural-language assistant.
-- [FinTrack AI](https://fintrack-finai.vercel.app): Budget and spend tracker with receipt scanning, budget monitoring and automated email summaries. Next.js, PostgreSQL.
 - [NeuroNest](https://github.com/DeepanshuSagore): RAG application that grounds every answer in retrieved document passages to cut hallucinations. LangChain, ChromaDB, Python.
+- [FinTrack AI](https://fintrack-finai.vercel.app): Budget and spend tracker with receipt scanning, budget monitoring and automated email summaries. Next.js, PostgreSQL.
 - [Aligna](https://alignafr.vercel.app): AI talent scouting that parses job descriptions and ranks candidates through a weighted matching model.
 - [DriveFlow](https://drive-dusky-omega.vercel.app): Real-time lead management CRM with automated scoring and a drag-and-drop pipeline.
 - [EventsHub](https://eventshub-tan.vercel.app/): Two-sided campus marketplace where departments list events and students register, gated by an admin moderation queue and role-aware dashboards.
