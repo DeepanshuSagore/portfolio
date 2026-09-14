@@ -51,7 +51,7 @@ function useItems(close: () => void): Item[] {
         // The rail moves itself to the card; the page only has to bring the
         // rail into view. Scrolling to the card directly would be wrong twice
         // over - it is inside a horizontal scroller, and `scrollIntoView` on
-        // it would fight Embla for the same axis.
+        // it would fight the page for the same axis.
         openProject(project.id);
         goTo('work');
       },
