@@ -481,7 +481,7 @@ export const sections = {
     chapter: '02',
     overline: 'Selected work',
     title: 'Built and shipped',
-    lede: 'Scoped, built and deployed. Drag the rail sideways, or keep scrolling - the page does not take your scroll hostage.',
+    lede: 'Scoped, built and deployed, every one of them solo. The two the résumé documents are filed first; the rest are behind them.',
   },
   stack: {
     chapter: '03',
