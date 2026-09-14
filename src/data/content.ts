@@ -53,10 +53,22 @@ export type Project = {
   live: string | null;
   /** `null` repo means the source is not public, so never render a dead link. */
   note?: string;
+  /** Category. Drives the accent, so the colour means something. */
+  kind: string;
+  accent: 1 | 2 | 3 | 4 | 5;
+  /**
+   * Rendered only when present, because only two projects have a source that
+   * states it. These are all personal repositories, which implies authorship
+   * but does not evidence working alone - so no project claims that.
+   */
+  role?: string;
+  /** The two the résumé documents. They get the case-study composition. */
+  featured?: true;
 };
 
-/* Ordered so the work that reads as a product with an outcome comes first;
-   the deeper technical pieces sit directly behind it rather than at the end. */
+/* The two the résumé carries lead, because they are the two a reader can
+   verify against the CV in their other tab. Everything behind them is ordered
+   as before: products with an outcome first, exercises last. */
 export const projects: readonly Project[] = [
   {
     id: 'ethara',
@@ -68,17 +80,10 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Ethara',
     live: 'https://ethara-snowy.vercel.app',
-  },
-  {
-    id: 'fintrack',
-    title: 'FinTrack AI',
-    summary: 'Budget and spend tracker that flags drift before the month closes.',
-    detail:
-      'Categorises transactions across accounts and tracks them against monthly budgets, so overspend surfaces while it can still be corrected. Receipt scanning removes the manual entry that usually kills this kind of tracking, and automated email summaries push the numbers to the user instead of waiting for them to open a dashboard.',
-    tags: ['Next.js', 'PostgreSQL', 'AI Vision', 'Budgeting', 'Automation'],
-    year: '2026',
-    repo: 'https://github.com/DeepanshuSagore/ai_fintrack',
-    live: 'https://fintrack-finai.vercel.app',
+    kind: 'Full-stack + AI',
+    accent: 2,
+    role: 'Built end to end',
+    featured: true,
   },
   {
     id: 'neuronest',
@@ -91,6 +96,23 @@ export const projects: readonly Project[] = [
     repo: null,
     live: null,
     note: 'Source not public',
+    kind: 'GenAI / RAG',
+    accent: 1,
+    role: 'Built end to end',
+    featured: true,
+  },
+  {
+    id: 'fintrack',
+    title: 'FinTrack AI',
+    summary: 'Budget and spend tracker that flags drift before the month closes.',
+    detail:
+      'Categorises transactions across accounts and tracks them against monthly budgets, so overspend surfaces while it can still be corrected. Receipt scanning removes the manual entry that usually kills this kind of tracking, and automated email summaries push the numbers to the user instead of waiting for them to open a dashboard.',
+    tags: ['Next.js', 'PostgreSQL', 'AI Vision', 'Budgeting', 'Automation'],
+    year: '2026',
+    repo: 'https://github.com/DeepanshuSagore/ai_fintrack',
+    live: 'https://fintrack-finai.vercel.app',
+    kind: 'Full-stack',
+    accent: 2,
   },
   {
     id: 'aipl',
@@ -102,6 +124,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Cric-OS',
     live: 'https://cric-os.vercel.app',
+    kind: 'Conversational AI',
+    accent: 5,
   },
   {
     id: 'ipl-cohost',
@@ -113,6 +137,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/ipl-cohost',
     live: 'https://ipl-cohost.vercel.app',
+    kind: 'Real-time AI',
+    accent: 5,
   },
   {
     id: 'aligna',
@@ -124,6 +150,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Aligna',
     live: 'https://alignafr.vercel.app',
+    kind: 'AI product',
+    accent: 5,
   },
   {
     id: 'driveflow',
@@ -135,6 +163,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Drive',
     live: 'https://drive-dusky-omega.vercel.app',
+    kind: 'Full-stack',
+    accent: 2,
   },
   {
     id: 'eventshub',
@@ -146,6 +176,8 @@ export const projects: readonly Project[] = [
     year: '2025',
     repo: 'https://github.com/DeepanshuSagore/EventsHub',
     live: 'https://eventshub-tan.vercel.app/',
+    kind: 'Full-stack',
+    accent: 2,
   },
   {
     id: 'stickyyt',
@@ -158,6 +190,8 @@ export const projects: readonly Project[] = [
     repo: 'https://github.com/DeepanshuSagore/Sticky-YT',
     live: null,
     note: 'Repo only',
+    kind: 'Full-stack',
+    accent: 2,
   },
   {
     id: 'ticket-classifier',
@@ -169,6 +203,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/ethara-interview-assignment',
     live: null,
+    kind: 'AI utility',
+    accent: 1,
   },
   {
     id: 'hackfinder',
@@ -180,6 +216,8 @@ export const projects: readonly Project[] = [
     year: '2025',
     repo: 'https://github.com/DeepanshuSagore/HackFinder',
     live: 'https://hack-finder-omega.vercel.app/',
+    kind: 'Web app',
+    accent: 4,
   },
   {
     id: 'frites',
@@ -191,6 +229,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Frites',
     live: 'https://fritesfr.vercel.app',
+    kind: 'Art direction',
+    accent: 3,
   },
   {
     id: 'vaultic',
@@ -202,6 +242,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/Vaultic',
     live: 'https://vaulticfr.vercel.app',
+    kind: 'Web app',
+    accent: 4,
   },
   {
     id: 'devroad',
@@ -213,6 +255,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/DevRoad',
     live: 'https://dev-road-beta.vercel.app',
+    kind: 'Web app',
+    accent: 4,
   },
   {
     id: 'portfolio',
@@ -224,6 +268,8 @@ export const projects: readonly Project[] = [
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/portfolio',
     live: 'https://deepanshupotfolio.vercel.app',
+    kind: 'Art direction',
+    accent: 3,
   },
 ] as const;
 
