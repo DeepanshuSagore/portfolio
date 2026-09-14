@@ -37,3 +37,7 @@ Deepanshu_Operations.pdf
 # else's work - neither belongs in a public repository. content.ts cites this
 # folder as its source, so keep it locally.
 Reference/
+
+# Original photographs. The web-sized copies in public/me/ are what ship;
+# these are 2.9MB of source that only exists to regenerate them.
+src/assets/my-photos/

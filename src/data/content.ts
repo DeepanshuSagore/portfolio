@@ -57,11 +57,11 @@ export type Project = {
   kind: string;
   accent: 1 | 2 | 3 | 4 | 5;
   /**
-   * Rendered only when present, because only two projects have a source that
-   * states it. These are all personal repositories, which implies authorship
-   * but does not evidence working alone - so no project claims that.
+   * Held back until Deepanshu confirmed it directly, because a personal
+   * repository evidences authorship but not that the work was solo, and the
+   * difference is a claim rather than a formatting choice.
    */
-  role?: string;
+  role: string;
   /** The two the résumé documents. They get the case-study composition. */
   featured?: true;
   /**
@@ -89,7 +89,7 @@ export const projects: readonly Project[] = [
     live: 'https://ethara-snowy.vercel.app',
     kind: 'Full-stack + AI',
     accent: 2,
-    role: 'Built end to end',
+    role: 'Solo build',
     featured: true,
     shot: '/shots/ethara.webp',
   },
@@ -106,7 +106,7 @@ export const projects: readonly Project[] = [
     note: 'Source not public',
     kind: 'GenAI / RAG',
     accent: 1,
-    role: 'Built end to end',
+    role: 'Solo build',
     featured: true,
     shot: null,
   },
@@ -122,6 +122,7 @@ export const projects: readonly Project[] = [
     live: 'https://fintrack-finai.vercel.app',
     kind: 'Full-stack',
     accent: 2,
+    role: 'Solo build',
     shot: '/shots/fintrack.webp',
   },
   {
@@ -136,6 +137,7 @@ export const projects: readonly Project[] = [
     live: 'https://cric-os.vercel.app',
     kind: 'Conversational AI',
     accent: 5,
+    role: 'Solo build',
     shot: '/shots/aipl.webp',
   },
   {
@@ -150,6 +152,7 @@ export const projects: readonly Project[] = [
     live: 'https://ipl-cohost.vercel.app',
     kind: 'Real-time AI',
     accent: 5,
+    role: 'Solo build',
     shot: '/shots/ipl-cohost.webp',
   },
   {
@@ -164,6 +167,7 @@ export const projects: readonly Project[] = [
     live: 'https://alignafr.vercel.app',
     kind: 'AI product',
     accent: 5,
+    role: 'Solo build',
     shot: '/shots/aligna.webp',
   },
   {
@@ -178,6 +182,7 @@ export const projects: readonly Project[] = [
     live: 'https://drive-dusky-omega.vercel.app',
     kind: 'Full-stack',
     accent: 2,
+    role: 'Solo build',
     shot: '/shots/driveflow.webp',
   },
   {
@@ -192,6 +197,7 @@ export const projects: readonly Project[] = [
     live: 'https://eventshub-tan.vercel.app/',
     kind: 'Full-stack',
     accent: 2,
+    role: 'Solo build',
     shot: '/shots/eventshub.webp',
   },
   {
@@ -207,6 +213,7 @@ export const projects: readonly Project[] = [
     note: 'Repo only',
     kind: 'Full-stack',
     accent: 2,
+    role: 'Solo build',
     shot: null,
   },
   {
@@ -221,6 +228,7 @@ export const projects: readonly Project[] = [
     live: null,
     kind: 'AI utility',
     accent: 1,
+    role: 'Solo build',
     shot: null,
   },
   {
@@ -235,6 +243,7 @@ export const projects: readonly Project[] = [
     live: 'https://hack-finder-omega.vercel.app/',
     kind: 'Web app',
     accent: 4,
+    role: 'Solo build',
     shot: '/shots/hackfinder.webp',
   },
   {
@@ -249,6 +258,7 @@ export const projects: readonly Project[] = [
     live: 'https://fritesfr.vercel.app',
     kind: 'Art direction',
     accent: 3,
+    role: 'Solo build',
     shot: '/shots/frites.webp',
   },
   {
@@ -263,6 +273,7 @@ export const projects: readonly Project[] = [
     live: 'https://vaulticfr.vercel.app',
     kind: 'Web app',
     accent: 4,
+    role: 'Solo build',
     shot: '/shots/vaultic.webp',
   },
   {
@@ -277,6 +288,7 @@ export const projects: readonly Project[] = [
     live: 'https://dev-road-beta.vercel.app',
     kind: 'Web app',
     accent: 4,
+    role: 'Solo build',
     shot: null,
   },
   {
@@ -291,6 +303,7 @@ export const projects: readonly Project[] = [
     live: 'https://deepanshuprtfl.vercel.app',
     kind: 'Art direction',
     accent: 3,
+    role: 'Solo build',
     /* Deliberately empty. The deployment still serves the previous design, so
        a capture would show this card a version of the page that the reader is
        not looking at. Re-run data:shots once the redesign is live. */
