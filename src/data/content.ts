@@ -23,9 +23,8 @@ export const profile = {
   name: 'Deepanshu Sagore',
   firstName: 'Deepanshu',
   lastName: 'Sagore',
-  /* Build track leads: the Work section directly below it is the evidence. */
-  role: 'GenAI & full-stack developer',
-  roleSecondary: 'Quality & process analyst',
+  role: 'AI Engineer',
+  roleSecondary: 'GenAI & retrieval',
   location: 'Indore, India',
   email: 'deepanshusagore@gmail.com',
   phone: '+91 6263364050',
@@ -37,10 +36,10 @@ export const profile = {
   /* Drawn from the CV summary rather than the GitHub bio, because this line
      has to survive a recruiter reading it cold. */
   tagline:
-    'Happiest at the messy end of a problem, and I stay with it through execution instead of handing over a deck.',
+    'I build AI features grounded in real data, then measure whether they actually stayed grounded.',
   taglineSource: 'How I work',
   intro:
-    'I ship GenAI and full-stack products, and I run quality and process operations: a year inside LLM post-training at Ethara.ai, a year of B2B demand generation before that. I pull the numbers, work out what is actually breaking, and then build the fix rather than describe it.',
+    'I work the whole GenAI path: document parsing, chunking, embeddings, retrieval, prompt design, and the evaluation that tells you whether any of it held. Six months at Outlier writing the tasks that break advanced models, and post-training work at Ethara.ai before that.',
 } as const;
 
 export type Project = {
