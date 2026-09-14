@@ -1,55 +1,62 @@
-import { SectionHeader } from '../components/SectionHeader';
+import { Annotation, Boxed, CutLabel, type Accent } from '../components/Material';
 import { sections, stack } from '../data/content';
 import { useReveal } from '../lib/motion';
 
 /**
- * Capabilities.
+ * The toolbox.
  *
- * This section used to render thirty-nine identically bordered mono chips in
+ * This section once rendered thirty-nine identically bordered mono chips in
  * six rows. At that density a chip stops being a chip: the borders collide,
- * nothing is emphasised, and the whole block reads as a word cloud - the
- * clearest single "generated" tell on the page.
+ * nothing is emphasised, and the block reads as a word cloud - the clearest
+ * single "generated" tell the page had.
  *
- * The chrome is gone and the type does the work instead. Each group is one
- * run of slash-separated terms, which is how a spec sheet lists a set, and
- * hovering a term lifts it to primary so the list still answers to a pointer.
+ * The references label skills with torn colour tickets, and it is tempting to
+ * reach for them here. They carry FOUR. Putting a ticket on all thirty-nine
+ * terms would rebuild the word cloud in brighter paint, so the ticket goes on
+ * the GROUP - six of them, the references' own density - and the terms stay a
+ * slash-separated run, which is how a spec sheet lists a set.
  */
 export function Stack() {
   const root = useReveal<HTMLElement>();
 
   return (
-    <section id="stack" ref={root} className="defer-paint bg-ink-2 py-24 md:py-32">
-      <div className="shell scroll-mt-24">
-        <SectionHeader
-          chapter={sections.stack.chapter}
-          overline={sections.stack.overline}
-          title={sections.stack.title}
-          lede={sections.stack.lede}
-          counter={`${stack.length} areas`}
-        />
+    <section id="stack" ref={root} className="defer-paint scroll-mt-28 py-20 md:py-24">
+      <div className="shell">
+        <Annotation className="text-base" tilt={1}>
+          the toolbox
+        </Annotation>
 
-        <dl className="border-b border-rule">
+        <div className="mt-8 flex flex-col items-center">
+          <span data-reveal>
+            <Boxed className="text-[0.8rem]">{sections.stack.title}</Boxed>
+          </span>
+
+          <p data-reveal className="type-hand mt-6 max-w-[46ch] text-center text-[1.05rem] text-ink-soft">
+            {sections.stack.lede}
+          </p>
+        </div>
+
+        <dl className="mt-12 space-y-7">
           {stack.map((group) => (
             <div
               key={group.label}
               data-reveal
-              className="group grid grid-cols-1 gap-x-8 gap-y-3 border-t border-rule px-2 py-7 transition-colors duration-[var(--dur-standard)] ease-[var(--ease-signal)] hover:bg-ink-3/40 md:grid-cols-[13rem_minmax(0,1fr)]"
+              className="grid grid-cols-1 items-baseline gap-x-8 gap-y-3 border-t border-line pt-6 md:grid-cols-[11rem_minmax(0,1fr)]"
             >
-              <dt className="flex items-baseline justify-between gap-3 pt-1 md:pr-6">
-                <span className="type-overline transition-colors duration-[var(--dur-standard)] ease-[var(--ease-signal)] group-hover:text-text-1">
+              <dt>
+                <CutLabel accent={group.accent as Accent} tilt={group.accent % 2 ? 1 : -1}>
                   {group.label}
-                </span>
-                <span className="type-mono-s text-text-3">{String(group.items.length).padStart(2, '0')}</span>
+                </CutLabel>
               </dt>
 
               <dd className="type-mono-m flex flex-wrap items-baseline gap-x-2.5 gap-y-1.5 md:text-[0.9375rem]">
                 {group.items.map((item, i) => (
                   <span key={item} className="inline-flex items-baseline gap-2.5">
-                    <span className="text-text-2 transition-colors duration-[var(--dur-micro)] ease-[var(--ease-signal)] hover:text-text-1">
+                    <span className="text-ink-soft transition-colors duration-[var(--dur-micro)] ease-[var(--ease-signal)] hover:text-ink">
                       {item}
                     </span>
                     {i < group.items.length - 1 && (
-                      <span aria-hidden="true" className="text-text-4">
+                      <span aria-hidden="true" className="text-ink-faint">
                         /
                       </span>
                     )}
