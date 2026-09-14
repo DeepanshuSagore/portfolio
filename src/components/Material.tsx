@@ -121,15 +121,17 @@ export function CutLabel({
 export function Pill({
   accent,
   tilt = 1,
+  className = '',
   children,
 }: {
   accent: Accent;
   tilt?: number;
+  className?: string;
   children: ReactNode;
 }) {
   return (
     <span
-      className="type-mono-s tilt inline-block rounded-full px-3 py-1.5 uppercase"
+      className={`type-mono-s tilt inline-block whitespace-nowrap rounded-full px-3 py-1.5 uppercase ${className}`}
       style={vars({
         '--tilt': tilt,
         backgroundColor: `color-mix(in oklab, var(--color-a${accent}) 42%, var(--color-panel))`,
@@ -138,6 +140,32 @@ export function Pill({
     >
       {children}
     </span>
+  );
+}
+
+/**
+ * A short drawn arrow, of the kind the references use to tie a flag back to
+ * the thing it labels.
+ *
+ * The head is two strokes off the tip rather than a filled triangle, because a
+ * solid head reads as a UI control and this has to read as pen.
+ */
+export function Arrow({ flip = false, className = '' }: { flip?: boolean; className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 40 34"
+      className={`h-7 w-8 text-ink-soft ${flip ? '-scale-x-100' : ''} ${className}`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.5"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M2 31C8 22 14 13 25 6" />
+      <path d="M25 6 17.5 8.5" />
+      <path d="M25 6 26.5 14" />
+    </svg>
   );
 }
 
