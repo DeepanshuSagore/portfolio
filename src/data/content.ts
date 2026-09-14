@@ -17,7 +17,6 @@
  *
  * Date ranges use an en dash, matching the CV. No em dashes anywhere in copy.
  */
-import { github } from './github';
 
 export const profile = {
   name: 'Deepanshu Sagore',
@@ -428,30 +427,6 @@ export const interests = [
 ] as const;
 
 /**
- * Counters in the About section.
- *
- * Every one of the four is now computed - two off the generated GitHub
- * artefact, two off the lists above - so a stat cannot drift away from the
- * thing it counts. That is exactly how the old "10 shipped projects" survived
- * past the point where there were fifteen, and how a hand-typed "2 years of
- * work experience" outlived the dates that would have made it 21 months.
- */
-export const stats = [
-  { value: experience.length, suffix: '', label: 'Roles' },
-  { value: projects.length, suffix: '', label: 'Projects on this page' },
-  { value: github.deployed, suffix: '', label: 'Live deployments' },
-  { value: github.publicRepos, suffix: '', label: 'Public repositories' },
-] as const;
-
-/**
- * The About narrative, previously four paragraphs of JSX.
- *
- * Every concrete claim traces to the résumé: NeuroNest's refusal behaviour and
- * Ethara's deterministic fallback are described there, as are the Outlier
- * dates and the hackathon win. Nothing is asserted about scale, outcomes or
- * team size beyond what it states.
- */
-/**
  * The short version, set by hand between the two prints.
  *
  * Deliberately about forty words: the references write this block out in
@@ -478,13 +453,13 @@ export const aboutNarrative = [
  */
 export const sections = {
   work: {
-    chapter: '02',
+    chapter: '03',
     overline: 'Selected work',
     title: 'Built and shipped',
     lede: 'Scoped, built and deployed, every one of them solo. The two the résumé documents are filed first; the rest are behind them.',
   },
   stack: {
-    chapter: '03',
+    chapter: '01',
     overline: 'Toolbox',
     title: 'The working set',
     lede: 'What I have actually shipped with, rather than everything I have opened once. Grouped the way the résumé groups it, AI first.',
@@ -496,7 +471,7 @@ export const sections = {
     lede: 'Two of them on the evaluation side of large language models, and a year of design and demand before either.',
   },
   about: {
-    chapter: '01',
+    chapter: '02',
     overline: 'About',
     title: 'The long version',
     lede: 'The GenAI path end to end, and the habit of measuring whether it actually held.',
@@ -504,9 +479,9 @@ export const sections = {
 } as const;
 
 export const navLinks = [
+  { href: '#stack', label: 'Stack' },
   { href: '#about', label: 'About' },
   { href: '#work', label: 'Work' },
-  { href: '#stack', label: 'Stack' },
   { href: '#experience', label: 'Experience' },
   { href: '#contact', label: 'Contact' },
 ] as const;
