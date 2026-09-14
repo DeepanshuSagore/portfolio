@@ -1,5 +1,7 @@
-import { SectionHeader } from '../components/SectionHeader';
+import { Annotation, Boxed, CutLabel, Polaroid, vars, type Accent } from '../components/Material';
+import { Readout } from '../components/Readout';
 import {
+  aboutIntro,
   aboutNarrative,
   achievements,
   certificates,
@@ -9,57 +11,43 @@ import {
   sections,
   stats,
 } from '../data/content';
-import { countUp, useAnimeScope, useReveal } from '../lib/motion';
+import { useReveal } from '../lib/motion';
 
-function Stats() {
-  const root = useAnimeScope<HTMLDListElement>((self, engine) => {
-    const nodes = (self.root as HTMLElement).querySelectorAll<HTMLElement>('[data-count]');
-    nodes.forEach((node) => countUp(engine, node, Number(node.dataset.count)));
-  });
-
+/** Pinned scraps. Each list is a card on the page rather than a column of a
+    grid, which is what the references do with this kind of loose detail. */
+function Card({
+  label,
+  accent,
+  tilt,
+  children,
+}: {
+  label: string;
+  accent: Accent;
+  tilt: number;
+  children: React.ReactNode;
+}) {
   return (
-    <dl ref={root} className="grid grid-cols-2 border-y border-rule md:grid-cols-4">
-      {stats.map((stat) => (
-        <div
-          key={stat.label}
-          className="border-rule px-2 py-7 even:border-l even:pl-5 md:border-l md:pl-5 md:first:border-l-0 md:first:pl-2"
-        >
-          <dd className="type-display-m tabular-nums text-text-1">
-            <span data-count={stat.value}>{stat.value}</span>
-            {stat.suffix}
-          </dd>
-          <dt className="type-overline mt-3 max-w-[16ch]">{stat.label}</dt>
-        </div>
-      ))}
-    </dl>
+    <div className="tilt border border-line bg-panel p-5 shadow-[var(--t-shadow)]" style={vars({ '--tilt': tilt })}>
+      <div className="mb-4">
+        <CutLabel accent={accent} tilt={0}>
+          {label}
+        </CutLabel>
+      </div>
+      {children}
+    </div>
   );
 }
 
-function List({
-  overline,
-  items,
-}: {
-  overline: string;
-  items: readonly { left: string; right?: string; sub?: string }[];
-}) {
+function Rows({ items }: { items: readonly { left: string; right?: string }[] }) {
   return (
-    <div data-reveal>
-      <p className="type-overline border-t border-rule pt-5">{overline}</p>
-      <ul className="mt-4">
-        {items.map((item) => (
-          <li
-            key={item.left + (item.right ?? '')}
-            className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-1 border-b border-rule-subtle py-3 last:border-b-0"
-          >
-            <span className="text-sm text-text-2">
-              {item.left}
-              {item.sub && <span className="mt-0.5 block text-xs text-text-3">{item.sub}</span>}
-            </span>
-            {item.right && <span className="type-mono-s shrink-0 text-text-3">{item.right}</span>}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ul className="space-y-2.5">
+      {items.map((item) => (
+        <li key={item.left} className="flex items-baseline justify-between gap-4 border-b border-line pb-2.5 last:border-b-0 last:pb-0">
+          <span className="text-sm text-ink-soft">{item.left}</span>
+          {item.right && <span className="type-mono-s shrink-0 text-ink-faint">{item.right}</span>}
+        </li>
+      ))}
+    </ul>
   );
 }
 
@@ -67,53 +55,111 @@ export function About() {
   const root = useReveal<HTMLElement>();
 
   return (
-    <section id="about" ref={root} className="defer-paint bg-ink-2 py-24 md:py-32">
-      <div className="shell scroll-mt-24">
-        <SectionHeader
-          chapter={sections.about.chapter}
-          overline={sections.about.overline}
-          title={sections.about.title}
-          lede={sections.about.lede}
-        />
+    <section id="about" ref={root} className="defer-paint scroll-mt-28 py-20 md:py-24">
+      <div className="shell">
+        <Annotation className="text-base" tilt={-1}>
+          about me!
+        </Annotation>
 
-        <div className="grid gap-12 md:grid-cols-[minmax(0,1.15fr)_minmax(0,1fr)] md:gap-16">
+        <div className="mt-10 flex flex-col items-center">
+          <span data-reveal>
+            <Boxed className="text-[0.8rem]">What&rsquo;s up</Boxed>
+          </span>
+
+          {/* The prints sit either side of the handwriting and at different
+              heights, which is what stops three items in a row from reading as
+              a three-column grid. */}
+          <div
+            data-reveal
+            className="mt-10 grid w-full items-start justify-items-center gap-10 lg:grid-cols-[auto_minmax(0,1fr)_auto] lg:gap-8"
+          >
+            <Polaroid
+              src="/me/portrait.webp"
+              alt="Deepanshu Sagore."
+              caption="off the clock"
+              tilt={-1}
+              corners={['tl', 'tr']}
+              className="w-40 lg:mt-8"
+            />
+
+            <p className="type-hand max-w-[42ch] text-center text-[1.15rem] leading-[1.85] text-ink">
+              {aboutIntro}
+            </p>
+
+            <Polaroid
+              src="/me/workspace.webp"
+              alt="A language model fine-tune reporting evaluation loss beside a notebook building a retrieval pipeline."
+              caption="my workstation"
+              tilt={1}
+              corners={['tl', 'tr']}
+              className="w-52 lg:-mt-2"
+            />
+          </div>
+        </div>
+
+        {/* The long version. Handwriting carries forty words; this carries the
+            argument, so it goes back into ordinary type. */}
+        <div className="mt-20 grid gap-12 lg:grid-cols-[minmax(0,1.1fr)_minmax(0,0.75fr)] lg:gap-16">
           <div data-reveal>
+            <h2 className="type-display-l max-w-[18ch]">{sections.about.title}</h2>
+
             {aboutNarrative.map((paragraph, i) => (
               <p
                 key={i}
                 className={
                   i === 0
-                    ? 'type-body-l max-w-[56ch] text-text-2'
-                    : 'mt-5 max-w-[56ch] text-text-3'
+                    ? 'type-body-l mt-7 max-w-[58ch] text-ink-soft'
+                    : 'mt-5 max-w-[58ch] text-ink-soft'
                 }
               >
                 {paragraph}
               </p>
             ))}
 
-            <blockquote className="mt-8 border-l-2 border-signal-2 pl-5">
-              <p className="type-mono-m text-text-3">{profile.tagline}</p>
+            <blockquote className="mt-9 border-l-[3px] border-a5 pl-5">
+              <p className="type-hand text-[1.05rem] text-ink">{profile.tagline}</p>
               <footer className="type-overline mt-2">{profile.taglineSource}</footer>
             </blockquote>
           </div>
 
-          <div className="space-y-10">
-            <List
-              overline="Education"
-              items={education.map((e) => ({
-                left: e.title,
-                sub: e.org,
-                right: [e.period, e.meta].filter(Boolean).join('  ·  '),
-              }))}
-            />
-            <List overline="Certificates" items={certificates.map((c) => ({ left: c.title, right: c.org }))} />
-            <List overline="Achievements" items={achievements.map((a) => ({ left: a }))} />
-            <List overline="Interests" items={interests.map((i) => ({ left: i }))} />
+          <div data-reveal className="space-y-8">
+            <Readout tilt={1} />
+
+            <dl className="grid grid-cols-2 gap-x-6 gap-y-5">
+              {stats.map((stat) => (
+                <div key={stat.label} className="border-t border-line pt-3">
+                  <dt className="type-overline">{stat.label}</dt>
+                  <dd className="type-display-m mt-1 text-ink">
+                    {stat.value}
+                    {stat.suffix}
+                  </dd>
+                </div>
+              ))}
+            </dl>
           </div>
         </div>
 
-        <div className="mt-16">
-          <Stats />
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+          <div data-reveal>
+            <Card label="Education" accent={2} tilt={-1}>
+              <Rows items={education.map((e) => ({ left: `${e.title}, ${e.org}`, right: e.period }))} />
+            </Card>
+          </div>
+          <div data-reveal>
+            <Card label="Certificates" accent={4} tilt={1}>
+              <Rows items={certificates.map((c) => ({ left: c.title, right: c.org }))} />
+            </Card>
+          </div>
+          <div data-reveal>
+            <Card label="Achievements" accent={1} tilt={-1}>
+              <Rows items={achievements.map((a) => ({ left: a }))} />
+            </Card>
+          </div>
+          <div data-reveal>
+            <Card label="Interests" accent={3} tilt={1}>
+              <Rows items={interests.map((i) => ({ left: i }))} />
+            </Card>
+          </div>
         </div>
       </div>
     </section>

@@ -448,6 +448,16 @@ export const stats = [
  * dates and the hackathon win. Nothing is asserted about scale, outcomes or
  * team size beyond what it states.
  */
+/**
+ * The short version, set by hand between the two prints.
+ *
+ * Deliberately about forty words: the references write this block out in
+ * marker, and handwriting stops being readable long before a paragraph of
+ * body copy does. The long version follows it in ordinary type.
+ */
+export const aboutIntro =
+  "I'm an AI engineer who keeps asking whether the answer is actually in the document. I care about retrieval that stays grounded, evaluations that catch what a demo hides, and shipping the thing rather than describing it.";
+
 export const aboutNarrative = [
   'I build AI features and then go looking for where they break. Most of the work sits on the same path: parse the documents, generate the embeddings, stand up retrieval, and then check that the answer coming back is actually supported by what was retrieved rather than by what the model already believed.',
   'NeuroNest is that argument as one project. Upload a PDF, ask it questions, and it answers from the document or refuses, with the passages it used cited underneath. Ethara is the same instinct at platform scale: seat allocation and project mapping for roughly 5,000 employees, a natural-language assistant answering against live data, and a deterministic query engine behind it so the answers stay correct when the model provider is not there. The Google AI Hackathon win came out of the same habit: scope it, build it, pitch the working thing.',
