@@ -1,3 +1,4 @@
+import { useId } from 'react';
 import type { CSSProperties, ReactNode } from 'react';
 
 /**
@@ -115,6 +116,57 @@ export function CutLabel({
 export function Marker({ accent = 1, children }: { accent?: Accent; children: ReactNode }) {
   return (
     <span className="marker" style={vars({ '--marker': `var(--color-a${accent})` })}>
+      {children}
+    </span>
+  );
+}
+
+/**
+ * A rule drawn around something by hand.
+ *
+ * The wobble is a turbulence displacement filter rather than a hand-plotted
+ * path, which is what lets one component box a word or a paragraph at any size
+ * without the irregularity stretching with it. `useId` keeps the filter
+ * reference unique, since two instances on a page would otherwise both resolve
+ * to whichever definition rendered last.
+ *
+ * Decorative: it frames content that is already in the document.
+ */
+export function RoughBox({
+  accent = 5,
+  className = '',
+  children,
+}: {
+  accent?: Accent;
+  className?: string;
+  children: ReactNode;
+}) {
+  const id = useId().replace(/:/g, '');
+
+  return (
+    <span className={`relative inline-block ${className}`}>
+      <svg
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 size-full overflow-visible"
+        style={vars({ color: `var(--color-a${accent})` })}
+      >
+        <defs>
+          <filter id={`rough-${id}`}>
+            <feTurbulence type="fractalNoise" baseFrequency="0.019" numOctaves="2" result="n" />
+            <feDisplacementMap in="SourceGraphic" in2="n" scale="5" />
+          </filter>
+        </defs>
+        <rect
+          x="1"
+          y="1"
+          width="calc(100% - 2px)"
+          height="calc(100% - 2px)"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="2.5"
+          filter={`url(#rough-${id})`}
+        />
+      </svg>
       {children}
     </span>
   );
