@@ -4,26 +4,34 @@ import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 type Variant = 'signal' | 'outline' | 'ghost';
 
 const base =
-  'type-mono-s inline-flex items-center justify-center gap-2 uppercase rounded-none ' +
-  'px-5 py-3 border transition-[background-color,border-color,color,translate] ' +
+  'type-mono-s inline-flex items-center justify-center gap-2 uppercase ' +
+  'px-5 py-3 border transition-[background-color,border-color,color,translate,box-shadow] ' +
   'duration-[var(--dur-micro)] ease-[var(--ease-signal)] ' +
-  'disabled:cursor-not-allowed disabled:translate-y-0';
+  'disabled:cursor-not-allowed disabled:translate-y-0 disabled:shadow-none';
 
+/**
+ * Filled buttons take the accent's OWN ink, not a page colour.
+ *
+ * The previous signal variant paired `bg-signal-2` with `text-ink-0`, and once
+ * the bridge pointed ink-0 at the desk behind the sheet that became grey type
+ * on vermilion at roughly 1.5:1. Each accent ships the text colour it is
+ * legible against, which is the whole reason those tokens exist.
+ */
 const variants: Record<Variant, string> = {
   signal:
-    'bg-signal-2 text-ink-0 border-signal-2 ' +
-    'hover:bg-signal-1 hover:border-signal-1 hover:-translate-y-px ' +
-    'active:bg-signal-3 active:border-signal-3 active:translate-y-0 ' +
-    'disabled:bg-ink-4 disabled:text-text-4 disabled:border-ink-4',
+    'bg-a5 text-a5-ink border-a5 shadow-[var(--t-shadow)] ' +
+    'hover:-translate-y-px hover:shadow-[var(--t-shadow-lift)] ' +
+    'active:translate-y-0 active:shadow-none ' +
+    'disabled:bg-canvas-2 disabled:text-ink-faint disabled:border-line',
   outline:
-    'bg-transparent text-text-2 border-rule ' +
-    'hover:text-text-1 hover:border-signal-2 hover:-translate-y-px ' +
-    'active:bg-ink-4 active:translate-y-0 ' +
-    'disabled:text-text-4 disabled:border-rule-subtle',
+    'bg-panel text-ink border-ink shadow-[var(--t-shadow)] ' +
+    'hover:-translate-y-px hover:shadow-[var(--t-shadow-lift)] ' +
+    'active:translate-y-0 active:shadow-none ' +
+    'disabled:bg-canvas-2 disabled:text-ink-faint disabled:border-line',
   ghost:
-    'bg-transparent text-text-3 border-transparent ' +
-    'hover:text-text-1 active:text-signal-2 ' +
-    'disabled:text-text-4',
+    'bg-transparent text-ink-faint border-transparent ' +
+    'hover:text-ink active:text-a5 ' +
+    'disabled:text-ink-faint',
 };
 
 type CommonProps = {
