@@ -288,14 +288,12 @@ export const projects: readonly Project[] = [
     tags: ['React 19', 'Vite', 'anime.js', 'Tailwind v4'],
     year: '2026',
     repo: 'https://github.com/DeepanshuSagore/portfolio',
-    /* Was https://deepanshupotfolio.vercel.app, which now answers 404
-       DEPLOYMENT_NOT_FOUND. This file already refuses to emit a link to a
-       destination that does not exist, and that rule does not get an exception
-       for the site's own entry. */
-    live: null,
-    note: 'You are looking at it',
+    live: 'https://deepanshuprtfl.vercel.app',
     kind: 'Art direction',
     accent: 3,
+    /* Deliberately empty. The deployment still serves the previous design, so
+       a capture would show this card a version of the page that the reader is
+       not looking at. Re-run data:shots once the redesign is live. */
     shot: null,
   },
 ] as const;

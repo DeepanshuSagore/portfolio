@@ -31,7 +31,7 @@ npm run data:shots   # re-photograph the live deployments (needs cwebp)
 
 ## Before deploying — set the site URL
 
-**`.env` holds one value that must be correct: `VITE_SITE_URL`.** It is currently `https://deepanshupotfolio.vercel.app`, and that origin answers **404 `DEPLOYMENT_NOT_FOUND`** — verified with `curl`. Every SEO signal the build emits therefore points at a deployment that no longer exists. Set it to wherever the site actually lives and rebuild.
+**`.env` holds one value that must be correct: `VITE_SITE_URL`.** It is `https://deepanshuprtfl.vercel.app`. The previous value pointed at an origin that had started answering 404 `DEPLOYMENT_NOT_FOUND`, which silently aimed the canonical link, `og:url`, JSON-LD, `robots.txt` and `sitemap.xml` at a deployment that no longer existed — worth re-checking with `curl` whenever the Vercel project is renamed.
 
 That single value feeds the canonical link, `og:url`, the JSON-LD `url`, `robots.txt` and `sitemap.xml` — the last two are generated into `dist/` at build time rather than kept in `public/`, so they can never drift from the canonical. The build throws if the value is empty rather than shipping a canonical pointing at a domain that isn't yours.
 
