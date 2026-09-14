@@ -1,5 +1,10 @@
 # Deepanshu Sagore — Portfolio Design System
 
+> **Sections 0–10 document the dark warm-charcoal build, which no longer ships.**
+> They are kept because the reasoning still holds and several constraints
+> survived the redirect intact. **[§11](#11-revision-4--three-directions)
+> supersedes every colour, typeface and radius below.**
+
 ## 0. Research Log
 
 - **Embedded refs:** shortlisted `linear.app` / `vercel` / `voltagent` as Layer B candidates → picked **`gpt-tasteskill.md` (Layer A)** + **`linear.app.md` (Layer B)**, both read in full. Layer A because the brief is explicitly "award winning" and motion-forward (expressive lane, not operational); Layer B because Linear is the reference set's nearest high-craft exemplar for *luminance-stacked dark surfaces* and *aggressive negative display tracking* — the two mechanics this design leans on hardest. `interaction-skill.md` stacked for motion mechanics.
@@ -450,3 +455,72 @@ itself the button.
 |---|---|
 | Card title scramble on hover | One pass of the hero's glyph churn, resolving left to right. Pure rAF over `textContent` — it deliberately does **not** load anime.js, because fetching a 22KB engine because a cursor crossed a card would be absurd. Skipped on coarse pointers and under reduced motion; leaving mid-scramble restores the string |
 | Deployment strip | The `Marquee` band above the rail runs live **hostnames**, not project names. Those are already in the list below; a row of addresses is different information, and the shortest possible proof that "shipped" is meant literally |
+
+---
+
+## 11. Revision 4 — three directions
+
+The brief changed: one portfolio, three genuinely different art directions,
+switchable at runtime. The dark system above became one candidate rather than
+the answer, and was dropped — none of the three is a darkroom.
+
+### What replaced the palette
+
+`src/styles/tokens.css` holds **no literal values**. Every Tailwind entry
+forwards to a `--t-*` variable, and each direction declares that set:
+
+| | Sketchbook | Editorial | Brutalist |
+|---|---|---|---|
+| Canvas | `#fbfaf6` warm paper | `#ffffff` | `#f0eee4` bone |
+| Backdrop | `#86847e` desk + grid | none | `#0e0e0e` |
+| Display | Archivo, 800, `wdth 84` | Instrument Serif, 400 | Archivo, 900, `wdth 125`, upper |
+| Hand | Shantell Sans | *(body face)* | *(mono)* |
+| Accents | 5 chromatic | stone scale + one red | 4 electric |
+| Measure | 1100px | 1280px | 1360px |
+| Radius / border | 3px / 1px | 0 / 1px | 0 / 2px |
+| Shadow | soft lift | none | `6px 6px 0` hard |
+
+Each accent carries its own ink token (`--t-a1-ink`…) because the pairing is a
+contrast decision, not a preference. Every pair clears 4.5:1.
+
+### Rules that survived the redirect
+
+- No raw hex in components. Still true, and now enforced harder — a component
+  cannot name a colour that means three things.
+- Depth is luminance stepping, not shadow. Still true in two of three;
+  brutalist uses a hard offset shadow *as* the direction.
+- Tracking tightens as size grows; display leading stays under 1.0.
+- `border-[var(--x)]` remains type-ambiguous in Tailwind v4. Rules and washes
+  are real `--color-*` theme entries.
+
+### Three traps this revision added
+
+- **Duplicate `@theme` keys do not warn.** Text tokens and the legacy surface
+  bridge both claimed `ink-2`/`ink-3`; the later declaration won and shipped
+  white type on a bone canvas. Text owns `ink-soft`/`ink-faint` now.
+- **The contract must be declared on `html`.** A custom property whose value is
+  `var(--x)` resolves against the element it is *declared* on, and `@theme`
+  emits into `:root`. On `<body>` every token resolves to nothing.
+- **`font-stretch` must cover every `wdth` any direction asks for**, or the
+  axis clamps silently and `font-variation-settings` does nothing.
+
+### The material layer
+
+Tape, polaroids, hand-cut labels, marker strokes and folder tabs, all CSS and
+inline SVG masks — no bitmap textures, no image assets. Decoration degrades
+through the token contract rather than through conditionals: rotation reads
+`--t-tilt` (0deg outside sketchbook) and tape paints in `--t-tape`
+(transparent there), so one markup tree yields three materials.
+
+The marker stroke is a mask, not a coloured SVG, because a data URI cannot take
+a CSS variable. It blends with `multiply` rather than sitting at `z-index: -1`:
+an inline span creates no stacking context, so a negative index sends the
+stroke behind the *sheet* and it disappears.
+
+### Accepted debt
+
+- Sections 0–10 are not rewritten. The measured research in §0 and the
+  accessibility constraints in §8 still apply; the colour and type tables do
+  not.
+- Motion timings in §6 are per-direction now (`--t-dur` 120–320ms) rather than
+  the single 140/240/620 ladder documented there.
