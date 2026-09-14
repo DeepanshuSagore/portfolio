@@ -1014,7 +1014,9 @@
   ------------------------------------------------------------------------- */
   .tab-cut {
     clip-path: polygon(0 0, calc(100% - 1.15rem) 0, 100% 100%, 0 100%);
-    padding-inline: 1rem 2rem;
+    /* Trailing padding clears the angled cut, so it is geometry rather than
+       taste - drop it and the last glyph sits in the slope. */
+    padding-inline: 0.85rem 1.75rem;
   }
 }
 
