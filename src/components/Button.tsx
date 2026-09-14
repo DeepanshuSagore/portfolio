@@ -1,7 +1,7 @@
 import type { ComponentPropsWithoutRef, ReactNode } from 'react';
 
 /** DESIGN.md Section 5 - Button. Radius is 0 by system commitment. */
-type Variant = 'signal' | 'outline' | 'ghost';
+type Variant = 'solid' | 'signal' | 'outline' | 'ghost';
 
 const base =
   'type-mono-s inline-flex items-center justify-center gap-2 uppercase ' +
@@ -18,6 +18,13 @@ const base =
  * legible against, which is the whole reason those tokens exist.
  */
 const variants: Record<Variant, string> = {
+  /* The references' primary action is the darkest thing on the paper, not the
+     brightest. Vermilion stays for actions that are genuinely a signal. */
+  solid:
+    'bg-panel-ink text-panel-ink-text border-panel-ink shadow-[var(--t-shadow)] ' +
+    'hover:-translate-y-px hover:shadow-[var(--t-shadow-lift)] ' +
+    'active:translate-y-0 active:shadow-none ' +
+    'disabled:bg-canvas-2 disabled:text-ink-faint disabled:border-line',
   signal:
     'bg-a5 text-a5-ink border-a5 shadow-[var(--t-shadow)] ' +
     'hover:-translate-y-px hover:shadow-[var(--t-shadow-lift)] ' +

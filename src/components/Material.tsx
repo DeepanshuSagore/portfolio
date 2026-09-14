@@ -21,7 +21,7 @@ import type { CSSProperties, ReactNode } from 'react';
  */
 type CSSVars = CSSProperties & Record<`--${string}`, string | number>;
 
-const vars = (values: CSSVars): CSSProperties => values;
+export const vars = (values: CSSVars): CSSProperties => values;
 
 export type Accent = 1 | 2 | 3 | 4 | 5;
 
@@ -96,6 +96,31 @@ export function Polaroid({
 export function CutLabel({
   accent,
   tilt = 1,
+  hand = false,
+  children,
+}: {
+  accent: Accent;
+  tilt?: number;
+  /** Set for the small flags pinned around the name, which the references
+      write out by hand rather than setting. */
+  hand?: boolean;
+  children: ReactNode;
+}) {
+  return (
+    <span
+      className={`chip-cut tilt ${ACCENT_FILL[accent]} ${hand ? 'font-hand text-[0.95rem] font-normal' : ''}`}
+      style={vars({ '--tilt': tilt })}
+    >
+      {children}
+    </span>
+  );
+}
+
+/** Distinct from CutLabel: a pale fill with no cut edge, for asides rather
+    than categories. Tinted from the accent so it never competes with one. */
+export function Pill({
+  accent,
+  tilt = 1,
   children,
 }: {
   accent: Accent;
@@ -104,11 +129,89 @@ export function CutLabel({
 }) {
   return (
     <span
-      className={`chip-cut tilt ${ACCENT_FILL[accent]}`}
-      style={vars({ '--tilt': tilt })}
+      className="type-mono-s tilt inline-block rounded-full px-3 py-1.5 uppercase"
+      style={vars({
+        '--tilt': tilt,
+        backgroundColor: `color-mix(in oklab, var(--color-a${accent}) 42%, var(--color-panel))`,
+        color: 'var(--color-ink)',
+      })}
     >
       {children}
     </span>
+  );
+}
+
+/** The double underline scribbled beneath the kicker in the references. */
+export function Squiggle({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 90 12"
+      className={`h-2.5 w-[5.5rem] text-ink-faint ${className}`}
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="1.4"
+      strokeLinecap="round"
+    >
+      <path d="M3 4.4C18 2.1 42 6.2 61 3.4 72 1.8 81 3 87 4.6" />
+      <path d="M6 8.6C22 6.9 45 9.8 63 7.9 73 6.9 80 7.6 85 8.8" />
+    </svg>
+  );
+}
+
+/**
+ * A round photograph with a drawn ring, of the kind pinned either side of the
+ * headline in the references.
+ *
+ * Decorative: the same person is described in words a few hundred pixels
+ * below, so an alt text here would only repeat it to a screen reader.
+ */
+export function AvatarRing({
+  src,
+  accent = 5,
+  tilt = 1,
+  className = '',
+}: {
+  src: string;
+  accent?: Accent;
+  tilt?: number;
+  className?: string;
+}) {
+  return (
+    <span
+      aria-hidden="true"
+      className={`tilt block size-14 overflow-hidden rounded-full border-2 bg-panel p-0.5 ${className}`}
+      style={vars({ '--tilt': tilt, borderColor: `var(--color-a${accent})` })}
+    >
+      <img src={src} alt="" loading="lazy" decoding="async" className="size-full rounded-full object-cover" />
+    </span>
+  );
+}
+
+/**
+ * The long, almost flat arc the references draw under the hero.
+ *
+ * `preserveAspectRatio="none"` lets it span any width while staying a few
+ * pixels tall; the stroke is held at one pixel by vector-effect so stretching
+ * the box never thickens the line.
+ */
+export function HandCurve({ className = '' }: { className?: string }) {
+  return (
+    <svg
+      aria-hidden="true"
+      viewBox="0 0 1200 40"
+      preserveAspectRatio="none"
+      className={`h-10 w-full text-line-strong ${className}`}
+      fill="none"
+    >
+      <path
+        d="M4 31C160 13 372 5 604 7c214 2 404 10 592 25"
+        stroke="currentColor"
+        strokeWidth="1"
+        strokeLinecap="round"
+        vectorEffect="non-scaling-stroke"
+      />
+    </svg>
   );
 }
 
