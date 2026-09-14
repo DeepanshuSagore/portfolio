@@ -402,6 +402,56 @@ export const stats = [
   { value: github.publicRepos, suffix: '', label: 'Public repositories' },
 ] as const;
 
+/**
+ * The About narrative, previously four paragraphs of JSX.
+ *
+ * Every concrete claim traces to the résumé: NeuroNest's refusal behaviour and
+ * Ethara's deterministic fallback are described there, as are the Outlier
+ * dates and the hackathon win. Nothing is asserted about scale, outcomes or
+ * team size beyond what it states.
+ */
+export const aboutNarrative = [
+  'I build AI features and then go looking for where they break. Most of the work sits on the same path: parse the documents, generate the embeddings, stand up retrieval, and then check that the answer coming back is actually supported by what was retrieved rather than by what the model already believed.',
+  'NeuroNest is that argument as one project. Upload a PDF, ask it questions, and it answers from the document or refuses, with the passages it used cited underneath. Ethara is the same instinct at platform scale: seat allocation and project mapping for roughly 5,000 employees, a natural-language assistant answering against live data, and a deterministic query engine behind it so the answers stay correct when the model provider is not there. The Google AI Hackathon win came out of the same habit: scope it, build it, pitch the working thing.',
+  'At Outlier I spent six months on the other side of that work. I wrote coding tasks and edge cases designed to find where advanced models fail, reviewed AI-generated code across single and multi-turn tasks, and scored what came back against rubrics detailed enough to be argued with. Before it, post-training at Ethara.ai: correcting model responses, annotating datasets, and writing prompts that test reasoning and factual correctness.',
+  'Earlier than any of it, a year at Maica Plastiwood running an Instagram account, writing the product copy and designing the posts it went out in. Turning a technical specification into something a buyer could act on is a skill I still use every time I write a README. I am a lead member of the debate club at our Entrepreneurship Development Cell.',
+] as const;
+
+/**
+ * Section headers, moved out of the components that used to hard-code them.
+ *
+ * They were the last facts living in JSX, and they went stale silently: the
+ * experience header still read "Two years, two disciplines" over three roles,
+ * and the work header claimed the projects were built "most of them alone",
+ * which no source evidences.
+ */
+export const sections = {
+  work: {
+    chapter: '01',
+    overline: 'Selected work',
+    title: 'Built and shipped',
+    lede: 'Scoped, built and deployed. Drag the rail sideways, or keep scrolling - the page does not take your scroll hostage.',
+  },
+  stack: {
+    chapter: '02',
+    overline: 'Toolbox',
+    title: 'The working set',
+    lede: 'What I have actually shipped with, rather than everything I have opened once. Grouped the way the résumé groups it, AI first.',
+  },
+  experience: {
+    chapter: '03',
+    overline: 'Experience',
+    title: 'Three roles, one direction',
+    lede: 'Two of them on the evaluation side of large language models, and a year of design and demand before either.',
+  },
+  about: {
+    chapter: '04',
+    overline: 'About',
+    title: 'The long version',
+    lede: 'The GenAI path end to end, and the habit of measuring whether it actually held.',
+  },
+} as const;
+
 export const navLinks = [
   { href: '#work', label: 'Work' },
   { href: '#stack', label: 'Stack' },

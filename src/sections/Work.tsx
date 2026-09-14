@@ -5,7 +5,7 @@ import { GithubPanel } from '../components/GithubPanel';
 import { Marquee } from '../components/Marquee';
 import { SectionHeader } from '../components/SectionHeader';
 import { Tag } from '../components/Tag';
-import { projects, type Project } from '../data/content';
+import { projects, sections, type Project } from '../data/content';
 import { useHoverScramble, useReveal, useSpotlight } from '../lib/motion';
 import { onOpenProject } from '../lib/register';
 
@@ -251,10 +251,10 @@ export function Work() {
     <section id="work" ref={root} className="scroll-mt-24 pt-24 md:pt-32">
       <div data-reveal className="shell">
         <SectionHeader
-          chapter="01"
-          overline="Selected work"
-          title="Fifteen products, end to end"
-          lede="Scoped, built and deployed, most of them alone. Drag the rail sideways, or keep scrolling — the page does not take your scroll hostage."
+          chapter={sections.work.chapter}
+          overline={sections.work.overline}
+          title={sections.work.title}
+          lede={sections.work.lede}
           counter={`${pad2(projects.length)} projects`}
         />
       </div>

@@ -1,5 +1,5 @@
 import { SectionHeader } from '../components/SectionHeader';
-import { experience } from '../data/content';
+import { experience, sections } from '../data/content';
 import { useReveal } from '../lib/motion';
 
 const pad2 = (n: number) => String(n).padStart(2, '0');
@@ -26,10 +26,10 @@ export function Experience() {
     <section id="experience" ref={root} className="defer-paint scroll-mt-24 py-24 md:py-32">
       <div className="shell">
         <SectionHeader
-          chapter="03"
-          overline="Experience"
-          title="Two years, two disciplines"
-          lede="A year inside LLM post-training, and a year running B2B demand generation before it. The overlap between them is the part I am most useful in."
+          chapter={sections.experience.chapter}
+          overline={sections.experience.overline}
+          title={sections.experience.title}
+          lede={sections.experience.lede}
           counter={`${pad2(experience.length)} roles`}
         />
 

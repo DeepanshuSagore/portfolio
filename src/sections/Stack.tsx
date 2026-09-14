@@ -1,5 +1,5 @@
 import { SectionHeader } from '../components/SectionHeader';
-import { stack } from '../data/content';
+import { sections, stack } from '../data/content';
 import { useReveal } from '../lib/motion';
 
 /**
@@ -21,10 +21,10 @@ export function Stack() {
     <section id="stack" ref={root} className="defer-paint bg-ink-2 py-24 md:py-32">
       <div className="shell scroll-mt-24">
         <SectionHeader
-          chapter="02"
-          overline="Capabilities"
-          title="The working set"
-          lede="What I have actually shipped with, rather than everything I have opened once. Ordered build track first, analyst track second."
+          chapter={sections.stack.chapter}
+          overline={sections.stack.overline}
+          title={sections.stack.title}
+          lede={sections.stack.lede}
           counter={`${stack.length} areas`}
         />
 
