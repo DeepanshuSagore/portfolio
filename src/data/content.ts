@@ -417,11 +417,14 @@ export const achievements = [
   'Ran freelance content and social media for several creators alongside full-time work',
 ] as const;
 
+/* Esports comes from Deepanshu directly; the rest are the résumé's own list.
+   "Consumer behaviour and market strategy" was dropped - it belonged to the
+   operations CV and nothing in the current one supports it. */
 export const interests = [
-  'Consumer behaviour and market strategy',
-  'Public speaking',
-  'Human psychology',
+  'Esports',
   'Philosophical literature',
+  'Human psychology',
+  'Public speaking',
 ] as const;
 
 /**
@@ -456,13 +459,13 @@ export const stats = [
  * body copy does. The long version follows it in ordinary type.
  */
 export const aboutIntro =
-  "I'm an AI engineer who keeps asking whether the answer is actually in the document. I care about retrieval that stays grounded, evaluations that catch what a demo hides, and shipping the thing rather than describing it.";
+  "I'm an AI developer who likes the problem more than the tooling. I build GenAI applications, I stay with a problem until it gives, and away from the screen it's esports and philosophy, which are more alike than they sound.";
 
 export const aboutNarrative = [
-  'I build AI features and then go looking for where they break. Most of the work sits on the same path: parse the documents, generate the embeddings, stand up retrieval, and then check that the answer coming back is actually supported by what was retrieved rather than by what the model already believed.',
-  'NeuroNest is that argument as one project. Upload a PDF, ask it questions, and it answers from the document or refuses, with the passages it used cited underneath. Ethara is the same instinct at platform scale: seat allocation and project mapping for roughly 5,000 employees, a natural-language assistant answering against live data, and a deterministic query engine behind it so the answers stay correct when the model provider is not there. The Google AI Hackathon win came out of the same habit: scope it, build it, pitch the working thing.',
-  'At Outlier I spent six months on the other side of that work. I wrote coding tasks and edge cases designed to find where advanced models fail, reviewed AI-generated code across single and multi-turn tasks, and scored what came back against rubrics detailed enough to be argued with. Before it, post-training at Ethara.ai: correcting model responses, annotating datasets, and writing prompts that test reasoning and factual correctness.',
-  'Earlier than any of it, a year at Maica Plastiwood running an Instagram account, writing the product copy and designing the posts it went out in. Turning a technical specification into something a buyer could act on is a skill I still use every time I write a README. I am a lead member of the debate club at our Entrepreneurship Development Cell.',
+  "I'm an AI developer, and what I actually enjoy is the problem underneath the product. Most of my work is building GenAI applications: getting a model to answer from real documents instead of from whatever it half-remembers, and then going looking for where that falls over.",
+  'NeuroNest is the clearest version of it. Upload a PDF, ask it questions, and it either answers from the document or tells you it cannot, with the passages it used cited underneath. Ethara is the same instinct at a bigger scale: seat allocation and project mapping for roughly 5,000 employees, a natural-language assistant answering against live data, and a plain query engine behind it so the answers still hold when the model provider is not there. The Google AI Hackathon win came out of the same habit - scope it, build it, show the working thing.',
+  'Six months at Outlier were spent on the other side of that: writing the hard cases meant to make good models fail, reviewing AI-generated code across single and multi-turn tasks, and scoring what came back against rubrics detailed enough to argue with. Before it, post-training at Ethara.ai - correcting responses, annotating datasets, and writing prompts that test whether a model is reasoning or guessing.',
+  'Earlier, a year at Maica Plastiwood running an Instagram account, writing the product copy and designing the posts it went out in. Turning a spec into something a person can act on is a skill I still use every time I write a README. Away from work it is esports and philosophy: one is problem-solving at speed, the other is problem-solving with no deadline at all, and I would not give up either. I am a lead member of the debate club at our Entrepreneurship Development Cell.',
 ] as const;
 
 /**
@@ -475,25 +478,25 @@ export const aboutNarrative = [
  */
 export const sections = {
   work: {
-    chapter: '01',
+    chapter: '02',
     overline: 'Selected work',
     title: 'Built and shipped',
     lede: 'Scoped, built and deployed. Drag the rail sideways, or keep scrolling - the page does not take your scroll hostage.',
   },
   stack: {
-    chapter: '02',
+    chapter: '03',
     overline: 'Toolbox',
     title: 'The working set',
     lede: 'What I have actually shipped with, rather than everything I have opened once. Grouped the way the résumé groups it, AI first.',
   },
   experience: {
-    chapter: '03',
+    chapter: '04',
     overline: 'Experience',
     title: 'Three roles, one direction',
     lede: 'Two of them on the evaluation side of large language models, and a year of design and demand before either.',
   },
   about: {
-    chapter: '04',
+    chapter: '01',
     overline: 'About',
     title: 'The long version',
     lede: 'The GenAI path end to end, and the habit of measuring whether it actually held.',
@@ -501,9 +504,9 @@ export const sections = {
 } as const;
 
 export const navLinks = [
+  { href: '#about', label: 'About' },
   { href: '#work', label: 'Work' },
   { href: '#stack', label: 'Stack' },
   { href: '#experience', label: 'Experience' },
-  { href: '#about', label: 'About' },
   { href: '#contact', label: 'Contact' },
 ] as const;
