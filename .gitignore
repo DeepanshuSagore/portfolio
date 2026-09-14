@@ -31,3 +31,9 @@ public/__shot.html
 # Source résumé (the shipped copy lives in public/)
 Resume:CV.pdf
 Deepanshu_Operations.pdf
+
+# Redesign source material: the CV of record, the visual references and the
+# brief. Carries a phone number, and the reference screenshots are someone
+# else's work - neither belongs in a public repository. content.ts cites this
+# folder as its source, so keep it locally.
+Reference/
