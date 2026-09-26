@@ -1,5 +1,4 @@
-import { Annotation, Boxed, CutLabel, type Accent } from '../components/Material';
-import { GithubPanel } from '../components/GithubPanel';
+import { CutLabel, SectionHead, type Accent } from '../components/Material';
 import { sections, stack } from '../data/content';
 import { useReveal } from '../lib/motion';
 
@@ -21,23 +20,16 @@ export function Stack() {
   const root = useReveal<HTMLElement>();
 
   return (
-    <section id="stack" ref={root} className="defer-paint scroll-mt-28 py-20 md:py-24">
+    <section id="stack" ref={root} className="section defer-paint scroll-mt-28">
       <div className="shell">
-        <Annotation className="text-base" tilt={1}>
-          the toolbox
-        </Annotation>
+        <SectionHead
+          note="the toolbox"
+          title={sections.stack.title}
+          lede={sections.stack.lede}
+          tilt={1}
+        />
 
-        <div className="mt-8 flex flex-col items-center">
-          <span data-reveal>
-            <Boxed className="text-[0.8rem]">{sections.stack.title}</Boxed>
-          </span>
-
-          <p data-reveal className="type-hand mt-6 max-w-[46ch] text-center text-[1.05rem] text-ink-soft">
-            {sections.stack.lede}
-          </p>
-        </div>
-
-        <dl className="mt-12 space-y-7">
+        <dl className="mt-12 space-y-6">
           {stack.map((group) => (
             <div
               key={group.label}
@@ -67,13 +59,6 @@ export function Stack() {
             </div>
           ))}
         </dl>
-
-        {/* The groups above are a claim about what he works with. This is the
-            measurement: bytes actually written, read off the GitHub API and
-            committed with the site. It belongs directly under them. */}
-        <div data-reveal className="mt-16">
-          <GithubPanel />
-        </div>
       </div>
     </section>
   );

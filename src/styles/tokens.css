@@ -421,6 +421,14 @@
     padding-inline: var(--gutter);
   }
 
+  /* One rhythm for the whole page. Sections used to set py-20 md:py-24 each,
+     which stacked to ~190px of nothing between a section's last line and the
+     next section's heading. Changing the gap means changing this, not five
+     files that have each drifted. */
+  .section {
+    padding-block: clamp(2.25rem, 4vw, 3.5rem);
+  }
+
   /* -------------------------------------------------------------------------
      The sheet: the page as a physical piece of paper laid on the desk above.
 

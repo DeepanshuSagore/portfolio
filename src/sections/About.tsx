@@ -1,5 +1,5 @@
-import { Annotation, Boxed, Polaroid } from '../components/Material';
-import { aboutIntro } from '../data/content';
+import { Boxed, Polaroid, SectionHead } from '../components/Material';
+import { aboutIntro, sections } from '../data/content';
 import { useReveal } from '../lib/motion';
 
 /**
@@ -15,13 +15,11 @@ export function About() {
   const root = useReveal<HTMLElement>();
 
   return (
-    <section id="about" ref={root} className="defer-paint scroll-mt-28 py-20 md:py-24">
+    <section id="about" ref={root} className="section defer-paint scroll-mt-28">
       <div className="shell">
-        <Annotation className="text-base" tilt={-1}>
-          about me!
-        </Annotation>
+        <SectionHead note="about me!" title={sections.about.title} />
 
-        <div className="mt-8 flex flex-col items-center">
+        <div className="mt-12 flex flex-col items-center">
           <span data-reveal>
             <Boxed className="text-[0.8rem]">What&rsquo;s up</Boxed>
           </span>

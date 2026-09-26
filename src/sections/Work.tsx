@@ -1,6 +1,6 @@
 import { ArrowUpRight, Github } from 'lucide-react';
 import { useEffect } from 'react';
-import { Annotation, CutLabel, Tape, vars, type Accent } from '../components/Material';
+import { CutLabel, SectionHead, Tape, vars, type Accent } from '../components/Material';
 import { projects, sections, type Project } from '../data/content';
 import { useReveal } from '../lib/motion';
 import { onOpenProject } from '../lib/register';
@@ -174,17 +174,14 @@ export function Work() {
   }, []);
 
   return (
-    <section id="work" ref={root} className="defer-paint scroll-mt-28 py-20 md:py-24">
+    <section id="work" ref={root} className="section defer-paint scroll-mt-28">
       <div className="shell">
-        <Annotation className="text-base" tilt={-1}>
-          the work
-        </Annotation>
-
-        <h2 className="type-display-l mt-4 uppercase">Featured works</h2>
-
-        <p className="type-hand mt-4 max-w-[48ch] text-[1.05rem] text-ink-soft">
-          {sections.work.lede}
-        </p>
+        <SectionHead
+          note="the work"
+          title={sections.work.title}
+          lede={sections.work.lede}
+          tilt={-1}
+        />
 
         <div className="mt-12 space-y-14">
           {featured.map((project, i) => (
@@ -192,7 +189,7 @@ export function Work() {
           ))}
         </div>
 
-        <div className="mt-20">
+        <div className="mt-16">
           <div className="flex flex-wrap items-baseline justify-between gap-4 border-t border-line pt-6">
             <h3 className="type-display-m">Everything else</h3>
             <p className="type-mono-s text-ink-faint">{pad2(rest.length)} projects</p>

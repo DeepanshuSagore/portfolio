@@ -1,10 +1,10 @@
 import {
   Annotation,
   Arrow,
-  Boxed,
   Bubble,
   CutLabel,
   Pill,
+  SectionHead,
   vars,
   type Accent,
 } from '../components/Material';
@@ -74,20 +74,14 @@ export function Experience() {
   const root = useReveal<HTMLElement>();
 
   return (
-    <section id="experience" ref={root} className="defer-paint scroll-mt-28 py-20 md:py-24">
+    <section id="experience" ref={root} className="section defer-paint scroll-mt-28">
       <div className="shell">
-        <Annotation className="text-base" tilt={1}>
-          the road so far
-        </Annotation>
-
-        <div className="mt-8 flex flex-col items-center">
-          <span data-reveal>
-            <Boxed className="text-[0.8rem]">{sections.experience.title}</Boxed>
-          </span>
-          <p data-reveal className="type-hand mt-6 max-w-[46ch] text-center text-[1.05rem] text-ink-soft">
-            {sections.experience.lede}
-          </p>
-        </div>
+        <SectionHead
+          note="the road so far"
+          title={sections.experience.title}
+          lede={sections.experience.lede}
+          tilt={1}
+        />
 
         <ol className="mt-14">
           {experience.map((role, i) => (
@@ -154,7 +148,7 @@ export function Experience() {
 
         {/* Education and certificates moved here from About: a timeline is
             already the right place for them, and About is about who he is. */}
-        <div className="mt-20 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="mt-16 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
           <div data-reveal>
             <Card
               label="Education"

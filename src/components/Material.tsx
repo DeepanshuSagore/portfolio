@@ -367,3 +367,42 @@ export function Annotation({
     </span>
   );
 }
+
+/**
+ * The opening of a section: handwritten aside, title at display-xl, one line
+ * of support. Spacing between the three is fixed here rather than passed in -
+ * sections previously set it themselves and drifted into a 13px label floating
+ * alone above a large empty band, reading as a caption for nothing.
+ */
+export function SectionHead({
+  note,
+  title,
+  lede,
+  tilt = -1,
+  className = '',
+}: {
+  note: string;
+  title: string;
+  lede?: string;
+  tilt?: number;
+  className?: string;
+}) {
+  return (
+    <header data-reveal className={className}>
+      <Annotation className="text-base" tilt={tilt}>
+        {note}
+      </Annotation>
+
+      {/* Between display-l and display-xl on purpose: display-l read as a
+          sub-heading, and display-xl broke a three-word title over three
+          lines and ate 400px of the screen before a word of content. */}
+      <h2 className="type-display-xl mt-2 text-[clamp(2.75rem,7.4vw,6.5rem)] uppercase text-ink">
+        {title}
+      </h2>
+
+      {lede ? (
+        <p className="type-hand mt-5 max-w-[46ch] text-[1.05rem] text-ink-soft">{lede}</p>
+      ) : null}
+    </header>
+  );
+}

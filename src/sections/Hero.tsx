@@ -59,7 +59,7 @@ export function Hero() {
     <section
       id="top"
       ref={root}
-      className="relative flex min-h-[100dvh] flex-col justify-center pt-32 pb-16 md:pt-36"
+      className="relative flex min-h-[100dvh] flex-col justify-center pt-32 pb-4 md:pt-36"
     >
       <div className="shell">
         {/* Centred, the way the references build it: the two pills sit either
@@ -159,10 +159,13 @@ export function Hero() {
         </div>
       </div>
 
-      <div aria-hidden="true" className="hero-stagger mt-20 w-full">
+      {/* Pinned to the section's bottom edge rather than flowing after the
+          content. In the flow, justify-center on a 100dvh section split the
+          leftover height above and below it, leaving ~130px of blank paper
+          between the curve and the next heading. */}
+      <div aria-hidden="true" className="hero-stagger absolute inset-x-0 bottom-4">
         <HandCurve />
       </div>
-
     </section>
   );
 }
