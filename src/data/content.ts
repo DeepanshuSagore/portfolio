@@ -100,14 +100,13 @@ export const projects: readonly Project[] = [
       'Document parsing, chunking and embedding feed a LangChain retrieval pipeline, so every answer is grounded in retrieved source passages rather than model memory. Cut hallucinations by refusing to answer outside the retrieved context, and shipped a chat surface for question answering and summarisation over uploaded PDFs.',
     tags: ['LangChain', 'RAG', 'ChromaDB', 'Python', 'LLM APIs'],
     year: '2026',
-    repo: null,
-    live: null,
-    note: 'Source not public',
+    repo: 'https://github.com/DeepanshuSagore/neuronest',
+    live: 'https://nestneuroai.vercel.app',
     kind: 'GenAI / RAG',
     accent: 1,
     role: 'Solo build',
     featured: true,
-    shot: null,
+    shot: '/shots/neuronest.webp',
   },
   {
     id: 'fintrack',
@@ -455,7 +454,7 @@ export const sections = {
   work: {
     chapter: '03',
     overline: 'Selected work',
-    title: 'Built and shipped',
+    title: 'Featured works',
     lede: 'Scoped, built and deployed, every one of them solo. The two the résumé documents are filed first; the rest are behind them.',
   },
   stack: {
@@ -473,8 +472,7 @@ export const sections = {
   about: {
     chapter: '02',
     overline: 'About',
-    title: 'The long version',
-    lede: 'The GenAI path end to end, and the habit of measuring whether it actually held.',
+    title: 'About',
   },
 } as const;
 

@@ -52,8 +52,21 @@ function toWebp(pngPath, webpPath) {
 }
 
 const projects = readProjects();
-const targets = projects.filter((project) => project.live);
-if (!targets.length) throw new Error(`${SOURCE}: parsed ${projects.length} projects, none with a live URL`);
+/* `npm run data:shots -- neuronest aipl` re-takes only those, leaving every
+   other committed capture untouched. A full run depends on a dozen third-party
+   sites all being up at once, so narrowing it is the difference between adding
+   one project and rolling the dice on eleven that were already good. */
+const only = process.argv.slice(2).filter((arg) => !arg.startsWith('-'));
+const targets = projects
+  .filter((project) => project.live)
+  .filter((project) => !only.length || only.includes(project.id));
+if (!targets.length) {
+  throw new Error(
+    only.length
+      ? `no project with a live URL matched: ${only.join(', ')}`
+      : `${SOURCE}: parsed ${projects.length} projects, none with a live URL`,
+  );
+}
 
 console.log(`${projects.length} projects, ${targets.length} with a live deployment\n`);
 
