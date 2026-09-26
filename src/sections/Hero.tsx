@@ -78,12 +78,22 @@ export function Hero() {
               name instead of parked at the edges of the page. They need the
               box's width to do that, so they are positioned against it. */}
           <div className="hero-stagger relative mx-auto mt-2 w-fit max-w-full">
-            <Pill accent={4} tilt={-2} className="absolute left-0 top-0 z-10 hidden -translate-x-[62%] -translate-y-[135%] lg:block">
-              Made things
-            </Pill>
-            <Pill accent={1} tilt={2} className="absolute right-0 top-0 z-10 hidden translate-x-[62%] -translate-y-[135%] lg:block">
-              Broke models
-            </Pill>
+            {/* The wrapper carries the hiding, not the Pill. `hidden` and the
+                Pill's own `inline-block` are both plain display utilities, so
+                the winner is emit order, not class order - and inline-block is
+                emitted later, which left both pills visible at every width and
+                hanging off the sheet on a phone. A tag with no display utility
+                of its own has nothing to lose to. */}
+            <span className="absolute left-0 top-0 z-10 hidden -translate-x-[62%] -translate-y-[135%] lg:block">
+              <Pill accent={4} tilt={-2}>
+                Made things
+              </Pill>
+            </span>
+            <span className="absolute right-0 top-0 z-10 hidden translate-x-[62%] -translate-y-[135%] lg:block">
+              <Pill accent={1} tilt={2}>
+                Broke models
+              </Pill>
+            </span>
 
             <RoughBox accent={5} className="px-5 pb-6 pt-3">
               <h1
