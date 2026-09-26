@@ -62,8 +62,7 @@
 --------------------------------------------------------------------------- */
 
 :root {
-  --t-backdrop: #86847e;
-  --t-backdrop-grid: rgba(0, 0, 0, 0.08);
+  --t-backdrop: #9b9993;
   --t-canvas: #fbfaf6;
   --t-canvas-2: #f3f0e7;
   --t-panel: #ffffff;
@@ -127,8 +126,10 @@
 
   --t-measure: 1100px;
   --t-rhythm: 1;
-  --t-frame: clamp(10px, 2.4vw, 36px);
-  --t-sheet-edge: 1px;
+  /* The page is full-bleed paper. The frame stays as a token because the fixed
+     nav insets itself by it; it is not a visible surface any more. */
+  --t-frame: 0px;
+  --t-sheet-edge: 0px;
   --t-rule-gap: 32px;
   --t-tilt: 1.6deg;
   --t-grain: 0.04;
@@ -259,19 +260,12 @@
   html {
     -webkit-text-size-adjust: 100%;
     scroll-behavior: smooth;
-    background-color: var(--color-backdrop);
+    background-color: var(--color-canvas);
   }
 
   body {
     margin: 0;
-    /* The body is the surface the sheet sits ON, not the sheet. In sketchbook
-       that is a grey desk with a drafting grid; the other two directions
-       collapse the frame to zero and the desk is never seen. */
-    background-color: var(--color-backdrop);
-    background-image:
-      repeating-linear-gradient(to right, var(--t-backdrop-grid) 0 1px, transparent 1px 96px),
-      repeating-linear-gradient(to bottom, var(--t-backdrop-grid) 0 1px, transparent 1px 96px);
-    padding: var(--t-frame);
+    background-color: var(--color-canvas);
     color: var(--color-ink-soft);
     font-family: var(--font-sans);
     font-size: 1rem;
@@ -447,11 +441,7 @@
       var(--color-hair) calc(var(--t-rule-gap) - 1px),
       var(--color-hair) var(--t-rule-gap)
     );
-    border: var(--t-sheet-edge) solid var(--color-line);
-    box-shadow: var(--t-shadow);
-    transition:
-      background-color var(--t-dur) var(--t-ease),
-      border-color var(--t-dur) var(--t-ease);
+    transition: background-color var(--t-dur) var(--t-ease);
   }
 }
 
@@ -713,7 +703,7 @@
     display: inline-block;
     padding: 0.7rem 0.7rem 0;
     background-color: var(--color-panel);
-    border: var(--t-sheet-edge) solid var(--color-line);
+    border: var(--t-border) solid var(--color-line);
     box-shadow: var(--t-shadow);
   }
 
