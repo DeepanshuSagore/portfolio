@@ -72,8 +72,8 @@ export function Contact() {
   const root = useReveal<HTMLElement>();
 
   return (
-    <section id="contact" ref={root} className="defer-paint scroll-mt-28 py-20 md:py-24">
-      <div aria-hidden="true" className="mb-16 w-full">
+    <section id="contact" ref={root} className="section defer-paint scroll-mt-28">
+      <div aria-hidden="true" className="mb-4 w-full">
         <HandCurve className="rotate-180" />
       </div>
 
@@ -82,14 +82,14 @@ export function Contact() {
           say hello
         </Annotation>
 
-        <div className="mt-6 grid items-center gap-10 lg:grid-cols-[auto_minmax(0,1fr)_auto]">
+        <div className="relative mt-6">
           <Polaroid
             src="/me/offhours.webp"
             alt=""
             caption="still here"
             tilt={-1}
             corners={['tl']}
-            className="hidden w-36 lg:block"
+            className="absolute left-0 top-16 hidden w-36 lg:block"
           />
 
           <div data-reveal className="flex flex-col items-center text-center">
@@ -157,15 +157,6 @@ export function Contact() {
               ))}
             </ul>
           </div>
-
-          <Polaroid
-            src="/me/workspace.webp"
-            alt=""
-            caption="the desk"
-            tilt={1}
-            corners={['tr']}
-            className="hidden w-44 lg:block"
-          />
         </div>
       </div>
     </section>
